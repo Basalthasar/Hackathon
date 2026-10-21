@@ -1,8 +1,47 @@
-# Urbane Paketversorgung durch Drohnen – Architektur
+# Lokale Lieferplattform – Architektur
 
 Stand: 2026-10-21 · **Entwurf / Vorschlag**, sofern nicht ausdrücklich anders markiert.
 
-Keine Komponenten implementiert. Keine Flugkorridore, Höhen oder Betriebsverfahren genehmigt oder sicherheitstechnisch nachgewiesen. Fachliche Anforderungen und Quellenregister: [Konzept.md](Konzept.md). Arbeitsregeln: [AGENTS.md](AGENTS.md).
+Keine Softwarekomponenten implementiert. Die Bilder unter `assets/pitch/` sind Konzeptvisualisierungen. Keine Flugkorridore, Höhen oder Betriebsverfahren genehmigt oder sicherheitstechnisch nachgewiesen. Fachliche Anforderungen und Quellenregister: [Konzept.md](Konzept.md). Arbeitsregeln: [AGENTS.md](AGENTS.md).
+
+## 0. Plattformarchitektur und Integration der Gruppenunterlagen
+
+**Vorschlag übernommen am 2026-10-21, nicht implementiert:** Bestellplattform als responsive Web-App/PWA mit Modulen für Identität, Katalog, Bestand, Checkout, Bestellung, Zahlung, Vorbereitung, Lieferung, Nachrichten und Support. Die übernommene technische Detailplanung steht in Abschnitten 9–12. Fachliche Stufen und Annahmen: [Konzept.md, Abschnitt 1](Konzept.md#1-problem-und-ziel).
+
+**Abgrenzung:** Abschnitte 1–8 beschreiben den erhaltenen Drohnen-/Stationsentwurf für A3. Die Gesamtflugfreigabe aus Abschnitt 4 ist unabhängig von Bestell-/Zahlungsbestätigung. P0/M1 verwenden einen Kurieradapter; Selbstabholung benötigt keinen DeliveryJob. Die Plattform steuert keine Drohne direkt. Ein späteres Stationsereignis beendet gegebenenfalls die Transportetappe, nicht automatisch den Kundenempfang.
+
+**Geltung:** Die gelieferten Vorlagen sind unter [docs/grundlagen](docs/grundlagen/README.md) archiviert. Die Kapitel 12–15 der Markdown-Vorlage wurden als technische Vorschläge in die Abschnitte 9–12 übernommen; Änderungen werden hier und im Konzept gepflegt. Kapitel 16 bleibt eine Startprompt-Vorlage für eine spätere ausdrückliche Beauftragung. Kein Dokumenttext aktiviert selbstständig Entwicklung oder Echtbetrieb. Demo-Fristen und Beispielsummen sind keine Betriebsgrenzen. Die Kennzeichnung „P0“ in der Vorlage bezeichnet eine Stufe; P0/P1 in der alten K-Tabelle sind Prioritäten des Drohnenteilkonzepts.
+
+
+Dieser Teil konkretisiert die empfohlenen Produktentscheidungen für ein Coding-System. Interne Namen sind englisch, die Oberfläche ist deutsch. Angaben wie Fristen oder Seed-Daten sind Entwicklungsvorgaben, keine validierten Betriebszusagen. Bei Abweichungen gilt die Fachlogik dieses Dokuments; Änderungen daran sind in einem Entscheidungsprotokoll festzuhalten.
+
+### Architekturentscheidung
+
+Bei einem vorhandenen Repository dessen Stack beibehalten. Ohne vorhandenen Anwendungsstack lautet der Vorschlag: TypeScript, Next.js für responsive Oberfläche und Server-Endpunkte, PostgreSQL für Geschäftsdaten und Migrationen. Geografische Suche kann mit PostGIS ergänzt werden. Eine einzige Anwendung mit fachlich getrennten Modulen ist der Ausgangspunkt. Native Apps, Microservices und eine eigene Navigationsengine gehören nicht zum ersten Auftrag.
+
+Die Module heißen `identity`, `catalog`, `inventory`, `checkout`, `orders`, `payments`, `fulfillment`, `delivery`, `notifications` und `support`. Ein Hintergrundprozess verarbeitet die Outbox, ablaufende Reservierungen und Ereignisse externer Anbieter. Kritische Geschäftsregeln laufen auf dem Server. Der Browser übermittelt Absichten, keine verbindlichen Preise oder Zustände.
+
+Provider-Verträge für `InventoryProvider`, `DeliveryProvider`, `PaymentProvider` und `NotificationProvider` werden zuerst mit deterministischen Demo-Adaptern implementiert. Ein späterer `LockerProvider` ergänzt Stationszugriff. Echte Zugangsdaten werden nicht benötigt, um den Bestellablauf zu entwickeln. Mock und Echtbetrieb bleiben in Oberfläche, Konfiguration und Daten klar erkennbar.
+
+### Fachliche Aufteilung
+
+```mermaid
+flowchart TD
+  A[Produktsuche] --> B[Angebot und Checkout]
+  B --> C[Bestand und Händler]
+  B --> D[Zahlung]
+  B --> E[Auftragskoordination]
+  E --> F{Empfang}
+  F --> G[Selbstabholung]
+  F --> H[Transportadapter]
+  H --> I[Kurierdienst]
+  H --> J[Spätere Flotten und Stationen]
+  G --> K[Nachweis und Abschluss]
+  I --> K
+  J --> K
+```
+
+Das Diagramm beschreibt Verantwortungsbereiche, keine zeitliche Aufrufreihenfolge. Die Bestätigungsbedingungen aus [Konzept.md, Abschnitt 1.4](Konzept.md#14-bestellablauf-und-geschäftsregeln) und Abschnitt 10 gelten auch für diesen Entwurf.
 
 ## 1. Komponenten und Verantwortlichkeiten
 | Komponente | Vorgesehene Aufgabe |
@@ -146,12 +185,186 @@ Alle folgenden Reaktionen sind zu konkretisieren und nachzuweisen. Keine davon w
 ## 8. Technische Entscheidungen, Umsetzung und Prüfung
 **Festgelegt durch Nutzerauftrag:** Feste Routen/Höhenebenen als Konzeptbestandteil, wetterabhängige Bewertung, sichere Stationen und Ladeinfrastruktur. Konkrete Auslegung offen.
 
-**Noch nicht entschieden:** Drohnenplattform, Stationsmechanik, Softwarestack, Sensorik, Kommunikationswege, Anbieter, Datenintervalle, Grenzwerte, Routingverfahren und Sicherheitsarchitektur.
+**Noch nicht entschieden für A3:** Drohnenplattform, Stationsmechanik, Flotten-Softwarestack, Sensorik, Kommunikationswege, Anbieter, Datenintervalle, Grenzwerte, Routingverfahren und Sicherheitsarchitektur.
 
-**Umsetzung:** Projektdokumentation initialisiert und Routing-Anforderungen/Entwurf erweitert. Kein Code, keine Simulation, keine Hardwareanbindung.
+**Umsetzung:** Projektdokumentation und technische Planung für Plattform und Drohnenausbau integriert. Kein Code, keine Simulation, keine Hardwareanbindung.
 
 **Prüfplan:** Nach Umfangsfestlegung Daten- und Regelvalidierung, Zustandsübergänge, Reservierungskonflikte und Fehlerfallmatrix prüfen. Ein späterer Simulator benötigt gekennzeichnete Eingaben, reproduzierbare Szenarien, Vergleichsversorgung und Sensitivitätsanalysen. Physische Schutzmaßnahmen, Flugverhalten, Lärm, Wettertauglichkeit und Genehmigung erfordern separate Nachweise.
 
 **Bekannte Einschränkungen:** Nur ausgewählte regulatorische Quellen geprüft (Konzept.md, Q01–Q03); keine vollständige Rechtsprüfung, keine Einsatzorte oder Fahrzeuge ausgewählt, keine quantitativen Betriebsgrenzen und keine belastbaren Leistungs-/Sicherheitsaussagen möglich. Die Initialisierung wird ausschließlich auf Dokumentstruktur, Anforderungsabdeckung und interne Verweise geprüft.
 
 **Dokumentprüfung 2026-10-21:** R01–R14 aus dem Konzept mit Ablauf, Datenbedarf und Fehlerfällen abgeglichen; Dateiverweise geprüft. Sämtliche technischen Prüffälle sind weiterhin nur geplant. Keine Implementierung beauftragt oder durchgeführt.
+
+## 9. Datenmodell der Plattform
+
+Alle Tabellen erhalten IDs und Erstellungs- beziehungsweise Änderungszeitpunkte. Geld wird in kleinsten Währungseinheiten als Integer mit Währung gespeichert, Mengen im Pilot als positive ganze Stückzahlen. Zeitpunkte werden in UTC gespeichert und in der Zeitzone des Liefergebiets angezeigt. Zugangsdaten und Codes werden nicht im Klartext protokolliert.
+
+| Objekt | Wichtige Felder | Beziehung oder Regel |
+| --- | --- | --- |
+| User und RoleGrant | authSubject, role, merchantId, storeId | Kunde, Händler, Kurier oder Betrieb; Rechte serverseitig und mandantenbezogen |
+| Address | ownerId, postalAddress, coordinates, instructions | Bestellungen erhalten einen unveränderlichen Adress-Snapshot |
+| Merchant | name, partnerStatus, settlementReference | Eine Organisation mit mehreren Filialen |
+| Store | merchantId, address, timezone, openingHours, pickupHours, preparationMinutes, orderCapacity | Aktive Aufträge und Öffnungszeiten bestimmen die Annahme |
+| ProductVariant | title, brand, GTIN, category, attributes, weight, dimensions, handlingRequirements | Eine konkrete Variante; unbekannte Maße erlauben keinen ungeprüften Drohnenversand |
+| Offer | storeId, variantId, merchantSku, unitPrice, taxClass, deposit, active | Verkaufbares Angebot genau einer Filiale |
+| InventorySnapshot | offerId, sourceAvailable, sourceVersion, observedAt, quality | Adapter vereinheitlicht die Bedeutung des Quellbestands |
+| InventoryReservation | orderId, offerId, quantity, expiresAt, state, externalReference | Temporäre Reservierung wird nach Bestätigung zur Zuteilung |
+| Cart und CartLine | userId oder sessionId, storeId, offerId, quantity, version | Im MVP eine Filiale pro Warenkorb |
+| Quote | cartVersion, destinationHash, fulfillmentMode, serviceLevel, methodPolicy, priceBreakdown, etaWindow, expiresAt | Angebotsinhalt nach Erstellung unveränderlich |
+| CheckoutAttempt | userId, idempotencyKey, requestHash, orderId, state | Derselbe Schlüssel mit identischen Daten liefert dasselbe Ergebnis |
+| Order und OrderLine | customerId, storeId, status, priceSnapshot, addressSnapshot, offerSnapshot | Historische Preise und Produkttexte bleiben erhalten |
+| MerchantTask | orderId, status, acceptedAt, readyAt, handoverAt | Physische Vorbereitung getrennt vom Bestellstatus |
+| Payment und Refund | orderId, providerReference, amount, status, authorizationExpiresAt | Mehrere Versuche möglich; nur eine erfolgreiche Zahlung pro Checkout |
+| DeliveryJob | orderId, providerId, courierId, method, status, etaWindow, destinationVersion | Für Selbstabholung wird kein Lieferauftrag erzeugt |
+| CourierAvailability | courierId, vehicleType, payloadCapacity, availability, lastSeenAt | Veraltete Verfügbarkeit darf keine feste Zusage erzeugen |
+| HandoverToken | purpose, subjectId, allowedActor, tokenHash, expiresAt, usedAt | Einmalige Freigabe für Übernahme oder Empfang |
+| TrackingEvent | deliveryJobId oder orderId, providerEventId, type, occurredAt, receivedAt, actor | Append-only; externe Ereignisse werden dedupliziert |
+| Review und SupportCase | orderId, authorId, target, rating oder reason, status | Nur berechtigte Beteiligte; Bewertung nach Abschluss |
+| AuditEvent und OutboxEvent | aggregateId, eventType, payload, processingState | Zustandsänderung und ausgehendes Ereignis gemeinsam speichern |
+
+Erweiterungen erst bei Bedarf als echte Tabellen anlegen: `Station`, `Compartment`, `CompartmentReservation`, `Shipment` für Eigenversand, `DeliveryLeg` für Teilstrecken, `RedirectRequest` für Umleitungen sowie `ReturnRequest` für Rücksendungen. Der Transportadapter wird so gestaltet, dass ein Auftrag später auf Kauf oder Eigenversand verweisen kann.
+
+### Bestandsregeln
+
+Für das Pilotmodell mit eigenem Onlinekontingent gilt: verfügbar = zugeteiltes Kontingent minus aktive Reservierungen minus bestätigte Zuteilungen. Eine Datenbanktransaktion mit Sperre beziehungsweise bedingtem Update verhindert negative Verfügbarkeit. Zwei Kunden dürfen den letzten Artikel nicht gleichzeitig reservieren.
+
+Bei einem späteren externen Reservierungssystem legt der Adapter fest, ob dessen verfügbare Menge lokale Reservierungen bereits enthält. Dieselbe Reservierung darf nicht zweimal abgezogen werden. Jede externe Reservierung erhält eine Referenz; ältere Bestandsereignisse dürfen neuere Versionen nicht überschreiben. Ein lokaler Lock garantiert keine Synchronität mit der Ladenkasse.
+
+Temporäre Reservierungen laufen nur während der ausstehenden Bestellung ab. Nach Bestätigung werden sie in eine dauerhafte Zuteilung umgewandelt. Nach Verkauf beziehungsweise Übergabe werden sie verbraucht. Bei Storno vor Übergabe können sie freigegeben werden; nach einer Rücksendung ist eine Warenprüfung nötig.
+
+## 10. Zustände und Transaktionsregeln der Plattform
+
+Ein einziges Feld wie `orderStatus = delivered` reicht für Zahlung, Vorbereitung und Transport nicht aus. Die UI erzeugt aus mehreren Zuständen eine verständliche Zeitleiste.
+
+| Bereich | Normaler Ablauf | Abweichungen |
+| --- | --- | --- |
+| Bestellung | PENDING → CONFIRMED → FULFILLING → COMPLETED | REJECTED oder EXPIRED aus PENDING; CANCELLED über geprüften Stornoprozess |
+| Vorbereitung | NEW → ACCEPTED → PICKING → READY → HANDED_OVER | REJECTED vor Bestätigung; danach Supportfall oder definierter Abbruch |
+| Bestand | ACTIVE → ALLOCATED → CONSUMED | RELEASED oder EXPIRED; ALLOCATED läuft nicht durch den normalen Reservierungstimer ab |
+| Zahlung | PENDING → AUTHORIZED → CAPTURE_PENDING → CAPTURED | FAILED, VOID_PENDING, VOIDED; unbekannt bleibt ausstehend bis zur Klärung |
+| Erstattung | REQUESTED → PROCESSING → SUCCEEDED | FAILED mit Wiederholung oder Support; Zahlungsstatus CAPTURED bleibt historisch korrekt |
+| Lieferung | CREATED → ASSIGNED → PICKED_UP → IN_TRANSIT → AT_DESTINATION → DELIVERED | FAILED, RETURNING, RETURNED; CANCELLED nur vor Übernahme |
+
+Die Pfeile beschreiben zugelassene Übergänge, keine frei editierbaren Statuswerte. `PENDING` enthält die noch offenen Bestätigungen. `FULFILLING` umfasst Vorbereitung und Transport. Ein fehlgeschlagener Transport schließt den Auftrag nicht automatisch ab. Der Supportfall bleibt sichtbar, bis erneute Zustellung oder Rückführung und finanzielle Behandlung feststehen.
+
+### Bedingungen für Bestätigung und Übergabe
+
+1. Checkout legt Bestellung, Reservierungen und Outbox-Ereignis atomar an. Netzaufrufe werden außerhalb der Datenbanktransaktion ausgeführt.
+2. Zahlungsautorisierung, Händlerannahme und gegebenenfalls Transportzusage müssen vor Ablauf der Fristen vorliegen. Selbstabholung benötigt keine Kurierzusage.
+3. Vor Einzug nochmals prüfen, dass Reservierung und Transportzusage noch gelten. Zahlung mit stabilem Idempotenzschlüssel einziehen. Erst nach bestätigtem Einzug Bestellung auf CONFIRMED und Bestand auf ALLOCATED setzen.
+4. Bei einem Fehler zwischen Einzug und lokalem Commit gleicht ein Hintergrundprozess den Providerzustand ab. Während CAPTURE_PENDING oder eines unklaren Einzugs ist die Reservierung vor dem normalen Ablauf geschützt, bis Erfolg oder sicherer Abbruch geklärt sind. Es gibt keinen zweiten Einzug und keine automatische Freigabe bezahlter Ware wegen eines bloßen Timeouts. Dauerhaft ungeklärte Fälle werden an den Betrieb eskaliert.
+5. PICKING ist erst nach Bestätigung erlaubt. READY plus CAPTURED plus zugeordneter Empfänger sind Voraussetzung für eine Übergabe. Bei Selbstabholung ist der Empfänger der Kunde.
+6. Bei Lieferung schließen DELIVERED und gültiger Empfangsnachweis die Bestellung ab. Bei Selbstabholung genügt die dokumentierte Übergabe an den Kunden. Ein digitaler Code wird einmal eingelöst und anschließend abgewiesen.
+7. Für spätere Stationen kommen AT_STATION und COLLECTED hinzu. Einlagerung beendet die Transportetappe, Kundenabholung erfüllt den Warenempfang. Fristablauf startet Rückführung statt einer erfundenen Abholung.
+
+### Fehler und Abbruch
+
+Vor Einzug: Reservierung und Kapazität lösen, Autorisierung aufheben und Kunden informieren. Nach Einzug: getrennten Erstattungsauftrag erstellen; Status bis zum tatsächlichen Ergebnis anzeigen. Nach Paketübernahme: zunächst Transport stoppen oder Rückführung vereinbaren, keine automatische Bestandsfreigabe.
+
+Das MVP erlaubt einen direkten Stornoantrag, solange noch nicht PICKING begonnen hat. Danach entscheidet ein Supportablauf anhand des tatsächlichen Zustands. Diese Produktregel ersetzt keine anwendbaren Kundenrechte und ist vor Livebetrieb mit der Vertragsgestaltung abzugleichen. Kein Endpunkt darf eine Bestellung durch beliebiges Setzen von `status` umgehen.
+
+## 11. Schnittstellen für das MVP
+
+Die folgenden Pfade sind ein implementierbarer Vorschlag. Für alle Schreibaktionen gelten Authentifizierung, Rechteprüfung, Eingabevalidierung und ein protokollierter Akteur. Ausnahmen sind ausschließlich signierte Provider-Webhooks. Browser-IDs sind niemals ein Berechtigungsnachweis.
+
+| Methode und Pfad | Zweck | Kernprüfung |
+| --- | --- | --- |
+| GET /api/catalog/search | Angebote nach Begriff, Radius und Filtern | Öffentliche Angebotsdaten, keine internen Bestände oder Privatadressen |
+| GET /api/offers/:id | Variante, Filiale, Preis, Aktualität | Aktives Angebot und zulässige Datenfreigabe |
+| PUT /api/cart | Positionen und Mengen ändern | Eine Filiale, gültige Mengen, Versionsprüfung |
+| POST /api/quotes | Abholung und lieferbare Optionen kalkulieren | Aktueller Warenkorb, Ziel, Kapazität und Eignung |
+| POST /api/checkout | Quote in ausstehende Bestellung überführen | Idempotenz, Ablaufzeit, Bestand, Nutzer und Preis-Snapshot |
+| GET /api/orders/:id | Bestellung und Zeitleiste | Kunde, zugehöriger Händler oder berechtigter Betrieb |
+| POST /api/orders/:id/cancel-requests | Storno beantragen | Zustand, Eigentümer und Rückabwicklungsregeln |
+| POST /api/merchant/orders/:id/accept | Ware und Vorbereitungszeit bestätigen | Filialberechtigung, offene Frist und ausreichende Ware |
+| POST /api/merchant/orders/:id/reject | Auftrag ablehnen | Grund und noch zulässiger Zustand |
+| POST /api/merchant/orders/:id/start-picking | Zusammenstellen starten | Bestätigte Bestellung und Filialberechtigung |
+| POST /api/merchant/orders/:id/ready | Abholbereit melden | Bestätigte Bestellung und abgeschlossene Vorbereitung |
+| PUT /api/courier/availability | Einsatzstatus und Fahrzeug melden | Eigener Kurier, aktuelle Kapazität |
+| POST /api/ops/jobs/:id/assign | Kurier verbindlich zuordnen | Kein Doppelauftrag, Paket geeignet, Kapazität verfügbar |
+| POST /api/jobs/:id/pickup | Paketübernahme bestätigen | Zugeordneter Kurier und gültiger Händler-Übergabecode |
+| POST /api/jobs/:id/deliver | Empfang bestätigen | Zulässiger Lieferzustand und gültiger Kunden-Empfangscode |
+| POST /api/orders/:id/collect | Selbstabholung abschließen | Filialmitarbeiter, Kunde, Code, READY und CAPTURED |
+| POST /api/orders/:id/reviews | Bewertung anlegen | Eigentümer und abgeschlossene Bestellung; Ziel getrennt speichern |
+| POST /api/webhooks/:provider | Providerereignis übernehmen | Signatur, Ereignis-ID, Schema und zeitliche Plausibilität |
+| POST /api/ops/refunds | Erstattung auslösen | Supportrecht, Betrag, Grund und keine doppelte Erstattung |
+
+Listen für Händler, Kuriere und Betrieb verwenden dieselben Berechtigungsregeln. Zuweisung, Vorbereitung und Codeausgabe werden als kontrollierte Domain-Aktionen ergänzt, nicht als frei zugängliche Tabellenänderungen.
+
+### Vertrag eines Lieferangebots
+
+Das Beispiel ist vollständig fiktiv; Preis und Zeit sind keine Geschäftszusage. `validForSeconds` wird bei Erstellung serverseitig in `expiresAt` umgerechnet. Die zwei Zeitwerte bilden ein Ankunftsintervall ab Bestellung.
+
+```json
+{
+  "quoteId": "demo_quote_001",
+  "cartVersion": 3,
+  "fulfillmentMode": "HOME_DELIVERY",
+  "serviceLevel": "STANDARD",
+  "methodPolicy": "AUTO_WITHIN_ACCEPTED_OPTIONS",
+  "selectedMethod": "BICYCLE",
+  "currency": "EUR",
+  "itemsSubtotalMinor": 2490,
+  "deliveryFeeMinor": 390,
+  "serviceFeeMinor": 0,
+  "totalMinor": 2880,
+  "etaFromMinutes": 25,
+  "etaToMinutes": 40,
+  "validForSeconds": 120,
+  "availability": "AVAILABLE",
+  "isDemo": true
+}
+```
+
+Für Selbstabholung sind Transportmethode und Liefergebühr leer beziehungsweise null Euro; die Zeitanzeige beschreibt Abholbereitschaft. Ein späteres Terminfenster wird als `requestedWindowStart` und `requestedWindowEnd` gespeichert. Für nicht verfügbare Optionen liefert der Server einen verständlichen Grund, zum Beispiel `OUT_OF_AREA`, `NO_CAPACITY`, `STORE_CLOSED`, `STOCK_UNCONFIRMED`, `PACKAGE_UNSUPPORTED` oder später `WEATHER_UNSAFE`.
+
+Fehlerantworten enthalten `code`, `message`, `retryable` und `correlationId`. HTTP 409 gilt etwa bei Bestand, Warenkorbversion oder Idempotenzkonflikt; 422 bei unzulässiger Kombination; 403 bei fehlender Berechtigung. 202 bedeutet, dass eine asynchrone Aktion noch aussteht. Ein wiederholter identischer Checkout liefert die bereits erzeugte Bestellung.
+
+## 12. Entwicklungsaufgaben mit Abnahme
+
+Jede Aufgabe soll als kleiner, prüfbarer Schritt implementiert werden. Zuerst ein vollständiger Ablauf von Suche bis Empfang; zusätzliche Lieferarten folgen erst nach diesem Durchstich.
+
+| Ticket | Ergebnis | Abnahme | Abhängigkeit |
+| --- | --- | --- | --- |
+| B01 Basis und Demo | App-Shell, deutsche Texte, Hell/Dunkel, Seed-Daten | Startanleitung funktioniert; Demo-Modus ist erkennbar | Keine |
+| B02 Katalog und Suche | Angebote, Varianten, Filter, Filialvergleich | Suche ohne Standortfreigabe; Radius und Variante stimmen | B01 |
+| B03 Konto und Daten | Migrationen, Authentifizierung, Rollen und Adressen | Kunde A kann Auftrag von B auch per API nicht lesen | B01 |
+| B04 Warenkorb und Quote | Ein-Filial-Warenkorb, Abholung, Preis und ETA | Ziel- oder Warenkorbänderung verwirft alte Quote | B02, B03 |
+| B05 Checkout und Bestand | Reservierung, Auftrag und Idempotenz | Zwei gleichzeitige Käufe der letzten Einheit ergeben höchstens einen Erfolg | B04 |
+| B06 Händler und Zahlung | Annahme, Ablehnung, Capture, Ablauf und Refund | Keine Bestätigung vor allen Bedingungen; Ablehnung gibt Ressourcen frei | B05 |
+| B07 Kurier und Empfang | Zuweisung, Übernahme, Tracking und Codes | Nur zugeordneter Kurier; Code nur einmal; Abholung ohne Kurier möglich | B06 |
+| B08 Konto und Support | Historie, erneute Bestellung, Bewertung, Problemfall | Neue Bestellung nutzt neue Preise; Bewertung nur nach Abschluss | B07 |
+| B09 Störungen und Betrieb | Outbox, Webhook-Prüfung, Wiederholung, Monitoring | Duplikate und vertauschte Ereignisse verfälschen keinen Endzustand | B06, B07 |
+| B10 Pilotanbindung | Ein realer Bestandspartner, Zahlungsdienst und Kurierbetrieb | Durchgängiger beaufsichtigter Auftrag inklusive Rückabwicklung | B08, B09 und Partnerfreigaben |
+
+P0 kann mit Demo-Identitäten beginnen. Spätestens B03 werden Berechtigungen tatsächlich serverseitig durchgesetzt. Ein bloßer Rollenschalter ist nur im klar abgegrenzten Entwicklungsmodus zulässig.
+
+### Kritische Abnahmeszenarien
+
+1. Ein Kunde findet einen Artikel in zwei Filialen; der Vergleich verwechselt die Variante nicht und unterscheidet Warenpreis und Gesamtpreis.
+2. Ein Artikel einer zweiten Filiale wird nicht stillschweigend in den bestehenden Warenkorb aufgenommen; Wechsel oder separater Warenkorb wird erklärt.
+3. Veralteter Bestand wird als unbestätigt angezeigt und erzeugt keine verbindliche Sofortzusage.
+4. Zwei Checkouts für die letzte Einheit konkurrieren tatsächlich in getrennten Transaktionen; es entstehen keine negativen Bestände.
+5. Doppelklick und Netzwerk-Wiederholung erzeugen eine Bestellung und höchstens einen erfolgreichen Einzug.
+6. Eine abgelaufene Quote, geänderte Menge oder neue Lieferadresse verlangt eine Neuberechnung und erneute Zustimmung.
+7. Händlerabsage, Fristablauf und fehlender Kurier lösen Reservierung und Autorisierung zuverlässig; eine bestätigte Zuteilung läuft nicht versehentlich ab.
+8. Ein unbekannter Zahlungsstatus sperrt die Übergabe. Ein später Erfolg wird abgeglichen, ohne doppelte Belastung.
+9. Selbstabholung funktioniert ohne DeliveryJob und ohne Liefergebühr, aber mit Vorbereitung und Empfangsnachweis.
+10. Ein nicht zugeordneter Kurier kann weder die Zieladresse abrufen noch das Paket übernehmen.
+11. Falscher, abgelaufener oder bereits verbrauchter Code wird abgewiesen; Zustellung ohne Nachweis wird nicht als erfolgreich angezeigt.
+12. Doppelte oder verspätete Providerereignisse setzen DELIVERED nicht zurück auf IN_TRANSIT.
+13. Kunde A, Händler A und Kurier A können fremde Aufträge weder lesen noch ändern; Erraten einer ID hilft nicht.
+14. Ein Refund bleibt sichtbar ausstehend, bis der Zahlungsdienst Erfolg meldet; die Historie behauptet vorher keine erfolgte Rückzahlung.
+15. Fehlgeschlagene Zustellung erzeugt einen bearbeitbaren Fall; Ware wird erst nach geprüfter Rückkehr wieder verfügbar.
+16. Listen, Checkout und Tracking funktionieren auf einem kleinen Bildschirm, per Tastatur und mit lesbarem Hell- sowie Dunkelmodus.
+
+Unit-Tests prüfen Preisberechnung, Zustandsregeln und Eignung. Integrationstests prüfen Transaktionen, Rechte, Outbox und Webhooks. End-to-End-Tests decken normale Lieferung, Selbstabholung und einen Abbruchfall ab. Tests sollen diese Risiken prüfen und nicht bloß Komponenten-Snapshots sammeln.
+
+### Fiktive Daten zum Durchspielen
+
+Seed: drei lokale Händler mit insgesamt vier Filialen, darunter ein Supermarkt; etwa 20 Varianten mit teilweise mehreren Angeboten; zwei Kunden; drei Kuriere mit Fahrrad, E-Scooter und Auto; ein Betriebsnutzer. Enthalten sind ein ausverkaufter Artikel, die letzte verfügbare Einheit, ein veralteter Bestand, eine geschlossene Filiale, ein zu großes Paket und ein Ziel außerhalb des Gebiets.
+
+Demo-Konfiguration: Quote 120 Sekunden, offene Bestandsreservierung 5 Minuten, Händlerantwort maximal 3 Minuten. Fristen dürfen für die Vorführung beschleunigt werden und müssen über eine kontrollierbare Uhr testbar sein. Für einen echten Pilot werden die Werte anhand der Partnerprozesse festgelegt. Auch die ETA-Spanne von 25 bis 40 Minuten aus dem Beispiel ist ausschließlich ein Testwert.
+
+
+**Integrationsprüfung 2026-10-21:** Datenmodell, Zustandsregeln, API-Vorschläge, B01–B10 und alle 16 Abnahmeszenarien aus der gelieferten Markdown-Vorlage übernommen. Szenarien sind geplant, nicht ausgeführt. Originale und weitere Produktdetails siehe [Grundlagen](docs/grundlagen/README.md).
