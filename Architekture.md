@@ -36,6 +36,22 @@ Standorte benötigen dokumentierte Hindernisprüfung einschließlich temporärer
 - Abmessungen, Masse, Nutzlast, Geräuschdaten samt Messbedingungen, Geschwindigkeit, Reichweite und Wettergrenzen werden als versioniertes Fahrzeugprofil hinterlegt. Keine Zahlenwerte festgelegt.
 - Die Hypothese unterschiedlicher Geschwindigkeiten je Höhe ist in Konzept.md als H01 geführt und noch nicht validiert.
 
+### 3.1 Routing-Ablauf – Vorschlag zu R01–R14
+1. Auftrag auf Vollständigkeit, Paketprofil, Ziel und Lieferfenster prüfen; fehlende Pflichtangaben begründet zurückweisen.
+2. Kandidaten nach Drohnen-/Stationskompatibilität, Wartung und belegter zeitlicher Verfügbarkeit filtern. Position und Batteriestatus auf Aktualität prüfen.
+3. Für jeden Kandidaten Bereitstellung zum Lager, Beladung, mögliche Bündelung, zulässige zeitabhängige Strecke und Rückflug/Weiterleitung planen. Nutzlast nach jeder Übergabe neu ansetzen.
+4. Wetter, Luftraum, Energie inklusive Reserve/Alternative und Ressourcen für die gesamte Mission prüfen. Unbestimmte Pflichtwerte schließen einen Kandidaten von der Freigabe aus.
+5. Unter machbaren Kandidaten früheste bestätigbare Übergabe vergleichen. Lieferfenster bestehender Aufträge schützen; Energie/Leerflüge als nachgeordnete Kriterien auswerten. Ergebnis ist eine Prognose; keine globale Optimalität behaupten.
+6. Drohne, Flugslots, Landefläche, Fach und gegebenenfalls Ladeplatz konsistent reservieren. Scheitert eine Teilreservierung, übrige Reservierungen freigeben und neu planen. Parallele Planungen dürfen dieselbe Drohne nicht gleichzeitig binden.
+7. Versionierte Mission an Gesamtfreigabe übergeben; unmittelbar vor Start aktuelle Zustände prüfen. Planänderungen entwerten die bisherige Freigabe für den geänderten Plan.
+8. Fortschritt, Ankunftszeit und relevante Änderungen überwachen. Bei Störungen vorgeplante, situationsgerechte Verfahren anwenden; Übergabe erst nach Bestätigung buchen und Ressourcen anschließend freigeben.
+
+**Zeitmodell:** Früheste Übergabe aus tatsächlichen Verfügbarkeits- und Reservierungszeiten ableiten, einschließlich Bereitstellung, Beladung, Laden, Flug und Übergabe. Parallel mögliche Tätigkeiten nicht doppelt addieren; notwendige Reihenfolge nicht überspringen. Für Bündelungen eine Prognose je Auftrag ausgeben.
+
+**Algorithmuswahl offen:** Als späterer Prototypansatz eignet sich ein zeitabhängiger gerichteter Graph mit Kapazitäts- und Energiebedingungen. Kürzeste Entfernung allein genügt nicht. Mehrfachzustellungen erfordern zusätzlich eine Reihenfolgeplanung mit Zeitfenstern und veränderlicher Nutzlast. Konkreter Algorithmus erst nach Daten- und Umfangsfestlegung.
+
+**Abgrenzung:** Zentrale Planung koordiniert die eigene Flotte. Erkennung und Behandlung unerwarteter Luftverkehrs-/Hinderniskonflikte brauchen nachgewiesene lokale Fähigkeiten und betriebliche Verfahren. Eine freie Reservierung bedeutet keinen freien Luftraum.
+
 ## 4. Wetterdaten und Entscheidung
 ### Datenumfang
 Windgeschwindigkeit und -richtung, Böen, Niederschlag und Art, Gewitter/Blitzaktivität, Vereisungsrisiko, Temperatur und Sichtweite berücksichtigen. Abdeckung für Route, Start, Ziel und Ausweichstationen sowie vorgesehene Höhen prüfen. Fehlende Höhendaten nicht durch unbezeichnete Bodenwerte ersetzen.
@@ -75,6 +91,14 @@ Nutzer sehen Status und Gründe; mögliche spätere Zeitfenster sind ausdrückli
 | Übergabeereignis | Auftrag, Station/Fach, Zeitpunkt, bestätigte Sensor-/Verriegelungszustände, Ergebnis |
 | Vorfall / Audit | Ereignis, betroffene Objekte, Zeit, Akteur, Maßnahme, Nachweis und Auflösung |
 
+Zusätzlicher Routing-Datenbedarf (**Vorschlag**):
+- Auftrag: früheste Bereitstellung, Lieferfrist, Priorität, zulässige Zielalternative und Bündelbarkeit; personenbezogene Adresse nur bei erforderlicher Direktzustellung.
+- Fahrzeugzustand: nächste Verfügbarkeit, zugeordnete Mission, nutzbare Energie und Unsicherheit; Fahrzeugprofil mit Quellen für Verbrauch und Einsatzgrenzen.
+- Station/Landeort: Drohnenkompatibilität, Geometrie/Höhenbezug, Freiräume, Zutritts-/Hindernisstatus und getrennte Kapazitäten für Landung, Fach und Laden.
+- Luftraumeinschränkung: Quellreferenz, Geometrie, Unter-/Obergrenze mit Höhenbezug, Aktivierungsintervall, Bedingungen, Abruf-/Versionszeit und Auswertbarkeit.
+- Reservierung: Ressource, Mission, Zeitintervall, Zustand, Ablaufzeit und Versionskennung; Bestätigung, Änderung und Storno.
+- Mission: mehrere Aufträge und Stopps, Nutzlast je Abschnitt, Übergabeprognosen, geplante Endposition und nächste Verfügbarkeit.
+
 Einheiten, Pflichtfelder, Aufbewahrungsfristen und konkrete Schemas noch nicht festgelegt. Personenbezogene Daten minimieren; Zugriff und Protokollierung rollenbezogen auslegen.
 
 ## 6. Schnittstellen und Datenfluss – Entwurf
@@ -104,13 +128,30 @@ Alle folgenden Reaktionen sind zu konkretisieren und nachzuweisen. Keine davon w
 | Manipulation / falsche Abholberechtigung | Zugriff verweigern, Ereignis erfassen, bei Bedarf Betrieb sperren | Fach bleibt ohne gültige Berechtigung verschlossen |
 | Routen-/Luftraumänderung | Betroffene Planung/Freigabe neu bewerten, im Flug vorgesehene Verfahren anwenden | Alte Entscheidung nicht ungeprüft weiterverwenden |
 
+### Ergänzende Routing-Prüffälle – geplant, nicht ausgeführt
+| Fall | Erwartetes Ergebnis |
+|---|---|
+| Nahe Drohne muss laden, weiter entfernte ist rechtzeitig bereit | Auswahl anhand vollständiger Übergabezeit, nicht allein Entfernung |
+| Schnellster Kandidat verletzt Nutzlast-/Energiegrenze | Ausschluss vor zeitlicher Optimierung; begründete Alternative oder Ablehnung |
+| Zwei Planungen reservieren gleichzeitig dieselbe Drohne/Station | Höchstens eine konfliktbehaftete Reservierung bestätigt; andere neu planen |
+| Bündelung überschreitet Paketkapazität oder vorhandene Lieferfrist | Bündelung verwerfen; einzelne Lieferungen erneut bewerten |
+| Temporäre Sperre beginnt während geplantem Segmentdurchflug | Zeitliche Überschneidung erkannt; keine Freigabe dieser Route |
+| Luftrauminformation fehlt oder Höhenbezug ist uneindeutig | Pflichtprüfung unbestimmt; keine automatische Freigabe |
+| Eigene Drohnen kreuzen gleichzeitig; fremdes Luftfahrzeug tritt ein | Planungskonflikt erkannt; zusätzlich eigenständiges lokales Sicherheitsverfahren erforderlich |
+| Direktziel passt geometrisch, Personen betreten Landefläche | Keine Landung trotz bestätigter Sicherheitshinweise; Alternative nach Verfahren |
+| Positionsdaten veraltet oder Navigation fällt aus | Keine neue Auswahl auf ungeprüfter Position; laufende Mission nach lokalem Verfahren |
+| Umleitung ist zulässig, aber Reserve reicht nicht | Alternative ablehnen und erreichbares Verfahren bewerten; keine blinde Rückkehr |
+| Teilreservierung oder Missionsübermittlung scheitert | Keine Doppelmission; sichere Zustandsklärung und Freigabe nicht benötigter Ressourcen |
+
 ## 8. Technische Entscheidungen, Umsetzung und Prüfung
 **Festgelegt durch Nutzerauftrag:** Feste Routen/Höhenebenen als Konzeptbestandteil, wetterabhängige Bewertung, sichere Stationen und Ladeinfrastruktur. Konkrete Auslegung offen.
 
 **Noch nicht entschieden:** Drohnenplattform, Stationsmechanik, Softwarestack, Sensorik, Kommunikationswege, Anbieter, Datenintervalle, Grenzwerte, Routingverfahren und Sicherheitsarchitektur.
 
-**Umsetzung:** Nur Projektdokumentation initialisiert. Kein Code, keine Simulation, keine Hardwareanbindung.
+**Umsetzung:** Projektdokumentation initialisiert und Routing-Anforderungen/Entwurf erweitert. Kein Code, keine Simulation, keine Hardwareanbindung.
 
 **Prüfplan:** Nach Umfangsfestlegung Daten- und Regelvalidierung, Zustandsübergänge, Reservierungskonflikte und Fehlerfallmatrix prüfen. Ein späterer Simulator benötigt gekennzeichnete Eingaben, reproduzierbare Szenarien, Vergleichsversorgung und Sensitivitätsanalysen. Physische Schutzmaßnahmen, Flugverhalten, Lärm, Wettertauglichkeit und Genehmigung erfordern separate Nachweise.
 
-**Bekannte Einschränkungen:** Keine aktuellen externen Quellen geprüft, keine Einsatzorte oder Fahrzeuge ausgewählt, keine quantitativen Betriebsgrenzen und keine belastbaren Leistungs-/Sicherheitsaussagen möglich. Die Initialisierung wird ausschließlich auf Dokumentstruktur, Anforderungsabdeckung und interne Verweise geprüft.
+**Bekannte Einschränkungen:** Nur ausgewählte regulatorische Quellen geprüft (Konzept.md, Q01–Q03); keine vollständige Rechtsprüfung, keine Einsatzorte oder Fahrzeuge ausgewählt, keine quantitativen Betriebsgrenzen und keine belastbaren Leistungs-/Sicherheitsaussagen möglich. Die Initialisierung wird ausschließlich auf Dokumentstruktur, Anforderungsabdeckung und interne Verweise geprüft.
+
+**Dokumentprüfung 2026-10-21:** R01–R14 aus dem Konzept mit Ablauf, Datenbedarf und Fehlerfällen abgeglichen; Dateiverweise geprüft. Sämtliche technischen Prüffälle sind weiterhin nur geplant. Keine Implementierung beauftragt oder durchgeführt.
