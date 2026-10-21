@@ -42,6 +42,78 @@ Standardmäßig sind keine API-Schlüssel erforderlich. [`.env.example`](.env.ex
 
 `NEXT_PUBLIC_*` wird in den Browserbuild übernommen. Nach Änderungen erneut `npm run build` ausführen und den Server neu starten. Diese Variablen dürfen keine Geheimnisse enthalten. Bei einer anderen Kartenquelle gelten deren Nutzungsbedingungen.
 
+## Öffentlicher Zugriff über Cloudflare Tunnel
+
+Der Tunnel macht den lokalen Server ohne Router-Freigabe oder Cloudflare-Konto
+im Internet erreichbar. Er ist für Demo und Präsentation gedacht, nicht als
+Produktionsbetrieb.
+
+### Production-Server veröffentlichen
+
+Terminal 1:
+
+```sh
+npm ci
+npm run build
+npm start
+```
+
+Terminal 2:
+
+```sh
+npm run cloudflare:tunnel
+```
+
+Die Ausgabe von cloudflared enthält eine URL wie
+`https://<zufall>.trycloudflare.com`. Diese URL im Browser öffnen.
+
+### Entwicklungsserver veröffentlichen
+
+```sh
+npm run dev
+# zweites Terminal
+npm run cloudflare:tunnel -- --port 3000
+```
+
+### Installation ohne npm-Abhängigkeit
+
+`npm run cloudflare:tunnel` installiert cloudflared beim ersten Start
+automatisch nach `.tools/`. Das funktioniert auf:
+
+- macOS Intel und Apple Silicon
+- Linux x64 und arm64
+- Windows x64
+
+Es wird kein Homebrew, kein winget und kein zusätzliches npm-Paket benötigt.
+Für eine manuelle Installation:
+
+```sh
+npm run cloudflare:install
+```
+
+Ein vorhandenes Binary kann erzwungen werden:
+
+```sh
+CLOUDFLARED_BIN=/absoluter/pfad/cloudflared npm run cloudflare:tunnel
+```
+
+Auf macOS kann ein bereits installiertes Homebrew-Binary verwendet werden:
+
+```sh
+CLOUDFLARED_BIN="$(brew --prefix cloudflared)/bin/cloudflared" npm run cloudflare:tunnel
+```
+
+### Grenzen
+
+- Quick Tunnels haben keine Uptime-Garantie.
+- Die URL ändert sich bei jedem Neustart.
+- Für eine feste Domain ist ein benannter Cloudflare-Tunnel mit Account
+  erforderlich.
+- Der Tunnel veröffentlicht die Demo-App. Keine echten Zahlungs-, Liefer- oder
+  Flugdaten und keine Geheimnisse in der App hinterlegen.
+- Bei einem Netzwerkwechsel zuerst den Server neu starten und die neue lokale
+  Erreichbarkeit prüfen.
+
 ## In fünf Minuten vorführen
 
 1. **Entdecken, etwa eine Minute:** „Bio Haferflocken“ suchen und die Filialangebote vergleichen. Zwei Produkte derselben Filiale in die Tasche legen. Ein Artikel einer anderen Filiale zeigt den ausdrücklichen Wechselhinweis; „Tasche behalten“ erhält den bisherigen Einkauf.

@@ -9,7 +9,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "assets:products": "node scripts/prepare-product-images.mjs --check"
+    "assets:products": "node scripts/prepare-product-images.mjs --check",
+    "cloudflare:install": "node scripts/install-cloudflared.mjs",
+    "cloudflare:tunnel": "node scripts/cloudflare-tunnel.mjs",
+    "tunnel": "node scripts/cloudflare-tunnel.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
