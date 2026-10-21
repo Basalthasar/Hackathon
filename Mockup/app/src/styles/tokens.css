@@ -1,0 +1,108 @@
+:root {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.55;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-pill: 999px;
+
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] {
+  --surface-page: #0b0e10;
+  --surface-card: #13181b;
+  --surface-raised: #1b2225;
+  --surface-sunken: #080b0d;
+  --surface-brand: #0d2b2a;
+  --text-primary: #eef4f2;
+  --text-secondary: #b3c1bc;
+  --text-muted: #83938e;
+  --text-on-action: #04201d;
+  --border-default: #2a3537;
+  --border-soft: #1f292b;
+  --border-strong: #465658;
+  --action-primary: #3ddbc5;
+  --action-primary-hover: #6ee7d7;
+  --action-danger: #ff8a82;
+  --action-danger-hover: #ffaaa4;
+  --ok: #5ee2a3;
+  --warn: #f5c451;
+  --bad: #ff8a82;
+  --info: #7cc7ff;
+  --muted-status: #9aa6a2;
+  --chart-1: #6eb6ff;
+  --chart-2: #f5a65b;
+  --chart-3: #66d9a4;
+  --chart-4: #f38ac4;
+  --chart-5: #b49bff;
+  --chart-6: #54d6e6;
+  --chart-track: #263033;
+  --focus: #9df3e6;
+  --shadow-card: 0 18px 40px rgba(0, 0, 0, 0.24);
+  --shadow-focus: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--focus);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --surface-page: #f2f5f4;
+  --surface-card: #ffffff;
+  --surface-raised: #e8eeec;
+  --surface-sunken: #f7faf9;
+  --surface-brand: #d9efeb;
+  --text-primary: #14201d;
+  --text-secondary: #465853;
+  --text-muted: #697a75;
+  --text-on-action: #ffffff;
+  --border-default: #cdd8d4;
+  --border-soft: #e1e8e5;
+  --border-strong: #7e918b;
+  --action-primary: #0f766e;
+  --action-primary-hover: #115e59;
+  --action-danger: #b42318;
+  --action-danger-hover: #8f1c13;
+  --ok: #117a4b;
+  --warn: #8a5a00;
+  --bad: #b42318;
+  --info: #0b5cad;
+  --muted-status: #5b6865;
+  --chart-1: #2563eb;
+  --chart-2: #b45309;
+  --chart-3: #0f766e;
+  --chart-4: #be185d;
+  --chart-5: #6d28d9;
+  --chart-6: #0e7490;
+  --chart-track: #d5dfdc;
+  --focus: #0f766e;
+  --shadow-card: 0 18px 40px rgba(24, 42, 37, 0.08);
+  --shadow-focus: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--focus);
+  color-scheme: light;
+}

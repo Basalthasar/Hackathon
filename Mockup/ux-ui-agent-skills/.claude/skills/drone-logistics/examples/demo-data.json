@@ -1,0 +1,120 @@
+{
+  "tenant": "nordflug",
+  "generatedAt": "2026-10-21T14:12:06Z",
+  "disclosure": "Demo data. Not a live feed. Aircraft, missions, addresses and telemetry are fictional.",
+  "hubs": [
+    { "id": "hub-nord", "name": "Hub Nord", "pads": 3, "coldStorage": true }
+  ],
+  "drones": [
+    { "id": "D-07", "state": "ready", "batteryPct": 96, "reservePct": 31, "airworthiness": "released", "location": "pad-1", "nextMissionId": "M-2050" },
+    { "id": "D-12", "state": "flying", "batteryPct": 71, "reservePct": 24, "airworthiness": "released", "location": "river-corridor", "nextMissionId": null },
+    { "id": "D-04", "state": "returning", "batteryPct": 18, "reservePct": 6, "airworthiness": "released", "location": "east-approach", "nextMissionId": null },
+    { "id": "D-09", "state": "grounded", "batteryPct": null, "reservePct": null, "airworthiness": "defect-44-awaiting-part", "location": "maintenance", "nextMissionId": null }
+  ],
+  "missions": [
+    {
+      "id": "M-2043", "droneId": "D-07", "hubId": "hub-nord", "state": "held",
+      "batteryPct": 54, "reservePct": 12, "linkQuality": "degraded",
+      "altitudeM": 72, "groundSpeedMps": 9.8, "windMps": 11.2,
+      "corridorId": "R-EAST-1", "authorizationValidUntil": "2026-10-21T14:35:00Z",
+      "risk": { "level": "critical", "reasonCode": "LINK_DEGRADED_WIND" },
+      "owner": "A. Keller", "nextAction": "Try relay, else return",
+      "orderIds": ["NF-2048"]
+    },
+    {
+      "id": "M-2038", "droneId": "D-04", "hubId": "hub-nord", "state": "returning",
+      "batteryPct": 18, "reservePct": 6, "linkQuality": "good",
+      "altitudeM": 34, "groundSpeedMps": 11.4, "windMps": 7.1,
+      "corridorId": "R-EAST-1", "authorizationValidUntil": "2026-10-21T14:30:00Z",
+      "risk": { "level": "caution", "reasonCode": "LOW_RESERVE" },
+      "owner": "S. Brandt", "nextAction": "Confirm landing pad 1",
+      "orderIds": ["NF-2044"]
+    },
+    {
+      "id": "M-2041", "droneId": "D-12", "hubId": "hub-nord", "state": "enroute",
+      "batteryPct": 71, "reservePct": 24, "linkQuality": "good",
+      "altitudeM": 60, "groundSpeedMps": 14.2, "windMps": 6.4,
+      "corridorId": "R-NORD-2", "authorizationValidUntil": "2026-10-21T14:40:00Z",
+      "risk": { "level": "info", "reasonCode": null },
+      "owner": "dispatch", "nextAction": "Handover 14:20",
+      "orderIds": ["NF-2041"]
+    },
+    {
+      "id": "M-2036", "droneId": "D-07", "hubId": "hub-nord", "state": "returning",
+      "batteryPct": 42, "reservePct": 16, "linkQuality": "good",
+      "altitudeM": 48, "groundSpeedMps": 12.6, "windMps": 5.8,
+      "corridorId": "R-NORD-2", "authorizationValidUntil": "2026-10-21T14:25:00Z",
+      "risk": { "level": "info", "reasonCode": null },
+      "owner": "dispatch", "nextAction": "Land pad 2",
+      "orderIds": ["NF-2039"]
+    },
+    {
+      "id": "M-2032", "droneId": "D-07", "hubId": "hub-nord", "state": "enroute",
+      "batteryPct": 88, "reservePct": 31, "linkQuality": "good",
+      "altitudeM": 66, "groundSpeedMps": 13.1, "windMps": 6.0,
+      "corridorId": "R-WEST-1", "authorizationValidUntil": "2026-10-21T14:38:00Z",
+      "risk": { "level": "info", "reasonCode": null },
+      "owner": "dispatch", "nextAction": "Drop-off 14:18",
+      "orderIds": ["NF-2035"]
+    },
+    {
+      "id": "M-2050", "droneId": "D-07", "hubId": "hub-nord", "state": "queued",
+      "batteryPct": 96, "reservePct": 31, "linkQuality": "good",
+      "altitudeM": null, "groundSpeedMps": null, "windMps": 6.4,
+      "corridorId": "R-NORD-2", "authorizationValidUntil": "2026-10-21T15:00:00Z",
+      "risk": { "level": "info", "reasonCode": null },
+      "owner": "dispatch", "nextAction": "Load cold tote",
+      "orderIds": ["NF-2050"]
+    }
+  ],
+  "orders": [
+    {
+      "id": "NF-2041", "missionId": "M-2041", "recipient": "Demo recipient",
+      "address": "Demo address, Berlin", "state": "in_flight",
+      "promisedWindow": { "start": "2026-10-21T14:20:00Z", "end": "2026-10-21T14:35:00Z", "confidence": "high" },
+      "payload": { "massKg": 2.1, "coldChain": true, "toteId": "T-118" },
+      "handover": { "method": "code", "expiresAt": "2026-10-21T14:40:00Z" }
+    },
+    {
+      "id": "NF-2044", "missionId": "M-2038", "recipient": "Demo recipient",
+      "address": "Demo address, Berlin", "state": "failed",
+      "promisedWindow": { "start": "2026-10-21T14:05:00Z", "end": "2026-10-21T14:20:00Z", "confidence": "medium" },
+      "payload": { "massKg": 1.4, "coldChain": false, "toteId": "T-104" },
+      "handover": { "method": "locker", "expiresAt": "2026-10-21T14:15:00Z" }
+    },
+    {
+      "id": "NF-2048", "missionId": "M-2043", "recipient": "Demo recipient",
+      "address": "Demo address, Berlin", "state": "queued",
+      "promisedWindow": { "start": "2026-10-21T14:30:00Z", "end": "2026-10-21T14:45:00Z", "confidence": "low" },
+      "payload": { "massKg": 3.0, "coldChain": true, "toteId": "T-121" },
+      "handover": { "method": "code", "expiresAt": "2026-10-21T14:50:00Z" }
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "X-301", "entityId": "M-2043", "severity": "critical",
+      "reasonCode": "LINK_DEGRADED_WIND", "owner": "A. Keller",
+      "openedAt": "2026-10-21T14:11:54Z", "nextAction": "Try relay, else return"
+    },
+    {
+      "id": "X-302", "entityId": "M-2038", "severity": "caution",
+      "reasonCode": "LOW_RESERVE", "owner": "S. Brandt",
+      "openedAt": "2026-10-21T14:10:20Z", "nextAction": "Confirm landing pad 1"
+    }
+  ],
+  "weather": {
+    "hubId": "hub-nord", "observedAt": "2026-10-21T14:12:00Z",
+    "windMps": 6.4, "gustMps": 11.2, "gustLimitMps": 10.0,
+    "visibilityKm": 4.2, "ceilingM": 420, "precipitation": "none",
+    "holdFrom": "2026-10-21T14:30:00Z"
+  },
+  "telemetry": [
+    {
+      "missionId": "M-2041", "seq": 88412,
+      "observedAt": "2026-10-21T14:12:04Z", "receivedAt": "2026-10-21T14:12:05Z",
+      "position": { "lat": 52.5312, "lon": 13.3841 },
+      "altitudeM": 60, "headingDeg": 74, "groundSpeedMps": 14.2,
+      "batteryPct": 71, "reservePct": 24, "linkQuality": "good", "source": "aircraft"
+    }
+  ]
+}

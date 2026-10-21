@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Delivery NF-2041 - Nordflug</title>
+<meta name="description" content="Consumer drone delivery example: honest ETA window, live route, stale-feed handling and handover." />
+<link rel="stylesheet" href="../../../../examples/brandkit-demo/theme.css" />
+<link rel="stylesheet" href="../../../../examples/templates/shell.css" />
+<link rel="stylesheet" href="./drone.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to delivery</a>
+
+<header class="consumer-top">
+  <a class="brand" href="#main">
+    <span class="mark" aria-hidden="true">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h16"/><path d="M7 8v5"/><path d="M17 8v5"/><path d="M5 18h14"/>
+        <circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/>
+        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+      </svg>
+    </span>
+    Nordflug
+  </a>
+  <span class="spacer"></span>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+    <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg>
+    <span class="lbl">Dark</span>
+  </button>
+</header>
+
+<main id="main" class="consumer">
+  <section class="panel status-panel" id="delivery" aria-labelledby="delivery-title" data-stale="false">
+    <div class="status-head">
+      <span class="badge b-info" id="status-badge">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="status-label">On its way</span>
+      </span>
+      <span class="freshness" id="freshness" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="freshness-text">Updated 4s ago</span>
+      </span>
+    </div>
+    <h1 id="delivery-title">Arriving 14:20 to 14:35</h1>
+    <p class="lede">Order NF-2041 from Markt Nord. 2.1 kg, cold chain checked at packing.</p>
+    <div class="eta-line">
+      <strong>14:20-14:35</strong>
+      <span>Estimated window, not a minute promise</span>
+    </div>
+    <div class="meter" role="img" aria-label="Delivery progress: in flight, 62 percent of the route complete">
+      <i style="inline-size:62%"></i>
+    </div>
+    <ol class="progress" aria-label="Delivery progress">
+      <li class="done">
+        <span class="mark" aria-hidden="true"><svg class="ico"><use href="#i-check"/></svg></span>
+        <div><h3>Packed at Markt Nord</h3><p>Cold chain checked, tote sealed</p></div>
+        <time datetime="2026-10-21T13:58">13:58</time>
+      </li>
+      <li class="done">
+        <span class="mark" aria-hidden="true"><svg class="ico"><use href="#i-check"/></svg></span>
+        <div><h3>Departed Hub Nord</h3><p>Mission M-2041 released</p></div>
+        <time datetime="2026-10-21T14:06">14:06</time>
+      </li>
+      <li class="now">
+        <span class="mark" aria-hidden="true"><svg class="ico"><use href="#i-chevron-right"/></svg></span>
+        <div><h3>In flight</h3><p>Over the river corridor, 1.4 km to go</p></div>
+        <time datetime="2026-10-21T14:12">Now</time>
+      </li>
+      <li>
+        <span class="mark" aria-hidden="true"><svg class="ico"><use href="#i-minus"/></svg></span>
+        <div><h3>Arriving</h3><p>We will ask for your handover code</p></div>
+        <time>Est 14:20</time>
+      </li>
+      <li>
+        <span class="mark" aria-hidden="true"><svg class="ico"><use href="#i-minus"/></svg></span>
+        <div><h3>Handover</h3><p>Doorstep or secure locker</p></div>
+        <time>Est 14:24</time>
+      </li>
+    </ol>
+  </section>
+
+  <section class="panel map-panel" aria-labelledby="map-title">
+    <header>
+      <h2 id="map-title">Route</h2>
+      <span class="note" id="map-note">Last observed 4s ago</span>
+    </header>
+    <div class="map-frame">
+      <svg viewBox="0 0 320 190" role="img" aria-labelledby="map-svg-title map-svg-desc">
+        <title id="map-svg-title">Route from Hub Nord to your address</title>
+        <desc id="map-svg-desc">A 2.4 kilometre corridor over the river. The aircraft is 1.4 kilometres from the destination, on the second of three legs.</desc>
+        <rect width="320" height="190" fill="var(--color-surface-page)"/>
+        <g stroke="var(--color-border-default)" stroke-width=".5" opacity=".6">
+          <path d="M0 40h320M0 80h320M0 120h320M0 160h320"/>
+          <path d="M40 0v190M90 0v190M140 0v190M190 0v190M240 0v190M290 0v190"/>
+        </g>
+        <path d="M255 24h52v128h-52z" fill="var(--color-surface-raised)" opacity=".6"/>
+        <path d="M16 150c40-4 68-22 100-30s58 6 90-14 52-34 98-38" fill="none"
+          stroke="var(--color-surface-brand)" stroke-width="22" stroke-linecap="round" opacity=".8"/>
+        <path d="M22 148c42-6 68-24 98-31s58 8 90-13 54-33 96-36" fill="none"
+          stroke="var(--color-action-primary)" stroke-width="2.5" stroke-linecap="round"
+          stroke-dasharray="5 5"/>
+        <circle cx="22" cy="148" r="5" fill="var(--color-action-primary)"/>
+        <text x="22" y="168" text-anchor="middle" font-size="9" fill="var(--color-text-secondary)">Hub Nord</text>
+        <circle cx="306" cy="68" r="5" fill="var(--color-feedback-success)"/>
+        <text x="286" y="56" text-anchor="middle" font-size="9" fill="var(--color-text-secondary)">You</text>
+        <g class="map-live" transform="translate(196 96)">
+          <circle r="15" fill="var(--color-action-primary)" opacity=".14"/>
+          <path d="M-11 0h22M0-11v22" stroke="var(--color-action-primary)" stroke-width="1.5" opacity=".5"/>
+          <path d="M-15-7h6M9-7h6M-15 7h6M9 7h6" stroke="var(--color-action-primary)" stroke-width="2" stroke-linecap="round"/>
+          <circle r="4.5" fill="var(--color-action-primary)"/>
+        </g>
+        <g fill="var(--color-text-secondary)" font-size="8">
+          <text x="8" y="12">NORTH</text>
+          <text x="256" y="184">RIVER CORRIDOR</text>
+        </g>
+      </svg>
+    </div>
+    <p class="map-summary"><strong>Current leg:</strong> river corridor, heading east.
+      <strong>Next:</strong> descend to your drop-off zone. <strong>Link:</strong> good.</p>
+    <details>
+      <summary>Route details and text alternative</summary>
+      <ol class="route-list">
+        <li><span class="idx" aria-hidden="true">1</span><span>Hub Nord, pad 2. Departed 14:06.</span></li>
+        <li><span class="idx" aria-hidden="true">2</span><span>River corridor, 60 metres altitude. Current leg.</span></li>
+        <li><span class="idx" aria-hidden="true">3</span><span>Drop-off zone, 12 metres altitude. Estimated 14:20.</span></li>
+        <li><span class="idx" aria-hidden="true">4</span><span>Return to Hub Nord after handover.</span></li>
+      </ol>
+    </details>
+  </section>
+
+  <section class="panel" aria-labelledby="handover-title">
+    <header>
+      <h2 id="handover-title">Handover</h2>
+      <span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Code required</span>
+    </header>
+    <p class="note">Have your code ready when the aircraft arrives. If the code fails,
+      the parcel returns to the hub and the refund starts automatically.</p>
+    <button class="btn btn-primary btn-block" type="button" id="show-code"
+      aria-expanded="false" aria-controls="code-box">Show handover code</button>
+    <div class="code-box" id="code-box" hidden>
+      <p class="eyebrow">Your code</p>
+      <output class="code" aria-label="Handover code 4 8 2 1">4 8 2 1</output>
+      <p class="note">Valid until 14:40. Need more time? Contact support before it expires.</p>
+    </div>
+    <a class="btn btn-secondary btn-block" href="#support">Contact support</a>
+  </section>
+
+  <section class="panel" aria-labelledby="order-title">
+    <header><h2 id="order-title">Order NF-2041</h2><span class="note">Markt Nord</span></header>
+    <ul class="order-list">
+      <li><span>Milk, 1 L</span><span class="num">2</span></li>
+      <li><span>Sourdough loaf</span><span class="num">1</span></li>
+      <li><span>Chilled soup, 500 ml</span><span class="num">2</span></li>
+      <li><span>Cold-chain check</span><span>Passed 13:58</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="support" aria-labelledby="support-title">
+    <header><h2 id="support-title">Support</h2><span class="note">Human, not a bot</span></header>
+    <p class="note">Call <a href="tel:+4930123456">+49 30 123456</a> or reply to the delivery
+      notification. Average answer time today: 48 seconds.</p>
+  </section>
+
+  <details class="panel demo-panel" open>
+    <summary>Demo controls</summary>
+    <p class="note">These controls exist to exercise the degraded states. Remove them in production.</p>
+    <div class="demo-row">
+      <button class="btn btn-secondary" type="button" id="stale-toggle" aria-pressed="false">Simulate stale feed</button>
+      <button class="btn btn-secondary" type="button" id="deliver-toggle" aria-pressed="false">Mark delivered</button>
+      <button class="btn btn-secondary" type="button" id="reset-demo">Reset</button>
+    </div>
+  </details>
+</main>
+
+<footer class="credit">
+  <span>Nordflug consumer example. Locations, times and telemetry are fictional.</span>
+  <span>Built with <a href="https://github.com/plugin87/ux-ui-agent-skills">ux-ui-agent-skills</a>.</span>
+</footer>
+
+<script src="../../../../examples/component-states/icons.js"></script>
+<script src="./demo.js"></script>
+</body>
+</html>

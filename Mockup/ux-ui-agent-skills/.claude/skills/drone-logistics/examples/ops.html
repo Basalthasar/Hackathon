@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mission control - Nordflug</title>
+<meta name="description" content="Drone operations example: live map, risk rail, mission telemetry, exception queue, fleet and weather go/no-go." />
+<link rel="stylesheet" href="../../../../examples/brandkit-demo/theme.css" />
+<link rel="stylesheet" href="../../../../examples/templates/shell.css" />
+<link rel="stylesheet" href="./drone.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to mission control</a>
+
+<div class="shell">
+  <aside class="side">
+    <span class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 8h16"/><path d="M7 8v5"/><path d="M17 8v5"/><path d="M5 18h14"/>
+          <circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/>
+          <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        </svg>
+      </span>
+      Nordflug
+    </span>
+    <nav class="menu" aria-label="Operations">
+      <a href="#main" aria-current="page"><svg class="ico" aria-hidden="true"><use href="#i-dashboard"/></svg>Live map</a>
+      <a href="#missions"><svg class="ico" aria-hidden="true"><use href="#i-archive"/></svg>Missions</a>
+      <a href="#fleet"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Fleet</a>
+      <a href="#exceptions"><svg class="ico" aria-hidden="true"><use href="#i-alert-triangle"/></svg>Exceptions</a>
+      <a href="#weather"><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>Weather</a>
+    </nav>
+    <div class="grow"></div>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="true">
+      <svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg>
+      <span class="lbl">Light</span>
+    </button>
+  </aside>
+
+  <main id="main">
+    <div class="topbar">
+      <div>
+        <h1>Mission control</h1>
+        <p class="sub">HUB NORD · 6 ACTIVE · 2 EXCEPTIONS</p>
+      </div>
+      <span class="spacer"></span>
+      <a class="badge b-bad" href="#exceptions"><span class="dot" aria-hidden="true"></span>1 critical</a>
+      <span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Wind hold 14:30</span>
+      <time class="num" id="clock" datetime="2026-10-21T14:12:06">14:12:06</time>
+    </div>
+
+    <div class="ops-grid">
+      <section class="panel fill span-8" aria-labelledby="map-title">
+        <header>
+          <h2 id="map-title">Live airspace</h2>
+          <span class="note" id="live-freshness" aria-live="polite">Feed live · last sample 2s ago</span>
+        </header>
+        <div class="map-ops">
+          <svg viewBox="0 0 640 340" role="img" aria-labelledby="ops-map-title ops-map-desc">
+            <title id="ops-map-title">Live map of six missions around Hub Nord</title>
+            <desc id="ops-map-desc">Mission M-2041 is in the river corridor with good link quality. M-2038 is returning with a low battery reserve. A wind front is crossing the eastern corridor.</desc>
+            <rect width="640" height="340" fill="var(--color-surface-page)"/>
+            <g stroke="var(--color-border-default)" stroke-width="1" opacity=".35">
+              <path d="M0 60h640M0 120h640M0 180h640M0 240h640M0 300h640"/>
+              <path d="M80 0v340M160 0v340M240 0v340M320 0v340M400 0v340M480 0v340M560 0v340"/>
+            </g>
+            <path d="M0 214h640v34H0z" fill="var(--color-chart-1)" opacity=".12"/>
+            <path d="M0 220c80 6 140 24 220 18s140-30 220-22 120 20 200 14v18c-80 6-140 18-220 22s-140-24-220-18S80 250 0 238z"
+              fill="var(--color-chart-1)" opacity=".22"/>
+            <path d="M40 292c56-70 120-64 174-112s92-74 168-88 122-6 198 34" fill="none"
+              stroke="var(--color-action-primary)" stroke-width="4" stroke-linecap="round" opacity=".22"/>
+            <path d="M40 292c56-70 120-64 174-112s92-74 168-88 122-6 198 34" fill="none"
+              stroke="var(--color-action-primary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 6"/>
+            <path d="M388 40h210v106H388z" fill="var(--color-feedback-warning)" opacity=".12"/>
+            <path d="M388 40h210v106H388z" fill="none" stroke="var(--color-feedback-warning)" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <text x="398" y="56" font-size="11" fill="var(--color-feedback-warning)">WIND FRONT · HOLD 14:30</text>
+            <g transform="translate(40 292)">
+              <circle r="8" fill="var(--color-action-primary)"/>
+              <text x="0" y="26" text-anchor="middle" font-size="10" fill="var(--color-text-secondary)">HUB NORD</text>
+            </g>
+            <g transform="translate(250 150)">
+              <circle r="18" fill="var(--color-feedback-success)" opacity=".14"/>
+              <path d="M-14 0h28M0-14v28" stroke="var(--color-feedback-success)" stroke-width="1.5" opacity=".5"/>
+              <circle r="5" fill="var(--color-feedback-success)"/>
+              <text x="0" y="-24" text-anchor="middle" font-size="10" fill="var(--color-feedback-success)">M-2041</text>
+            </g>
+            <g transform="translate(430 250)">
+              <circle r="18" fill="var(--color-feedback-warning)" opacity=".14"/>
+              <path d="M-14 0h28M0-14v28" stroke="var(--color-feedback-warning)" stroke-width="1.5" opacity=".5"/>
+              <circle r="5" fill="var(--color-feedback-warning)"/>
+              <text x="0" y="-24" text-anchor="middle" font-size="10" fill="var(--color-feedback-warning)">M-2038</text>
+            </g>
+            <g transform="translate(540 120)">
+              <circle r="16" fill="var(--color-text-error)" opacity=".12"/>
+              <circle r="5" fill="var(--color-text-error)"/>
+              <text x="0" y="-22" text-anchor="middle" font-size="10" fill="var(--color-text-error)">M-2043</text>
+            </g>
+            <g transform="translate(340 262)">
+              <circle r="5" fill="var(--color-action-primary)"/>
+              <text x="0" y="-20" text-anchor="middle" font-size="10" fill="var(--color-text-secondary)">M-2036</text>
+            </g>
+            <g transform="translate(170 90)">
+              <circle r="5" fill="var(--color-action-primary)"/>
+              <text x="0" y="-20" text-anchor="middle" font-size="10" fill="var(--color-text-secondary)">M-2032</text>
+            </g>
+            <text x="632" y="330" text-anchor="end" font-size="10" fill="var(--color-text-secondary)">1 km</text>
+            <path d="M600 324h32" stroke="var(--color-text-secondary)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="map-legend" role="group" aria-label="Map legend">
+          <span><i style="--line:var(--color-action-primary)"></i>Cleared corridor</span>
+          <span><i style="--line:var(--color-feedback-success)"></i>Nominal mission</span>
+          <span><i style="--line:var(--color-feedback-warning)"></i>Caution</span>
+          <span><i style="--line:var(--color-text-error)"></i>Critical</span>
+        </div>
+        <p class="note"><strong>Map summary:</strong> M-2041 is 1.4 km out in the river corridor.
+          M-2038 is returning with 18% reserve. M-2043 is holding outside the eastern wind front.</p>
+      </section>
+
+      <section class="panel spread span-4" aria-labelledby="risk-title">
+        <header>
+          <h2 id="risk-title">Priority</h2>
+          <span class="badge b-bad"><span class="dot" aria-hidden="true"></span>1 critical</span>
+        </header>
+        <div class="risk-rail">
+          <article class="risk-item risk-critical" data-risk="M-2043">
+            <span class="pip" aria-hidden="true"><svg class="ico"><use href="#i-alert-triangle"/></svg></span>
+            <div>
+              <p><strong>M-2043</strong> link degraded in wind front. Position 12s old.</p>
+              <time datetime="2026-10-21T14:11:54">12s ago</time>
+              <span class="who">Owner: A. Keller</span>
+              <button class="btn btn-secondary" type="button" data-ack aria-pressed="false">Acknowledge</button>
+            </div>
+            <span class="badge b-bad">Critical</span>
+          </article>
+          <article class="risk-item risk-caution" data-risk="M-2038">
+            <span class="pip" aria-hidden="true"><svg class="ico"><use href="#i-alert-circle"/></svg></span>
+            <div>
+              <p><strong>M-2038</strong> battery reserve 18%. Return is the safe action.</p>
+              <time datetime="2026-10-21T14:10:20">2 min ago</time>
+              <span class="who">Owner: S. Brandt</span>
+              <button class="btn btn-secondary" type="button" data-ack aria-pressed="false">Acknowledge</button>
+            </div>
+            <span class="badge b-warn">Caution</span>
+          </article>
+          <article class="risk-item risk-info" data-risk="M-2041">
+            <span class="pip" aria-hidden="true"><svg class="ico"><use href="#i-info"/></svg></span>
+            <div>
+              <p><strong>M-2041</strong> on schedule. Handover code issued.</p>
+              <time datetime="2026-10-21T14:11:30">36s ago</time>
+              <span class="who">Owner: dispatch</span>
+            </div>
+            <span class="badge b-info">Info</span>
+          </article>
+        </div>
+        <p class="note" id="ack-note" aria-live="polite">Acknowledge a risk to record that a human has seen it.</p>
+      </section>
+
+      <section class="span-12" aria-labelledby="metrics-title">
+        <h2 class="sr-only" id="metrics-title">Today at a glance</h2>
+        <div class="metric-row">
+          <div class="metric"><span class="v">6</span><span class="k">Active missions</span>
+            <span class="d">2 returning</span></div>
+          <div class="metric"><span class="v">94.2%</span><span class="k">On-time window</span>
+            <span class="d">Last 24 hours</span></div>
+          <div class="metric"><span class="v">18%</span><span class="k">Lowest reserve</span>
+            <span class="d">M-2038</span></div>
+          <div class="metric"><span class="v">2</span><span class="k">Open exceptions</span>
+            <span class="d">1 critical</span></div>
+        </div>
+      </section>
+
+      <section class="panel span-6" id="missions" aria-labelledby="missions-title">
+        <header>
+          <h2 id="missions-title">Missions</h2>
+          <span class="note">Risk first, then departure</span>
+        </header>
+        <div class="chip-row" role="group" aria-label="Filter missions">
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">All 6</button>
+          <button class="chip" type="button" data-filter="critical" aria-pressed="false">Critical 1</button>
+          <button class="chip" type="button" data-filter="returning" aria-pressed="false">Returning 2</button>
+        </div>
+        <div class="ops-table">
+          <table>
+            <caption class="sr-only">Active missions with state, battery, link and next action</caption>
+            <thead>
+              <tr><th scope="col">Mission</th><th scope="col">State</th><th scope="col" class="end">Battery</th>
+                <th scope="col">Link</th><th scope="col">Next</th></tr>
+            </thead>
+            <tbody id="mission-rows">
+              <tr data-state="critical">
+                <th scope="row"><button class="chip" type="button" data-mission="M-2043" aria-pressed="false">M-2043</button></th>
+                <td><span class="badge b-bad"><span class="dot" aria-hidden="true"></span>Held</span></td>
+                <td class="end num">54%</td><td>Degraded</td><td>Clear wind front</td>
+              </tr>
+              <tr data-state="returning">
+                <th scope="row"><button class="chip" type="button" data-mission="M-2038" aria-pressed="false">M-2038</button></th>
+                <td><span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Returning</span></td>
+                <td class="end num">18%</td><td>Good</td><td>Land pad 1</td>
+              </tr>
+              <tr data-state="nominal">
+                <th scope="row"><button class="chip" type="button" data-mission="M-2041" aria-pressed="true">M-2041</button></th>
+                <td><span class="badge b-ok"><span class="dot" aria-hidden="true"></span>En route</span></td>
+                <td class="end num">71%</td><td>Good</td><td>Handover 14:20</td>
+              </tr>
+              <tr data-state="returning">
+                <th scope="row"><button class="chip" type="button" data-mission="M-2036" aria-pressed="false">M-2036</button></th>
+                <td><span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Returning</span></td>
+                <td class="end num">42%</td><td>Good</td><td>Land pad 2</td>
+              </tr>
+              <tr data-state="nominal">
+                <th scope="row"><button class="chip" type="button" data-mission="M-2032" aria-pressed="false">M-2032</button></th>
+                <td><span class="badge b-ok"><span class="dot" aria-hidden="true"></span>En route</span></td>
+                <td class="end num">88%</td><td>Good</td><td>Drop-off 14:18</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-6" id="selected-mission" aria-labelledby="selected-title">
+        <header>
+          <h2 id="selected-title">M-2041 · telemetry</h2>
+          <span class="badge b-ok"><span class="dot" aria-hidden="true"></span>Live</span>
+        </header>
+        <dl class="telemetry">
+          <div><dt>Battery</dt><dd id="t-battery">71%</dd></div>
+          <div><dt>Reserve</dt><dd id="t-reserve">24%</dd></div>
+          <div><dt>Altitude</dt><dd id="t-altitude">60 m</dd></div>
+          <div><dt>Ground speed</dt><dd id="t-speed">14.2 m/s</dd></div>
+          <div><dt>Link</dt><dd id="t-link">Good</dd></div>
+          <div><dt>Wind</dt><dd id="t-wind">6.4 m/s</dd></div>
+        </dl>
+        <div class="meter" role="img" aria-label="Battery 71 percent with 24 percent reserve"><i style="inline-size:71%"></i></div>
+        <p class="note">Observed 2s ago. Authorization valid until 14:40. Corridor R-NORD-2, altitude band 40 to 80 m.</p>
+        <div class="chip-row">
+          <button class="btn btn-secondary" type="button" id="hold-btn" aria-expanded="false" aria-controls="hold-confirm">Hold mission</button>
+          <button class="btn btn-danger" type="button" id="rth-btn" aria-expanded="false" aria-controls="rth-confirm">Return to home</button>
+        </div>
+        <div class="code-box" id="hold-confirm" hidden>
+          <p><strong>Hold M-2041?</strong> The aircraft will leave the corridor and wait at the nearest holding point. Two orders miss their window.</p>
+          <div class="demo-row">
+            <button class="btn btn-secondary" type="button" data-cancel="hold-confirm">Cancel</button>
+            <button class="btn btn-primary" type="button" data-confirm="hold" data-mission="M-2041">Confirm hold</button>
+          </div>
+        </div>
+        <div class="code-box" id="rth-confirm" hidden>
+          <p><strong>Return M-2041 to Hub Nord?</strong> This cannot be undone in flight. The payload returns to cold storage and the customer is notified.</p>
+          <div class="demo-row">
+            <button class="btn btn-secondary" type="button" data-cancel="rth-confirm">Cancel</button>
+            <button class="btn btn-danger" type="button" data-confirm="rth" data-mission="M-2041">Confirm return</button>
+          </div>
+        </div>
+        <p class="note" id="command-note" aria-live="polite"></p>
+      </section>
+
+      <section class="panel span-12" id="exceptions" aria-labelledby="exceptions-title">
+        <header>
+          <h2 id="exceptions-title">Exceptions</h2>
+          <span class="badge b-bad"><span class="dot" aria-hidden="true"></span>2 open</span>
+        </header>
+        <div class="ops-table">
+          <table>
+            <caption>Every exception has an owner, reason, age and next action</caption>
+            <thead>
+              <tr><th scope="col">Entity</th><th scope="col">Severity</th><th scope="col">Reason</th>
+                <th scope="col">Owner</th><th scope="col" class="end">Age</th><th scope="col">Next action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">M-2043</th>
+                <td><span class="badge b-bad"><span class="dot" aria-hidden="true"></span>Critical</span></td>
+                <td>Link degraded, wind front</td><td>A. Keller</td><td class="end num">12s</td>
+                <td>Try relay, else return</td>
+              </tr>
+              <tr>
+                <th scope="row">M-2038</th>
+                <td><span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Caution</span></td>
+                <td>Reserve below 20%</td><td>S. Brandt</td><td class="end num">2m</td>
+                <td>Confirm landing pad 1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-6" id="fleet" aria-labelledby="fleet-title">
+        <header><h2 id="fleet-title">Fleet</h2><span class="note">4 aircraft · 1 grounded</span></header>
+        <div class="fleet-row"><span class="badge b-ok"><span class="dot" aria-hidden="true"></span>Ready</span>
+          <div><span class="id">D-07</span><span class="state"> Pad 1 · next M-2050</span></div><span class="num">96%</span></div>
+        <div class="fleet-row"><span class="badge b-info"><span class="dot" aria-hidden="true"></span>Flying</span>
+          <div><span class="id">D-12</span><span class="state"> M-2041 · river corridor</span></div><span class="num">71%</span></div>
+        <div class="fleet-row"><span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Returning</span>
+          <div><span class="id">D-04</span><span class="state"> M-2038 · 18% reserve</span></div><span class="num">18%</span></div>
+        <div class="fleet-row"><span class="badge b-bad"><span class="dot" aria-hidden="true"></span>Grounded</span>
+          <div><span class="id">D-09</span><span class="state"> Defect 44 · awaiting part</span></div><span class="num">--</span></div>
+      </section>
+
+      <section class="panel span-6" id="weather" aria-labelledby="weather-title">
+        <header><h2 id="weather-title">Weather</h2><span class="badge b-warn"><span class="dot" aria-hidden="true"></span>Hold from 14:30</span></header>
+        <dl class="telemetry">
+          <div><dt>Wind</dt><dd>6.4 m/s</dd></div>
+          <div><dt>Gust</dt><dd>11.2 m/s</dd></div>
+          <div><dt>Limit</dt><dd>10.0 m/s</dd></div>
+          <div><dt>Visibility</dt><dd>4.2 km</dd></div>
+          <div><dt>Ceiling</dt><dd>420 m</dd></div>
+          <div><dt>Precipitation</dt><dd>None</dd></div>
+        </dl>
+        <p class="note">Gust limit is crossed in the eastern corridor at 14:30. Release is blocked for
+          new missions after that time until the front passes.</p>
+        <button class="btn btn-secondary btn-block" type="button" data-ack aria-pressed="false">Acknowledge weather hold</button>
+      </section>
+    </div>
+
+    <footer class="credit">
+      <span>Nordflug operations example. Aircraft, missions and telemetry are fictional. Demo data, not a live feed.</span>
+      <span>Built with <a href="https://github.com/plugin87/ux-ui-agent-skills">ux-ui-agent-skills</a>.</span>
+    </footer>
+  </main>
+</div>
+
+<script src="../../../../examples/component-states/icons.js"></script>
+<script src="./demo.js"></script>
+</body>
+</html>
