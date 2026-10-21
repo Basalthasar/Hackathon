@@ -1,0 +1,94 @@
+[
+  {
+    "id": "V29",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square photographic ecommerce catalogue image for Fly to you. Premium photorealistic florist product photography, warm off-white seamless studio surface and background, soft natural daylight from the left, delicate grounded shadow, crisp real petal, leaf, paper and ceramic textures. Main three-quarter front view, entire single product fully in frame occupying 65–75 percent of image, balanced clean composition with breathing room. No people, no logos, no text, no claim badges, no watermark, no collage.\nSubject: One florist bouquet of exactly ten mixed-colour tulips, pink, cream, pale yellow and apricot flowerheads, long fresh green stems, wrapped in simple warm kraft paper tied with a natural linen ribbon. All ten heads visible; no vase.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-af697fc8-840f-4e01-8638-4aa788cf8f8b.png",
+    "path": "public/products/v29-01.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "5fdb7c2d21c8397ee734302afb78a01d0c286d0d24e1e55a9c79a8a05db79047"
+  },
+  {
+    "id": "V29",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square photographic ecommerce product image for Fly to you. Input image is the edit target and exact product identity reference. Re-photograph this exact tulip bouquet lying diagonally on the studio surface, camera above at a 45-degree overhead angle. Show the whole ten-tulip bouquet including wrapped stems and ribbon; preserve precisely the same ten flowers and their pink, cream, yellow and apricot colours, kraft wrapping folds, linen ribbon and natural leaf textures. This must be a clearly different second catalogue angle, not a duplicate front view.\nKeep the premium photorealistic florist product photography, warm off-white seamless studio, soft natural left daylight, grounded delicate shadow and crisp real material texture. No people, text, logos, watermark, badges, border or collage. Change camera/pose only; no replacement bouquet or different product.",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v29-01.png",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-e3cbadb3-7cdf-4b68-b8a3-f95cf6184387.png",
+    "path": "public/products/v29-02.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "6c861dcfd279608291391bdd85ea8ade76edf458f8a620657272fe33edc6d405"
+  },
+  {
+    "id": "V30",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square photographic ecommerce catalogue image for Fly to you. Premium photorealistic florist product photography, warm off-white seamless studio surface and background, soft natural daylight from the left, delicate grounded shadow, crisp real petal, leaf, paper and ceramic textures. Main three-quarter front view, entire single product fully in frame occupying 65–75 percent of image, balanced clean composition with breathing room. No people, no logos, no text, no claim badges, no watermark, no collage.\nSubject: One generous florist seasonal rosé mixed bouquet of blush and dusty pink roses, cream lisianthus and restrained eucalyptus foliage. Wrapped in understated warm kraft paper and natural linen ribbon. A real hand-tied bouquet, no vase.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-2bcb69cc-fa75-4be7-9882-fb3f18663b78.png",
+    "path": "public/products/v30-01.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "2cf0b5fb1ed0117de18f81ade544cfebb5a4e79354b89877dbe1992e3bc4670d"
+  },
+  {
+    "id": "V30",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square photographic ecommerce product image for Fly to you. Input image is the edit target and exact product identity reference. Re-photograph this exact rosé mixed bouquet from a higher three-quarter left-side angle, the bouquet gently resting diagonally on the studio surface. Preserve the same blush and dusty rose roses, cream lisianthus, eucalyptus foliage, kraft wrapper and linen ribbon. All of this single bouquet remains within the frame with breathing room. Clearly different second catalogue angle.\nKeep the premium photorealistic florist product photography, warm off-white seamless studio, soft natural left daylight, grounded delicate shadow and crisp real material texture. No people, text, logos, watermark, badges, border or collage. Change camera/pose only; no replacement bouquet or different product.",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v30-01.png",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-e43e5a0c-ff4a-4176-b61a-7e46e82fa0ea.png",
+    "path": "public/products/v30-02.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "ebff6b6d456815db29b5a369aa413b3184bcc2e9dcad83dd9e4e17eed3f9bb8d"
+  },
+  {
+    "id": "V31",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square photographic ecommerce catalogue image for Fly to you. Premium photorealistic florist product photography, warm off-white seamless studio surface and background, soft natural daylight from the left, delicate grounded shadow, crisp real petal, leaf, paper and ceramic textures. Main three-quarter front view, entire single product fully in frame occupying 65–75 percent of image, balanced clean composition with breathing room. No people, no logos, no text, no claim badges, no watermark, no collage.\nSubject: One florist bouquet of exactly five yellow sunflowers with deep brown seed centres and fresh green foliage, long green stems bundled in simple warm kraft paper and tied with a natural linen ribbon. Exactly five sunflower heads clearly visible, no vase.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-301d8baa-b404-4e3f-9ad5-0d987e004241.png",
+    "path": "public/products/v31-01.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "6c5953c160fe14a8e23932e405cffde4f253030f66fbbd753678ad428869db7e"
+  },
+  {
+    "id": "V31",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square photographic ecommerce product image for Fly to you. Input image is the edit target and exact product identity reference. Re-photograph this exact five-sunflower bouquet laid diagonally on the studio surface with camera looking down from above. Keep exactly these five yellow sunflower heads, same green foliage, kraft wrapping and linen ribbon. Show the entire bouquet and wrapped stems, all five heads readable. Clearly different second catalogue angle.\nKeep the premium photorealistic florist product photography, warm off-white seamless studio, soft natural left daylight, grounded delicate shadow and crisp real material texture. No people, text, logos, watermark, badges, border or collage. Change camera/pose only; no replacement bouquet or different product.",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v31-01.png",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-346753c9-dbdd-45a4-9317-344be04b2da0.png",
+    "path": "public/products/v31-02.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "fa150656fe1f3c3a9169732c3ee1a0efd0c9808393d2b0726a1f3461289006c4"
+  },
+  {
+    "id": "V32",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square photographic ecommerce catalogue image for Fly to you. Premium photorealistic florist product photography, warm off-white seamless studio surface and background, soft natural daylight from the left, delicate grounded shadow, crisp real petal, leaf, paper and ceramic textures. Main three-quarter front view, entire single product fully in frame occupying 65–75 percent of image, balanced clean composition with breathing room. No people, no logos, no text, no claim badges, no watermark, no collage.\nSubject: One miniature living Phalaenopsis orchid with two elegant arching flower spikes of vivid soft pink-purple flowers and buds, glossy dark-green basal leaves, a small white matte ceramic cachepot. Genuine small potted plant with realistic thin support stakes; no extra plants or decorations.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-bd614595-9ea4-4d21-8a21-0c1641a2f11e.png",
+    "path": "public/products/v32-01.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "e93d5fc52e866b9bf0af5a6c0157b02c0fe37c9205bbf42d15d2a9fbe10ccdf8"
+  },
+  {
+    "id": "V32",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square photographic ecommerce product image for Fly to you. Input image is the edit target and exact product identity reference. Re-photograph this exact miniature orchid from the right-hand three-quarter angle, camera slightly higher looking gently down into the pot. Preserve the exact same two arching pink-purple flower spikes, blossoms and buds, support stakes, green basal leaves, bark and matte white ceramic cachepot. Whole plant and pot in frame, real distinct second catalogue angle.\nKeep the premium photorealistic florist product photography, warm off-white seamless studio, soft natural left daylight, grounded delicate shadow and crisp real material texture. No people, text, logos, watermark, badges, border or collage. Change camera/pose only; no replacement bouquet or different product.",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v32-01.png",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0a-02ad-7150-a48b-e82abd449090/exec-30453f54-fa15-478f-853e-b927e0aabc3e.png",
+    "path": "public/products/v32-02.png",
+    "status": "generated; visually checked; copied unchanged",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "59967b31cf52172e1523933dcd00b83ae6098a14f50658a754db63f28f3f2014"
+  }
+]

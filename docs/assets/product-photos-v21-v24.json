@@ -1,0 +1,66 @@
+[
+  {
+    "id": "V21",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset: independent square e-commerce product photograph, one image only, not a collage. Subject: One pair of generic wireless over-ear headphones, matte charcoal black oval earcups, soft black vegan-leather cushions, padded gently curved headband, small satin aluminum yokes. No wires, no carrying case. Photograph the whole product in a calm three-quarter front view occupying about 65 percent of the square frame, centered with generous breathing room, entire product visible. Warm off-white seamless studio background and matching tabletop, soft natural daylight from upper left, gentle real contact shadow, physically plausible realistic materials and excellent detail. Professional photographic product listing style, not CGI, not illustration. No brand or retailer logos, no labels, no words, no watermarks, no claims, no frame, no graphic overlay.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-18d3d86d-ef32-4b11-b6d4-b0dd82b34e79.png",
+    "path": "public/products/v21-01.png",
+    "status": "generated; visually checked; saved"
+  },
+  {
+    "id": "V21",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image 1 is the identity reference and edit target for the same unbranded physical product. Create the second standalone square e-commerce product photograph of exactly this product: rear three-quarter view with the same earcups and headband, showing cushion texture and the subtle physical control buttons. Preserve its precise design, materials, proportions, color, sockets, and all physical details from the reference. Same warm off-white seamless studio/tabletop and soft daylight, realistic contact shadow. Distinct alternate camera angle rather than a near duplicate. Entire product should remain recognizable and uncropped with good margins, occupying around 65–75 percent of frame. Photorealistic, physically plausible. One photograph, not collage. No new accessories, no brands, no logos, no words, no watermark or claims.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-10b282d1-50b9-41a5-bbd9-da600faf4cb4.png",
+    "path": "public/products/v21-02.png",
+    "status": "generated with reference; visually checked; saved"
+  },
+  {
+    "id": "V22",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset: independent square e-commerce product photograph, one image only, not a collage. Subject: One portable generic Bluetooth speaker, compact horizontal cylinder with charcoal woven textile grille, dark graphite rubber end caps, small fabric carry loop at the right end and a few understated raised control shapes. No cables. Photograph the whole product in a calm three-quarter front view occupying about 65 percent of the square frame, centered with generous breathing room, entire product visible. Warm off-white seamless studio background and matching tabletop, soft natural daylight from upper left, gentle real contact shadow, physically plausible realistic materials and excellent detail. Professional photographic product listing style, not CGI, not illustration. No brand or retailer logos, no labels, no words, no watermarks, no claims, no frame, no graphic overlay.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-84bc23bf-0e59-47ca-85ad-b52e122a774b.png",
+    "path": "public/products/v22-01.png",
+    "status": "generated; visually checked; saved"
+  },
+  {
+    "id": "V22",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image 1 is the identity reference and edit target for the same unbranded physical product. Create the second standalone square e-commerce product photograph of exactly this product: opposite end three-quarter view with closer emphasis on the woven grille, rubber end cap and small carrying loop. Preserve its precise design, materials, proportions, color, sockets, and all physical details from the reference. Same warm off-white seamless studio/tabletop and soft daylight, realistic contact shadow. Distinct alternate camera angle rather than a near duplicate. Entire product should remain recognizable and uncropped with good margins, occupying around 65–75 percent of frame. Photorealistic, physically plausible. One photograph, not collage. No new accessories, no brands, no logos, no words, no watermark or claims.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-aeccf8ba-21b9-494a-8b25-08e6b7e6f62c.png",
+    "path": "public/products/v22-02.png",
+    "status": "generated with reference; visually checked; saved"
+  },
+  {
+    "id": "V23",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset: independent square e-commerce product photograph, one image only, not a collage. Subject: One generic compact 65 W USB-C wall charger with European two-round-pin plug, soft-square satin warm-white body, exactly one USB-C port centered in the front face, subtle charcoal inner port. No cable and no additional accessories. Photograph the whole product in a calm three-quarter front view occupying about 65 percent of the square frame, centered with generous breathing room, entire product visible. Warm off-white seamless studio background and matching tabletop, soft natural daylight from upper left, gentle real contact shadow, physically plausible realistic materials and excellent detail. Professional photographic product listing style, not CGI, not illustration. No brand or retailer logos, no labels, no words, no watermarks, no claims, no frame, no graphic overlay.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-9b80ae58-3485-4031-876f-5970a501cdc7.png",
+    "path": "public/products/v23-01.png",
+    "status": "generated; visually checked; saved"
+  },
+  {
+    "id": "V23",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image 1 is the identity reference and edit target for the same unbranded physical product. Create the second standalone square e-commerce product photograph of exactly this product: rear-side three-quarter view showing the same European two-round-pin plug and white charger form, a small part of the USB-C front face visible. Preserve its precise design, materials, proportions, color, sockets, and all physical details from the reference. Same warm off-white seamless studio/tabletop and soft daylight, realistic contact shadow. Distinct alternate camera angle rather than a near duplicate. Entire product should remain recognizable and uncropped with good margins, occupying around 65–75 percent of frame. Photorealistic, physically plausible. One photograph, not collage. No new accessories, no brands, no logos, no words, no watermark or claims.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-56469008-ae27-4e97-bebd-7a6856c33cc7.png",
+    "path": "public/products/v23-02.png",
+    "status": "generated with reference; visually checked; saved"
+  },
+  {
+    "id": "V24",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset: independent square e-commerce product photograph, one image only, not a collage. Subject: One generic 10000 mAh USB-C powerbank, palm-size slim rounded rectangular graphite body, fine matte surface, one USB-C socket and four tiny unlit indicator dots along one short edge. No cable and no phone. Photograph the whole product in a calm three-quarter front view occupying about 65 percent of the square frame, centered with generous breathing room, entire product visible. Warm off-white seamless studio background and matching tabletop, soft natural daylight from upper left, gentle real contact shadow, physically plausible realistic materials and excellent detail. Professional photographic product listing style, not CGI, not illustration. No brand or retailer logos, no labels, no words, no watermarks, no claims, no frame, no graphic overlay.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-758eac49-c2a4-4701-8628-00ef70b4ffca.png",
+    "path": "public/products/v24-01.png",
+    "status": "generated; visually checked; saved"
+  },
+  {
+    "id": "V24",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image 1 is the identity reference and edit target for the same unbranded physical product. Create the second standalone square e-commerce product photograph of exactly this product: closer alternate diagonal view of the same powerbank, showing the USB-C edge and tactile matte finish. Preserve its precise design, materials, proportions, color, sockets, and all physical details from the reference. Same warm off-white seamless studio/tabletop and soft daylight, realistic contact shadow. Distinct alternate camera angle rather than a near duplicate. Entire product should remain recognizable and uncropped with good margins, occupying around 65–75 percent of frame. Photorealistic, physically plausible. One photograph, not collage. No new accessories, no brands, no logos, no words, no watermark or claims.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-644c-7943-8cdc-4492765ee787/exec-441a15d0-a9dd-46b3-9191-f3347ce6fe49.png",
+    "path": "public/products/v24-02.png",
+    "status": "generated with reference; visually checked; saved"
+  }
+]

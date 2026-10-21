@@ -1,0 +1,36 @@
+[
+  {
+    "id": "V02",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square ecommerce product photograph for the fictional German Fly to you catalogue. Subject: a single 250 g kraft-paper pouch of whole-bean coffee with a small understated warm cream paper label. Exact small label text: 'Talröstung' and below 'Kaffee'. A few roasted coffee beans beside the pouch, no other objects. No brand logos, certification badges, slogans, watermarks or fake performance claims. Photorealistic premium natural studio photography, warm off-white seamless tabletop and backdrop, soft side daylight, tactile paper folds, authentic beans, delicate natural shadow, restrained quiet colours. Primary view: eye-level three-quarter front, whole upright unopened pouch in frame, centred occupying approximately 65 to 75 percent of the square, ample clear breathing room. Crisp real material texture and believable proportions. One image, no collage, no frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e10-2a4e-7712-9c2d-115615b781cb/exec-309ee8de-77e4-40f2-a853-6aac32b36a29.png",
+    "path": "public/products/v02-01.png",
+    "status": "generated, visually inspected, copied unchanged"
+  },
+  {
+    "id": "V02",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square ecommerce product photograph. Input image is the edit target and identity reference. Preserve exactly this same kraft-paper coffee pouch, cream label, paper texture, sealing folds, package proportions, the exact words 'Talröstung' and 'Kaffee', and the same warm off-white studio setting. Create a genuinely different second catalogue view: photograph from a clearly higher, approximately 40-degree overhead front-right camera angle, with the pouch gently rotated so its opposite side and upper seal are now visible; the whole pouch remains in frame, centred and about 65–75 percent of the square, with a few of the same roasted beans nearby. The product is the same item, not a redesign or alternative package. Soft natural side daylight, realistic texture, premium photorealistic catalogue photograph. Change camera view and pose only; do not add branding, badges, claims, watermarks, graphics, extra products or captions. One photograph, no collage.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e10-2a4e-7712-9c2d-115615b781cb/exec-e5685dde-f21d-4268-9a79-0956b4c59678.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v02-01.png",
+    "path": "public/products/v02-02.png",
+    "status": "generated as reference edit, visually inspected, copied unchanged"
+  },
+  {
+    "id": "V06",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square ecommerce product photograph for the fictional German Fly to you catalogue. Subject: a single small sage-green matte paper retail box of herbal tea containing 20 tea bags, with a restrained warm cream label. Exact small label text: 'Abendruhe' and below 'Kräutertee'. One or two unbranded natural paper tea sachets placed neatly beside the box, no cup and no other product. No brand logos, certification badges, slogans, watermarks or health claims. Photorealistic premium natural studio photography, warm off-white seamless tabletop and backdrop, soft side daylight, tactile paper texture, delicate natural shadow, restrained quiet colours. Primary view: eye-level three-quarter front, entire closed tea box and sachets in frame, centred occupying approximately 65 to 75 percent of the square, ample breathing room. Crisp material detail and believable proportions. One image, no collage, no frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e10-2a4e-7712-9c2d-115615b781cb/exec-8cb5b5cf-41c3-441d-ad61-5ef15b98495e.png",
+    "path": "public/products/v06-01.png",
+    "status": "generated, visually inspected, copied unchanged"
+  },
+  {
+    "id": "V06",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second square ecommerce product photograph. Input image is the edit target and exact product identity reference. Keep precisely the same sage-green herbal tea paper box with its illustrated botanical pattern, cream label, exact text 'Abendruhe' and 'Kräutertee', physical shape, colours and textures. Same two natural paper tea sachets. Create a clearly different second view by photographing the same box from a high overhead front-right angle, the box lying gently on its rear panel on the same warm off-white seamless studio surface, rotated diagonally, so its front label and top/side construction are visible. Entire box and sachets remain inside the frame, product occupies about 65–75 percent, comfortable clear margin. Soft side daylight and delicate natural shadows, photorealistic professional catalogue photograph. This is the same actual product seen from another view, no packaging redesign. No brand logos, badges, health claims, watermarks, marketing captions or extra props. One photo, no collage.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e10-2a4e-7712-9c2d-115615b781cb/exec-a7f22779-c14b-468e-9c04-c71336595e9e.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v06-01.png",
+    "path": "public/products/v06-02.png",
+    "status": "generated as reference edit, visually inspected, copied unchanged"
+  }
+]

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "category": "Lebensmittel",
+  "createdAt": "2026-10-21",
+  "generator": "Built-in image_gen.imagegen",
+  "status": "generated-and-visually-inspected",
+  "originalsPreserved": true,
+  "note": "KI-generierte Produktvisualisierungen für fiktive Demo-Angebote. Abgebildete Mengen sind illustrativ; keine tatsächlichen Warenfotos, Bio-Zertifizierung oder Gewichtsnachweise. WebP-Optimierung und App-Integration erfolgen separat.",
+  "images": [
+    {
+      "variantId": "V33",
+      "productName": "Bio Äpfel",
+      "catalogUnit": "1 kg · feste Packung",
+      "view": 1,
+      "file": "public/products/v33-01.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-1aa43684-d25a-44d0-ad12-08402c413acd.png",
+      "reference": null,
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nSubject: one complete open shallow kraft-paper produce tray containing six medium apples, naturally red and yellow-green, arranged as one fixed one-kilogram shop package. Plain unprinted kraft tray, apples have healthy natural mottled skins and stems. Camera: front three-quarter angle slightly elevated, entire tray and all apples stay within frame.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2250645,
+      "sha256": "ed6838b4bc72bc9df875fd912c476f1c404440fdd5acf9e7262ef78d13cc80f4"
+    },
+    {
+      "variantId": "V33",
+      "productName": "Bio Äpfel",
+      "catalogUnit": "1 kg · feste Packung",
+      "view": 2,
+      "file": "public/products/v33-02.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-927f152f-bfce-47dd-95dd-b49ebb9d5a3c.png",
+      "reference": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-1aa43684-d25a-44d0-ad12-08402c413acd.png",
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nInput image 1: reference photograph of the exact fictional product whose identity must be preserved.\nPrimary request: generate its second genuine product photograph, with a different camera angle, not a collage.\nKeep precisely the same shallow kraft tray and six red/yellow-green apples, with their skin patterns and arrangement. Change only camera angle to a clean elevated near-overhead view, showing the entire tray and all six apples, with matching warm off-white surface.\nPreserve product identity, pack materials, lighting direction, background color and photorealistic catalog style. Both photos must clearly describe the same shop item. No printed text, certification, brand, claim or watermark.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2233178,
+      "sha256": "ba746d48f82d4217a0f8c46bd7ff8d8c1117b3fdec8fdd9ff3bef9a87c970275"
+    },
+    {
+      "variantId": "V34",
+      "productName": "Bananen",
+      "catalogUnit": "1 kg · feste Packung",
+      "view": 1,
+      "file": "public/products/v34-01.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-73699aab-7307-41b8-8e74-67fcfbca4fb9.png",
+      "reference": null,
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nSubject: one fixed one-kilogram package of fresh bananas: a natural joined bunch of six golden-yellow bananas with faint green at the stems, encircled at the base by a small completely blank natural kraft paper band. No tray or bowl. Camera: front three-quarter angle slightly elevated, the entire banana bunch and paper band visible.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 1926255,
+      "sha256": "85f32d4cd6ea85d6445f8e5f157d03529743d71f96a7ef08d50f19b26edf9e54"
+    },
+    {
+      "variantId": "V34",
+      "productName": "Bananen",
+      "catalogUnit": "1 kg · feste Packung",
+      "view": 2,
+      "file": "public/products/v34-02.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-04c6ec7b-45c7-4c0e-9388-60f119f8fdd3.png",
+      "reference": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-73699aab-7307-41b8-8e74-67fcfbca4fb9.png",
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nInput image 1: reference photograph of the exact fictional product whose identity must be preserved.\nPrimary request: generate its second genuine product photograph, with a different camera angle, not a collage.\nKeep the same joined bunch of six bananas, golden-yellow ripeness, green stems and blank kraft paper band. Change only camera to a distinctly more elevated opposite three-quarter view, entire banana bunch visible including all tips, paper band still present.\nPreserve product identity, pack materials, lighting direction, background color and photorealistic catalog style. Both photos must clearly describe the same shop item. No printed text, certification, brand, claim or watermark.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 1959359,
+      "sha256": "c44384ae03a363dfc0ffa5faf906100b734249987f51ae6b18ffaf5223870831"
+    },
+    {
+      "variantId": "V35",
+      "productName": "Sauerteigbrot",
+      "catalogUnit": "500 g · ein Laib",
+      "view": 1,
+      "file": "public/products/v35-01.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-419b004b-045a-48d3-9da3-3441ce3fdb7e.png",
+      "reference": null,
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nSubject: one complete compact oval 500-gram sourdough bread loaf with deep golden brown rustic crackled crust, a single clean curved scoring line, lightly dusted flour; intact unsliced loaf. No cutting board, plate, wrapping, knife or scattered crumbs. Camera: front three-quarter angle slightly elevated, full loaf visible.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2693669,
+      "sha256": "d15a554c69e9fca58952463aeb8f0b13c804fd239c7f08a9bf36ffcdde97cb0e"
+    },
+    {
+      "variantId": "V35",
+      "productName": "Sauerteigbrot",
+      "catalogUnit": "500 g · ein Laib",
+      "view": 2,
+      "file": "public/products/v35-02.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-6fe325c7-751b-4b64-9fa2-e01f1a35c9a6.png",
+      "reference": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-419b004b-045a-48d3-9da3-3441ce3fdb7e.png",
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nInput image 1: reference photograph of the exact fictional product whose identity must be preserved.\nPrimary request: generate its second genuine product photograph, with a different camera angle, not a collage.\nKeep exactly the same whole oval sourdough loaf, crust texture, flour dusting and scoring. Change only camera to an elevated near-overhead view from the opposite side, entire unsliced loaf fully visible; do not add slices, props or crumbs.\nPreserve product identity, pack materials, lighting direction, background color and photorealistic catalog style. Both photos must clearly describe the same shop item. No printed text, certification, brand, claim or watermark.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2809205,
+      "sha256": "99519d66b68a09e1a84572052c55f02534d650413d43a799b2dfd009fa3e1482"
+    },
+    {
+      "variantId": "V36",
+      "productName": "Cherry-Tomaten",
+      "catalogUnit": "250 g · Schale",
+      "view": 1,
+      "file": "public/products/v36-01.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-faf55d6f-3659-492d-bb8b-1424f1cc1e17.png",
+      "reference": null,
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nSubject: one complete shallow transparent recyclable-style produce punnet holding a fixed 250-gram portion of glossy small red cherry tomatoes, some with tiny fresh green calyxes. Open clear rigid punnet, unprinted and no lid, about fourteen cherry tomatoes, natural size variation. Camera: front three-quarter angle slightly elevated, entire punnet visible.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2080445,
+      "sha256": "35add897f4f90d7f37ba0bb1fe1b78ed075478f5c89a448a9c331aa9b5d63ccc"
+    },
+    {
+      "variantId": "V36",
+      "productName": "Cherry-Tomaten",
+      "catalogUnit": "250 g · Schale",
+      "view": 2,
+      "file": "public/products/v36-02.png",
+      "original": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-9c66d833-88be-4ee4-8938-66b781e6701f.png",
+      "reference": "/Users/jannik/.codex/generated_images/01a15de7-ec1c-7f32-b240-5be7ac1aae67/exec-faf55d6f-3659-492d-bb8b-1424f1cc1e17.png",
+      "prompt": "Use case: product-mockup\nAsset type: square e-commerce product photograph for a German fictional local grocery demo.\nScene/backdrop: seamless warm off-white studio surface and background, very subtle natural contact shadow.\nStyle/medium: highly photorealistic professional shop photography, real material detail, no illustration or 3D render.\nComposition/framing: square 1:1 composition, product centered, complete product visible with generous breathing room and clean silhouette; one photograph only.\nLighting/mood: soft large studio light from upper left, natural gentle contrast.\nConstraints: no brand names, no labels, no printed words, no organic certification emblem, no claims, no watermark; no people or hands; no unrelated props; no collage or multi-panel layout.\nInput image 1: reference photograph of the exact fictional product whose identity must be preserved.\nPrimary request: generate its second genuine product photograph, with a different camera angle, not a collage.\nKeep the same transparent open punnet and same red cherry tomatoes, green calyx details and fill level. Change only camera to a distinctly more overhead view, entire rectangular punnet and its rim fully visible, no additional tomatoes outside.\nPreserve product identity, pack materials, lighting direction, background color and photorealistic catalog style. Both photos must clearly describe the same shop item. No printed text, certification, brand, claim or watermark.",
+      "visualChecks": [
+        "complete product visible",
+        "consistent product across two views",
+        "photorealistic warm off-white studio",
+        "no brands, claims, text or watermark"
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sizeBytes": 2124086,
+      "sha256": "75f34e3e129dab101f1ba1b8454d23721fdb0d2a76513656f15e53a7eab81813"
+    }
+  ]
+}

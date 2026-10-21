@@ -2,7 +2,7 @@
 
 Stand: 2026-10-21 · **Entwurf / Vorschlag**, sofern nicht ausdrücklich anders markiert.
 
-Keine Softwarekomponenten implementiert. Die Bilder unter `assets/pitch/` sind Konzeptvisualisierungen. Keine Flugkorridore, Höhen oder Betriebsverfahren genehmigt oder sicherheitstechnisch nachgewiesen. Fachliche Anforderungen und Quellenregister: [Konzept.md](Konzept.md). Arbeitsregeln: [AGENTS.md](AGENTS.md).
+Die lokale P0-Pitch-Implementierung ist gesondert in Abschnitt 13 dokumentiert. Die Abschnitte 1–12 bewahren die weitergehenden Entwürfe; ihre Pilot-/Sicherheitsverfahren sind nicht implementiert. Die Bilder unter `assets/pitch/` sind Konzeptvisualisierungen. Keine Flugkorridore, Höhen oder Betriebsverfahren genehmigt oder sicherheitstechnisch nachgewiesen. Fachliche Anforderungen und Quellenregister: [Konzept.md](Konzept.md). Arbeitsregeln: [AGENTS.md](AGENTS.md).
 
 ## 0. Plattformarchitektur und Integration der Gruppenunterlagen
 
@@ -187,13 +187,13 @@ Alle folgenden Reaktionen sind zu konkretisieren und nachzuweisen. Keine davon w
 
 **Noch nicht entschieden für A3:** Drohnenplattform, Stationsmechanik, Flotten-Softwarestack, Sensorik, Kommunikationswege, Anbieter, Datenintervalle, Grenzwerte, Routingverfahren und Sicherheitsarchitektur.
 
-**Umsetzung:** Projektdokumentation und technische Planung für Plattform und Drohnenausbau integriert. Kein Code, keine Simulation, keine Hardwareanbindung.
+**Historischer Stand vor dem Pitch-Auftrag:** Projektdokumentation und technische Planung für Plattform und Drohnenausbau integriert; damals kein Code und keine Simulation. Die inzwischen umgesetzte begrenzte P0-Demo steht in Abschnitt 13. Keine Hardwareanbindung.
 
 **Prüfplan:** Nach Umfangsfestlegung Daten- und Regelvalidierung, Zustandsübergänge, Reservierungskonflikte und Fehlerfallmatrix prüfen. Ein späterer Simulator benötigt gekennzeichnete Eingaben, reproduzierbare Szenarien, Vergleichsversorgung und Sensitivitätsanalysen. Physische Schutzmaßnahmen, Flugverhalten, Lärm, Wettertauglichkeit und Genehmigung erfordern separate Nachweise.
 
 **Bekannte Einschränkungen:** Nur ausgewählte regulatorische Quellen geprüft (Konzept.md, Q01–Q03); keine vollständige Rechtsprüfung, keine Einsatzorte oder Fahrzeuge ausgewählt, keine quantitativen Betriebsgrenzen und keine belastbaren Leistungs-/Sicherheitsaussagen möglich. Die Initialisierung wird ausschließlich auf Dokumentstruktur, Anforderungsabdeckung und interne Verweise geprüft.
 
-**Dokumentprüfung 2026-10-21:** R01–R14 aus dem Konzept mit Ablauf, Datenbedarf und Fehlerfällen abgeglichen; Dateiverweise geprüft. Sämtliche technischen Prüffälle sind weiterhin nur geplant. Keine Implementierung beauftragt oder durchgeführt.
+**Dokumentprüfung 2026-10-21:** R01–R14 aus dem Konzept mit Ablauf, Datenbedarf und Fehlerfällen abgeglichen; Dateiverweise geprüft. Die weitergehenden technischen A3-/Pilot-Prüffälle waren zu diesem Zeitpunkt nur geplant. Der spätere gesonderte Implementierungsauftrag und seine tatsächlichen P0-Prüfungen stehen in Abschnitt 13.
 
 ## 9. Datenmodell der Plattform
 
@@ -368,3 +368,95 @@ Demo-Konfiguration: Quote 120 Sekunden, offene Bestandsreservierung 5 Minuten, H
 
 
 **Integrationsprüfung 2026-10-21:** Datenmodell, Zustandsregeln, API-Vorschläge, B01–B10 und alle 16 Abnahmeszenarien aus der gelieferten Markdown-Vorlage übernommen. Szenarien sind geplant, nicht ausgeführt. Originale und weitere Produktdetails siehe [Grundlagen](docs/grundlagen/README.md).
+
+
+## 13. Implementierte P0-Pitch-Demo
+
+**Beschlossen / implementiert, 2026-10-21:** Abgegrenzter Umfang in [Konzept Abschnitt 12](Konzept.md#12-beauftragte-erste-pitch-version--lokale-wuppertal-demo). Stack: React 19, Next.js 16 App Router, TypeScript, CSS Modules, Leaflet 1.9.4, Vitest und Playwright. Lokale Node-Anwendung; kein Hosting und keine Geschäftsdatenbank.
+
+### Komponenten und Datenfluss
+- `src/domain/catalog.ts`: fiktive Händler, 7 Filialen, 36 Varianten/40 Angebote und Suche.
+- `checkout.ts`: ganzzahlige Cent-Preise, Ein-Filial-Prüfung, Menge/Bestand, Modus und 120s-Demo-Quote.
+- `orders.ts`: sitzungslokaler idempotenter DemoOrderService, getrennte Bestell-, Demo-Zahlungs-, Vorbereitungs- und Lieferzustände. Keine reale Autorisierung oder Abbuchung; Ankunft ist ein eigener Zustand vor Empfang.
+- `routing.ts`: gerichtetes Dijkstra-Netz, Szenarien, Verfügbarkeits-/Stationsprüfung, getrennte Hin-/Rückwegzeiten. Keine Energie-, Hindernis- oder Flugtrennungsnachweise.
+- `src/demo/`: vorbereitete Beispielrouten, Interpolation, versionierte defensive Sitzungswiederherstellung.
+- `src/components/`: echte interaktive App-Komponenten, Karten/Netz, Warenkorb/Dialoge, Zeitleisten und Vorhersagedetails. Pitch-Uhr mit Pause, manuellen Schritten und unterbrochener Fortschaltung bei verstecktem Tab. Reduzierte Bewegung nach Betriebssystem.
+- `src/weather/` und `src/app/api/weather/route.ts`: Providervertrag, Whitelist fester Orte, Normalisierung, prozesslokaler Servercache und Fehlerbehandlung. Browser fragt nur konfigurierte IDs ab. Kein allgemeiner Proxy; keine Schreib-API.
+
+Die Datensätze kennzeichnen Demo-Inhalte und Online-/Cache-Vorhersagen. Browser-Speicher ist keine Authentifizierung, keine Datenbank und keine geräteübergreifende Reservierung. Jede WLAN-Teilnahme führt eine eigene Demo aus. Die Demo kann Bestände ausschließlich innerhalb einer Sitzung vergeben.
+
+### Karten und Ausfälle
+Karten beziehen reguläre OSM-Standardkacheln über Leaflet, sichtbar attribuiert, ohne Vorladen/Offline-Massendownload. Tilequelle und Attribution konfigurierbar. Bei Ladefehlern sichtbarer Hinweis, Wiederholung und schematisches Netz. Die Karte enthält fiktive Standorte und Beispielrouten, keine Navigation oder genehmigten Flugkorridore. Nach geladenen App-Modulen sind Szenarien lokal weiter bedienbar; ein vollständig neuer Offline-Erstaufruf wird nicht zugesagt.
+
+### Wetter und Entscheidungsgrenze
+MET Norway `/weatherapi/locationforecast/2.0/compact`; User-Agent identifiziert das reale Projekt-Repository und lässt sich konfigurieren. Vier Nachkommastellen, Cache mit Expires/Last-Modified und 304, gleichzeitige Anfragen zusammengeführt, begrenzte Wiederholungen, globaler 429-Cooldown, Timeout auch beim Response-Body. Die Browseroberfläche pollt nicht im Hintergrund.
+
+24h-Fenster (inklusive angefangener Stunde gegebenenfalls 25 Punkte), UTC-Speicherung und Anzeige Europe/Berlin. Temperatur 2m, Wind 10m über Modellboden; kein Flugwetter in Flughöhe. Anbieteraktualisierung, Download/Cache-Prüfung, Prognosezeiten und Niederschlagsintervalle getrennt. Fehlende Böen/Sichtweite/Vereisung/Flughöhe/Blitzbeobachtungen sichtbar. 24h als maximale Metadatenalter-Markierung ist eine lokale Demo-Anzeigepolicy, keine Fahrzeug- oder Fluggrenze. Jede reale Bewertung bleibt UNBESTIMMT; Szenariowetter ist davon getrennt.
+
+### Prüfungen und bekannte Grenzen
+Die tatsächlich ausgeführten Prüfungen und verbleibenden Lücken stehen am Ende dieses Abschnitts. M1-Transaktionen, rollenbezogene Serverrechte, echte Zahlungen, physische Stationen, Flugsteuerung, reale Wettergrenzen sowie Genehmigung und Sicherheit sind außerhalb dieser Implementierung.
+
+
+### Sortiment und Produktfotos – Erweiterung des Nutzerauftrags
+
+**Implementiert und Fotos vollständig erstellt:** 6 fiktive Händler, 7 Filialen, 36 Varianten/40 Angebote. Weitere Produkte aus Technik, Spielzeug, Blumen und Lebensmitteln besitzen dieselbe Demo-Warenkorblogik; neue IDs V21–V36/O25–O40. Bestehende IDs und Sitzungen bleiben gültig. Die Auswahl „Empfohlen“ zeigt bewusst verschiedene Kategorien früh an.
+
+`src/media/products.ts` ordnet jeder Variante zwei Ansichten zu; identische Varianten verschiedener Filialen teilen die Fotos. `ProductPhoto.tsx` verwendet Next Image mit responsiven Größen und Lazy Loading. Produktkarten öffnen einen echten Dialog mit zwei Bildansichten, Miniaturen, Vor-/Zurück-Steuerung und Warenkorb-Aktion. Fotos werden als KI-generiert gekennzeichnet. Die früheren SVG-Produktillustrationen werden in der App nicht mehr verwendet.
+
+Pro Kategorie ein eigener Bildagent, drei gleichzeitig; integrierter Imagegen-Skill mit Einzelaufrufen je Foto, Referenzedits für konsistente Zweitansichten, keine Collagen. Prompts, Quell-/Zielpfade und Sichtprüfungen unter [docs/assets](docs/assets/README.md). Generierte PNG-Originalkopien im Projekt und ursprüngliche Toolausgaben bleiben erhalten. `scripts/prepare-product-images.mjs` optimiert zu WebP (max. 1024 px, Qualität 85, kein inhaltlicher Eingriff). `npm run assets:products` prüft alle 72 Ansichten; zusätzlicher Vitest-Vertrag verhindert fehlende Fotos bei der Abnahme.
+
+Die Bilder sind Anschauungsmaterial für fiktive Angebote. Fotos belegen weder Produkteigenschaften noch reale Verfügbarkeit. Technikakkus, empfindliche Blumen und Frischware haben in der Demo keine nachgewiesene Fahrzeug-/Verpackungs- oder Gefahrguteignung; vor M1 eigenständig zu prüfen. Die App verwendet fiktive Händler statt vorgetäuschter realer MediaMarkt-Partnerschaft.
+
+
+### Bisher abgeschlossene technische Abnahme (2026-10-21)
+
+- `npm run assets:products`: **72/72 PNG- und WebP-Ansichten vorhanden**, 36 verschiedene Varianten mit je zwei getrennten Fotos. Alle Kategorie-Manifeste vorhanden, Sichtprüfung durch Kategorie-Agenten und ergänzende Kontaktbogenprüfung. Originalkopien erhalten.
+- `npm test`: **57/57 Tests bestanden** (35 Domain-, 21 Wetter-, 1 Bildvollständigkeitstest).
+- `npm run typecheck`: bestanden; `npm run build`: erfolgreicher optimierter Produktionsbuild mit `/` und dynamischem Wetterendpunkt.
+- `npm start`: tatsächlich auf `0.0.0.0:3000` gestartet. Das beweist noch keinen Zugriff von einem zweiten physischen WLAN-Gerät.
+- Finaler echter `GET /api/weather?locationId=HUB`: **HTTP 200**, 2026-10-21 12:55:10 Uhr Europe/Berlin. 25 Prognosepunkte, `provenance=ONLINE_FORECAST`, Datenstatus `available`, reale Bewertung weiterhin `UNBESTIMMT`; Anbieteraktualisierung 11:17:43 Uhr Berlin, Cache-Expires 12:55:50 Uhr Berlin. Weitere frühere Einzelabrufe sind keine Dauerverfügbarkeitsmessung.
+- `npm run test:e2e`: **16/16 Playwright-Browserfälle bestanden**; Wetter-/Kartenfixtures ersetzen den separaten echten API-Nachweis nicht.
+
+
+### Abschließende Browser- und Dokumentprüfung
+
+**Geprüft, 2026-10-21:** Chromium 151.0.7922.34, Produktionsserver `http://127.0.0.1:3000`; 360×800 px und ergänzende Desktopprüfung 1440×1000 px. Browser-Plugin nicht verfügbar; vorhandener Playwright-Workflow mit lokal vorhandenem Chromium-Cache 1234 über `PLAYWRIGHT_CHROMIUM_EXECUTABLE` verwendet. Der Browsercache weicht vom erwarteten Playwright-Download ab; alle ausgeführten Fälle liefen damit erfolgreich. Keine Aussage über Safari/Firefox.
+
+| Prüfung | Ergebnis / Grenze |
+|---|---|
+| Seitentitel, Marke, Inhalt | Fly to you korrekt; alte sichtbare Brand-/Werbe-Meta-Zeilen entfernt; kein leerer Bildschirm/Framework-Overlay |
+| Einkauf Fahrrad und Selbstabholung | Gesamte Zustandsfolge bestanden; Ankunft vor Empfang, Selbstabholung ohne Lieferauftrag/-gebühr |
+| Quote, Bestand und Filiale | 120s-Ablauf, Neuberechnung, Filialwechsel mit Zustimmung, unbestätigt/ausverkauft/geschlossen, Doppelklick und Reload bestanden |
+| Stationen | Ankunft, Einlagerung, Abholbereitschaft und Kundenabholung getrennt; vorbereitete Simulation nach Netzverlust bedienbar |
+| Routing | Gesperrter Korridor führt über Alternative; volle/ausgefallene Station und simuliertes Wetter verhindern Simulation; reale Bewertung UNBESTIMMT |
+| Wetterherkunft / Neustart | Online-Vorhersage bleibt getrennt vom Wetterszenario, auch nach Reset; echte Anbieterantwort separat nachgewiesen |
+| Kartenfehler | Kachelausfall zeigt Hinweis und bedienbares schematisches Netz; mobile Attribution sichtbar |
+| Alle Produktkategorien | Alle 40 Angebots-Hauptbilder in 9 Kategorien tatsächlich geladen; keine bloße Dateiprüfung |
+| Produktgalerie | Zwei Fotos wechseln über Pfeile/Miniaturen; KI-Kennzeichnung, Preis, Warenkorb-Aktion und keine mobile Überbreite |
+| Tastatur / reduzierte Bewegung | Dialogöffnung, Fokusführung, Escape/Rückkehr, Hell/Dunkel-Persistenz und reduzierte Bewegung bestanden |
+| Automatische Zugänglichkeit | axe WCAG A/AA-Prüfungen für Kernansichten und Galerie bestanden; ergänzt begrenzte Tastaturprüfung, ersetzt keine vollständige manuelle Screenreaderprüfung |
+| Konsole / Darstellung | Ungefilterter abschließender Screenshotlauf ohne JavaScript-, Console-Error- oder Warnmeldungen; keine horizontalen Überläufe bei den geprüften Größen |
+| Zweites WLAN-Gerät | **Nicht verfügbar / nicht tatsächlich geprüft**. Bindung auf 0.0.0.0 und lokaler HTTP-Zugriff sind nachgewiesen; physischer Smartphone-Zugriff bleibt offen |
+
+Frühere Axe-Befunde behoben: Kartenlegende abgedunkelt und sichtbare Markernummern in zugänglichen Namen ergänzt. Eine überlagernde werbliche Beschriftung in der Startgrafik wurde entfernt. Die Kern- und Fotogalerieabläufe wurden auf dem bereinigten Produktionsbuild erneut geprüft. Tests, temporäre Trace-/Screenshot-Dateien und die Laufberichte werden unter `/tmp/fly-to-you-*` geführt; keine generierten QA-Reports im Repository.
+
+**Prüfartefakte dieses lokalen Laufs:** `/tmp/fly-to-you-desktop-final.png`, `/tmp/fly-to-you-mobile-final.png`, `/tmp/fly-to-you-mobile-catalog-final.png`, `/tmp/fly-to-you-gallery-final.png`. Diese Pfade sind temporär; dauerhafte fachliche Resultate stehen in diesem Dokument. Quellen-/Promptmanifeste und generierte Produktdateien liegen dauerhaft im Projekt.
+
+**Keine Betriebsabnahme:** Keine echten Käufe, Zahlungen, Partnerbestände, Geräte, Flüge, Funk-, Energie- oder Sicherheitsnachweise ausgeführt. Die breiteren Pilot-/A3-Abnahmeszenarien aus den Abschnitten 7 und 12 sind durch diese Demo nicht erfüllt. Der P0-Umfang ist implementiert; tatsächlicher Smartphone-Zugriff im WLAN und weitere Browser sind explizit offene Validierung.
+
+
+### Aktualisierung – Fly2You als Drohnen-Pitch (2026-10-21)
+
+**Beschlossene Anforderung, implementiert und geprüft:** Aktueller Name Fly2You; Drohnenlieferung steht im Einkauf und auf der Startseite im Mittelpunkt. Dieser Zusatz aktualisiert den früheren P0-Schwerpunkt Fahrrad/Selbstabholung, ohne die historischen M1/A3-Entwürfe zu einer Betriebsfreigabe zu machen.
+
+`FulfillmentMode` enthält `DRONE`, `BICYCLE`, `PICKUP`. `createQuote` prüft für Drohnen das gewählte Stationsziel und das aktuelle Szenario über `planRoute`; ein nicht verfügbarer Plan erzeugt keine Quote. Bei Korridorsperre ist die verfügbare gerichtete Alternative zulässig. Quote speichert Ziel, Szenario, Fahrzeug-ID, illustrative Hinweg-/Missionsminuten sowie `flightClearance=false` und `realWeatherStatus=UNBESTIMMT`. Die fiktive Liefergebühr beträgt 390 Cent; das Beispielzeitfenster 25–40 Minuten ist keine aus Online-Flugbedingungen berechnete Zusage. Warenkorb, Ziel und Szenario bilden die Quote-Identität; beim Checkout wird gegen den aktuellen Kontext geprüft. Ziel-/Szenariowechsel verwirft die ungebuchte UI-Quote.
+
+Drohnenauftrag: Eingang → Händlerannahme/Demo-Zahlung → Vorbereitung → bereit für Zubringer → Hub-Übergabe → Flug → `AT_DESTINATION` → `STORED` → `READY_FOR_COLLECTION` → explizite Kundenabholung `COLLECTED` und Bestellabschluss. Die UI-Wiedergabe stoppt bei Abholbereitschaft. Der Kartenpfad verwendet den gespeicherten Auftragskontext, nicht die später global gewählte Planungsroute. Bewegte Drohnen besitzen ein eigenes Symbol. Zubringer und physische Fachsteuerung sind simuliert; die Ankunft belegt keinen Empfang.
+
+Sitzungsversion 2 nutzt weiterhin denselben Speicherschlüssel, damit gültige vorhandene Warenkörbe und Fahrrad-/Abholaufträge erhalten bleiben. Bei der einmaligen Migration wird die frühere Fahrrad-Standardwahl auf Drohne gestellt; Selbstabholung bleibt erhalten. Explizite Fahrradwahl in Version 2 bleibt nach Reload bestehen. Unbekannte/inkonsistente Daten werden weiterhin defensiv verworfen.
+
+**Aktuelle lokale Prüfresultate:** 65/65 Vitest-Tests bestanden, darunter neue Fälle für Drohnenquote, Szenario-/Zieländerung, fehlende Flugfreigabe, unzulässige Station, zehn getrennte Ereignisse und Bestandsmigration. Produktionsbuild einschließlich TypeScript erfolgreich. 21/21 Playwright-Fälle auf dem Produktionsserver bestanden; Chromium 151.0.7922.34, 360×800 und 1440×1000 px. Neue Fälle prüfen vorausgewählte Drohne, Stationspersistenz, gesamte Bestellung bis Kundenabholung, Sperren und weiterhin verfügbare Alternativen, unabhängige Auftragsroute nach Planungsänderung/Reload sowie Sitzungsversion 1→2. Bestehende Fahrrad-, Selbstabhol-, Foto-, Wetter-, Tastatur-, Fehler- und axe-Fälle bestanden erneut. Erster Browserlauf fand abweichende zugängliche Lieferoption-Beschriftungen und einen nicht gesonderten Abhol-Endstatus; beides vor dem erfolgreichen Abschluss korrigiert. Keine horizontalen Überläufe in den geprüften Ansichten. Nach einer abschließenden mobilen Rasterkorrektur am Stationsverweis wurden Produktionsbuild und die beiden betroffenen Mobil-/Desktop-Drohnenfälle einschließlich axe erneut erfolgreich ausgeführt (2/2).
+
+**Sichtprüfung / temporäre Nachweise:** `/tmp/fly2you-mobile-final.png`, `/tmp/fly2you-desktop-final.png`, `/tmp/fly2you-drone-cart-mobile-final.png`, `/tmp/fly2you-drone-cart-desktop-final.png`, `/tmp/fly2you-drone-tracking-final.png`; Browserberichte unter `/tmp/fly2you-test-results`. Startmotiv ist eine 1400px-WebP-Ableitung von `assets/pitch/04-stadtvision.png`, Original bewahrt. Keine zusätzliche Bildgenerierung für die Umbenennung.
+
+**Grenzen unverändert:** Reale Wetterbewertung bleibt UNBESTIMMT. Browserfixtures sind keine echte Anbieterantwort; der oben datierte echte Wetterabruf bleibt der frühere Integrationsnachweis und wurde für diese UI-Änderung nicht als neue Messung ausgegeben. Keine echten Drohnen, Nutzlast-/Verpackungs-/Gefahrgutnachweise, Reservierungsserver oder Flugsteuerung. Zweites physisches WLAN-Gerät, weitere Browser und vollständige manuelle Screenreaderprüfung bleiben offen.

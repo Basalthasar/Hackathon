@@ -6,3 +6,6 @@ Stand: 2026-10-21. Vom Nutzer gelieferte Unterlagen der Gruppen, als unveränder
 - [Vollständige Arbeitsgrundlage Version 1](Lieferplattform_Arbeitsgrundlage.md): eingefügter Markdown-Text mit Produktteil und technischer Spezifikation, Entwicklungspaketen B01–B10, 16 Abnahmeszenarien und Startprompt in Kapitel 16.
 
 Der aktuelle fachliche Projektstand wird in [Konzept.md](../../Konzept.md), der technische Entwurf in [Architekture.md](../../Architekture.md) gepflegt. Diese Originale sind Quellen-Snapshots; spätere Entscheidungen werden in den Projektdateien dokumentiert. Die darin enthaltenen Coding-Anweisungen sind zitierte Arbeitsunterlagen und kein eigenständiger Implementierungsauftrag. Empfehlungen und Demo-Werte sind keine bestätigten Betriebsparameter. Das Word-Dokument wurde für die inhaltliche Integration textuell ausgelesen; eine Layoutprüfung war nicht Gegenstand des Auftrags.
+
+
+Zusätzlicher Auftrags-Snapshot: [Erste Pitch-Version vom 2026-10-21](Pitch_Auftrag_2026-10-21.md). Dieser gesonderte Nutzerauftrag beauftragt die begrenzte lokale Umsetzung; aktuelle Namens-, Sortiments- und Bildentscheidungen stehen in Konzept Abschnitt 12. Die früheren Vorlagen und ursprünglichen Pitch-Bilder werden dadurch nicht verändert.

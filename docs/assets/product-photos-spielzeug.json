@@ -1,0 +1,66 @@
+[
+  {
+    "id": "V25",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: individual square catalogue product photograph for fictional German shopping app Fly to you. Photorealistic premium ecommerce studio photography, warm off-white seamless tabletop and background, soft diffused window daylight from upper left, realistic tactile material, delicate natural shadows, a complete product centered and occupying about 70 percent of the frame, three-quarter front view. No collage, no split panels, no frame, no watermarks, no actual brand logo, no promotional text or safety claims. Subject: A complete set of forty simple wooden building blocks arranged in a low attractive grouping: cylinders, cubes, arches and triangular prisms, natural beech and tasteful muted red, blue, ochre and sage paint. Visible natural wood grain, rounded physical edges, a small plain cotton drawstring storage bag behind the grouping. No package text. Product is a small toy block set, not furniture. The blocks remain recognizable discrete solid objects.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-e6cd80c6-88e0-4e27-b64c-68ac3c5bbe36.png",
+    "path": "public/products/v25-01.png",
+    "status": "generated and visually inspected"
+  },
+  {
+    "id": "V25",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second individual square product photograph. Input image 1 is the edit target and product identity reference. Change only the camera and arrangement of the SAME physical wooden building-block set: a clean overhead flat lay showing several of the exact same natural beech and muted red, blue, ochre, sage blocks laid out in an orderly playful loose grid, the same cotton storage bag partially visible at upper edge. Clearly different second photograph from above, retaining identical block materials/colour palette and shape style. No new toy types. Do not add any text. Preserve photorealism, original product identity, warm off-white studio setting and natural material textures. No logos, no watermarks, no collage, no extra frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-b4d95573-7901-454c-9afd-6d86c89fff17.png",
+    "path": "public/products/v25-02.png",
+    "status": "generated and visually inspected; reference edit preserves product identity"
+  },
+  {
+    "id": "V26",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: individual square catalogue product photograph for fictional German shopping app Fly to you. Photorealistic premium ecommerce studio photography, warm off-white seamless tabletop and background, soft diffused window daylight from upper left, realistic tactile material, delicate natural shadows, a complete product centered and occupying about 70 percent of the frame, three-quarter front view. No collage, no split panels, no frame, no watermarks, no actual brand logo, no promotional text or safety claims. Subject: One charming realistic 25cm fox plush toy, seated upright with warm rust-orange short pile fur, cream muzzle and belly, dark sewn nose and dark embroidered eyes, two pointed ears, a softly curved cream-tipped tail resting beside the body. Distinctive but simple unbranded toy design, no clothing, no accessories, no text. A tangible manufactured stuffed animal, not a cartoon illustration and not a real fox.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-8a656009-1900-43c9-8d51-ee18b5329ab3.png",
+    "path": "public/products/v26-01.png",
+    "status": "generated and visually inspected"
+  },
+  {
+    "id": "V26",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second individual square product photograph. Input image 1 is the edit target and product identity reference. Change only the camera angle to a three-quarter rear-side view of the SAME fox plush, now showing the rounded orange back and the curved cream-tipped fluffy tail prominently, head turned enough to still reveal part of the same face. Keep identical ears, eyes, nose, rust fur, cream belly and brown paws, same proportions and physical manufactured toy design. Full toy in frame, clearly different viewpoint. No accessories. Preserve photorealism, original product identity, warm off-white studio setting and natural material textures. No logos, no watermarks, no collage, no extra frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-59dea5ca-e80a-4bf5-8ad8-0076065a4125.png",
+    "path": "public/products/v26-02.png",
+    "status": "generated and visually inspected; reference edit preserves product identity"
+  },
+  {
+    "id": "V27",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: individual square catalogue product photograph for fictional German shopping app Fly to you. Photorealistic premium ecommerce studio photography, warm off-white seamless tabletop and background, soft diffused window daylight from upper left, realistic tactile material, delicate natural shadows, a complete product centered and occupying about 70 percent of the frame, three-quarter front view. No collage, no split panels, no frame, no watermarks, no actual brand logo, no promotional text or safety claims. Subject: A premium unbranded 500-piece jigsaw puzzle product: one simple rectangular cardboard box with an original colourful illustrated German hillside river city inspired by Wuppertal, a blue suspended railway over the river, greenery and European houses. Readable restrained box title exactly 'Stadt im Tal' and tiny '500 Teile'. A small connected section of the SAME illustrated jigsaw in front, with genuine interlocking jigsaw cuts. Box and small puzzle section fully visible. Original generic artwork, no real puzzle brands.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-3f6cfe5a-8cc8-4b9a-94f3-91dbc8bb307f.png",
+    "path": "public/products/v27-01.png",
+    "status": "generated and visually inspected"
+  },
+  {
+    "id": "V27",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second individual square product photograph. Input image 1 is the edit target and product identity reference. Create a second photograph of the EXACT SAME jigsaw product and box design. Change the camera to an elevated diagonal view: the same 'Stadt im Tal' box lying flat on the warm off-white surface, with the same illustrated Wuppertal-inspired scene visible on its lid, and a close, well-focused portion of the identical puzzle artwork in the foreground showing genuine cardboard edge texture and interlocking cuts. Do not change cover artwork, railway blue colour, title or '500 Teile' text. Keep clean ecommerce framing, not a collage. Preserve photorealism, original product identity, warm off-white studio setting and natural material textures. No logos, no watermarks, no collage, no extra frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-a2a6b0db-2c7d-4daa-9dd3-c485a5043f80.png",
+    "path": "public/products/v27-02.png",
+    "status": "generated and visually inspected; reference edit preserves product identity"
+  },
+  {
+    "id": "V28",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: individual square catalogue product photograph for fictional German shopping app Fly to you. Photorealistic premium ecommerce studio photography, warm off-white seamless tabletop and background, soft diffused window daylight from upper left, realistic tactile material, delicate natural shadows, a complete product centered and occupying about 70 percent of the frame, three-quarter front view. No collage, no split panels, no frame, no watermarks, no actual brand logo, no promotional text or safety claims. Subject: One small red painted wooden toy car with a natural beechwood roof and four chunky natural beech wheels, simple rounded compact car silhouette, visible wooden grain and tactile matte painted finish, plain circular wheel centers, no brand, no writing. Car angled three-quarter front with front and right side visible, all wheels plausibly mounted and product fully in frame. A crafted wood toy, not a real automobile.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-70a41149-06a1-47fc-9390-8fad780b207a.png",
+    "path": "public/products/v28-01.png",
+    "status": "generated and visually inspected"
+  },
+  {
+    "id": "V28",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Asset type: second individual square product photograph. Input image 1 is the edit target and product identity reference. Change only camera angle to a three-quarter REAR view of the EXACT SAME red wooden toy car. Show its rounded red rear, natural beech roof, side window cut-outs and the same chunky natural wood wheels. Keep all physical construction, shape, grain and paint colour invariant. Full car visible, premium second catalogue photograph with a distinct viewpoint, same soft studio lighting and warm seamless off-white background. No text or new accessories. Preserve photorealism, original product identity, warm off-white studio setting and natural material textures. No logos, no watermarks, no collage, no extra frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e08-3777-7970-ba6b-5d3c04dbfce8/exec-32c3b9df-5316-4056-a758-047378fe2490.png",
+    "path": "public/products/v28-02.png",
+    "status": "generated and visually inspected; reference edit preserves product identity"
+  }
+]

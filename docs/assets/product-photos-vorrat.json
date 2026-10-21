@@ -1,0 +1,146 @@
+[
+  {
+    "id": "v01",
+    "view": 1,
+    "prompt": "Existing root-generated product photo; original prompt retained in root conversation. Reused unchanged.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de6-fd5f-7b41-8626-f344777d1d33/exec-49a02b90-8bdc-4759-bcd3-61ee93639b6f.png",
+    "path": "public/products/v01-01.png",
+    "status": "visually checked; reused unchanged"
+  },
+  {
+    "id": "v01",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-85ab2d3c-21fa-4597-a341-3624cc7be138.png",
+    "path": "public/products/v01-02.png",
+    "status": "visually checked; consistent identity, distinct second camera angle"
+  },
+  {
+    "id": "v03",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 500g retail clear window kraft paper bag of uncooked ridged penne pasta made from durum wheat. Small understated cream label reads only 'Penne Rigate'. The visible yellow hollow penne shapes are distinctive, with a few dry pieces beside bag.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-0cd31b2e-fc36-4a81-8b25-670c311e2ad9.png",
+    "path": "public/products/v03-01.png",
+    "status": "visually checked; correct product, packaging and label"
+  },
+  {
+    "id": "v03",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-b6ab5151-9af1-4804-ac11-ceb95aa8939d.png",
+    "path": "public/products/v03-02.png",
+    "status": "visually checked; consistent identity, distinct second camera angle"
+  },
+  {
+    "id": "v04",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 500g natural kraft paper pouch with transparent small window showing long white basmati rice grains. Understated cream label reads only 'Basmatireis'. A small scatter of rice grains beside it. No certification emblem.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-9cbf9b04-4cb5-4e00-8c18-497f63e07252.png",
+    "path": "public/products/v04-01.png",
+    "status": "visually checked; correct product, packaging and label"
+  },
+  {
+    "id": "v04",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-ee8defca-54c3-467d-9815-748139a6ed6f.png",
+    "path": "public/products/v04-02.png",
+    "status": "visually checked; consistent identity, distinct second camera angle"
+  },
+  {
+    "id": "v07",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 500g kraft paper retail stand-up pouch with small clear window showing orange-red dried split lentils. Small cream label reads only 'Rote Linsen'. A small scattering of lentils beside it.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-b78a1673-000c-4517-9266-966897a255ef.png",
+    "path": "public/products/v07-01.png",
+    "status": "visually checked; correct product, packaging and label"
+  },
+  {
+    "id": "v07",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-a3e2f9d7-2ad7-46c9-a9ce-5f066bdc6da3.png",
+    "path": "public/products/v07-02.png",
+    "status": "visually checked; consistent identity, distinct second camera angle"
+  },
+  {
+    "id": "v08",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One simple 500ml clear glass bottle filled with deep red smooth tomato passata, dark metal screw lid, subtle cream paper label reading only 'Tomatenpassata'. One small ripe tomato beside bottle; no branches or extra products.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-0557afb1-dfc0-4571-a35f-b9cf382f6baa.png",
+    "path": "public/products/v08-01.png",
+    "status": "visually checked; correct product, packaging and label"
+  },
+  {
+    "id": "v08",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-e3d5b3da-91d8-4b11-aca6-dc637a3a9087.png",
+    "path": "public/products/v08-02.png",
+    "status": "visually checked; consistent identity, distinct elevated second view"
+  },
+  {
+    "id": "v09",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 400g kraft paper pouch with clear lower window showing crunchy oat granola clusters and almonds. Small minimal cream label reading only 'Nuss-Knuspermüsli'. A few granola clusters and two almonds beside pouch.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-686903ee-38c1-4806-9dad-01aecb0ace74.png",
+    "path": "public/products/v09-01.png",
+    "status": "visually checked; correct product and label"
+  },
+  {
+    "id": "v09",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-36e2c541-cd8a-4194-9ed2-5bd15e2094a8.png",
+    "path": "public/products/v09-02.png",
+    "status": "visually checked; consistent identity, distinct elevated second view"
+  },
+  {
+    "id": "v10",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 250ml small dark olive-green glass bottle of extra virgin olive oil with black cap. Understated cream label reading only 'Olivenöl'. Minimal elegant real glass with gentle reflections. Two green olives beside bottle.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-dcff8740-7be5-4e9f-8b58-1cde065ba44b.png",
+    "path": "public/products/v10-01.png",
+    "status": "visually checked; correct product and label"
+  },
+  {
+    "id": "v10",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-965b9243-9648-4adb-b436-09e1e63d02c5.png",
+    "path": "public/products/v10-02.png",
+    "status": "visually checked; consistent identity, distinct elevated second view"
+  },
+  {
+    "id": "v11",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One squat 250g clear glass jar of smooth creamy peanut butter with natural silver metal screw lid. Understated cream label reading only 'Erdnussmus'. A few whole peanuts beside jar, no bread or cutlery.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-e0e449ef-43c7-46d5-8407-bacdddc43b62.png",
+    "path": "public/products/v11-01.png",
+    "status": "visually checked; correct product and label"
+  },
+  {
+    "id": "v11",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. Input image is the edit target and exact product identity reference. Create a SECOND distinct square catalogue photograph of this IDENTICAL product for Fly to you. Preserve precisely the packaging design, label text, material, colour, contents and proportions. Change ONLY camera position and arrangement for a different view: photograph the same entire unopened item from a slightly elevated opposite three-quarter angle with more of the side visible, camera looking downward about 30 degrees. Keep the product fully visible, centered with similar generous margins, same warm off-white seamless studio surface, soft daylight and realistic shadow. Make it visibly a different angle, not a duplicate or mirrored first photograph. Tiny ingredient props may be rearranged. No other product, no extra logo/text/caption, no collage, no watermark. Photorealistic premium studio photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-acbecfe8-1e94-4c88-88e1-51ac23e155b7.png",
+    "path": "public/products/v11-02.png",
+    "status": "visually checked; consistent identity, distinct elevated second view"
+  },
+  {
+    "id": "v12",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for fictional German catalogue Fly to you. Premium authentic studio still life on warm off-white seamless surface and backdrop, soft side daylight, delicate natural shadow, real tactile material texture, product fully in frame centered occupying about 65–75 percent of square. Photorealistic professional catalogue photography, crisp detail and quiet natural colours. No real brand/logo, no claim/certification badges, no watermark, no marketing captions, no collage, no frame. Primary view: eye-level three-quarter front, all packaging visible. Subject: One 1 litre rectangular oat drink carton in warm off-white and muted sage packaging, natural paper texture and a simple small oat sprig illustration. Creamy white screw cap. The only label text is 'Haferdrink Natur'. No logo, no health claims, no glass of milk or additional props.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-a7b13806-8386-402f-becb-19852f0ce0ee.png",
+    "path": "public/products/v12-01.png",
+    "status": "visually checked; correct product and label"
+  },
+  {
+    "id": "v12",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit. The input image is an edit target and identity reference: this exact one litre Haferdrink Natur carton. Create its second square premium catalogue photo, keeping exact muted sage/cream carton design, oat illustrations, correct German label 'Haferdrink Natur', white cap, proportions and paper texture. Photograph from a distinct slightly elevated opposite three-quarter side, with more side panel visible and a visible top cap; entire carton remains fully in frame, centered with generous margins. Same warm off-white seamless studio backdrop, soft daylight, delicate realistic shadow. Do not mirror, do not change label or product, no extra product/brand/claim/caption/watermark/collage. Crisp photorealistic product photography.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e07-eab0-7c40-ae0a-d694ac8d24d5/exec-5dad0ace-e3d2-4c2c-86e7-b715820a9543.png",
+    "path": "public/products/v12-02.png",
+    "status": "visually checked; exact carton identity and German label, distinct elevated side angle"
+  }
+]

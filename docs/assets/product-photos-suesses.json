@@ -1,0 +1,28 @@
+[
+  {
+    "id": "V05",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square photorealistic ecommerce catalogue product photograph for fictional Fly to you. Subject: a single 100 gram bar of dark chocolate with 70 percent cocoa. The full slim rectangular chocolate bar is visible, partly tucked into a tasteful small brown-mauve matte paper wrapper with a cream minimalist label reading exactly 'Kakao 70%'. Several subtly embossed dark chocolate squares visible at one end; no extra broken pieces. Full product centered, three-quarter front view, occupying 65 to 75 percent of image. Warm off-white seamless studio surface and backdrop, soft natural side daylight, delicate shadow, authentic matte chocolate texture and real paper texture. Refined quiet food catalogue photography, crisp detail. No real brand, no manufacturer logo, no badges, no unsupported claims, no watermark, no collage, no surrounding caption.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e13-ab33-7780-b247-f0005229958e/exec-e1e40f41-9057-4931-8149-aa483dab150c.png",
+    "reference": null,
+    "path": "public/products/v05-01.png",
+    "status": "generated with built-in ImageGen; visually checked; copied unchanged",
+    "sha256": "f914cd00f0de730f7018d769f004b695115929582c5f72790fe2150d32cb1eca",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V05",
+    "view": 2,
+    "prompt": "Use case: precise-object-edit / product-mockup. Input image is the edit target and product identity reference. Create a second square photorealistic ecommerce photograph of EXACTLY the same 100g dark chocolate bar and brown-mauve matte paper wrapper with cream label 'Kakao 70%'. Preserve the rectangular bar proportions, exact wrapper paper colour and material, cream label typography, and visible embossed dark chocolate squares. Change only camera angle and product orientation: a clear high three-quarter view from the opposite side, bar laid almost horizontally across the image rather than on its previous long diagonal. Entire product fully visible centered with more off-white margin, occupying about 70 percent of frame. Keep warm off-white seamless studio surface/backdrop and soft side daylight with realistic shadow. This must look like a different photo of the identical item, not a new product. No extra pieces, brands, badges, claims, collage, watermarks or captions.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e13-ab33-7780-b247-f0005229958e/exec-fc20a461-6cc1-4a7e-b1b8-76ad109b6905.png",
+    "reference": "public/products/v05-01.png",
+    "path": "public/products/v05-02.png",
+    "status": "generated with built-in ImageGen reference edit; visually checked for consistent chocolate, wrapper, label and different viewpoint; copied unchanged",
+    "sha256": "7490a1c70615f37ad6ca83163120df4877b0cbfd5448f729b17ce12eb4d2face",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  }
+]

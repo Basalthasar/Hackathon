@@ -1,0 +1,102 @@
+[
+  {
+    "id": "V17",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square photorealistic ecommerce product photograph for the fictional German catalogue Fly to you. A single individual product, completely in frame and centered at about 70 percent of image size. Warm off-white seamless studio surface and backdrop, soft natural side daylight, delicate real shadows, tactile true material textures, premium restrained retail catalogue still life. Camera: three-quarter front view, slightly above product level. No collage, no frame, no watermark, no logos, no certification icons, no medical claims, no marketing captions, no people. Subject: one 100 g bar of solid lavender soap, softly rounded rectangular shape, pale warm lavender-beige colour, natural handmade soap texture, wrapped with one narrow kraft-paper belly band. Only text on the band, small and simple: 'Lavendelseife'. No loose flowers or other props. The soap is the complete sellable product.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-a65b4e2a-3002-4e51-9d43-ad0ab835f75e.png",
+    "path": "public/products/v17-01.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "0a55d13d27f19f73008b7f7bfb41963621ca31218b747ab4ecf1e0ec8447ea02",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V17",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image role: edit target and exact product identity reference. Create the second independent square ecommerce photograph of the very same fictional product. Preserve its exact material, colour, packaging design, typography and label spelling. Keep the same warm off-white seamless studio surface/backdrop, soft natural daylight and photorealistic restrained catalogue quality. A single complete sellable product at roughly 70 percent of frame, clearly different camera angle from the reference, no collage, no watermark, no brand logo, no extra products or decorative props. Lay the identical lavender-beige soap bar on its broad side, kraft paper band unchanged and label 'Lavendelseife' still visible. Photograph it from a higher diagonal angle to show the upper soap texture and long edge, turned toward the other side rather than reusing the original viewpoint. Keep all edges fully in frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-69a0544e-6dcd-4660-b703-129502fb62b7.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v17-01.png",
+    "path": "public/products/v17-02.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "6811c48f62df2f909c384d7bbf06dddff746d6c8967d36d113b0512b5b3b4f00",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V18",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square photorealistic ecommerce product photograph for the fictional German catalogue Fly to you. A single individual product, completely in frame and centered at about 70 percent of image size. Warm off-white seamless studio surface and backdrop, soft natural side daylight, delicate real shadows, tactile true material textures, premium restrained retail catalogue still life. Camera: three-quarter front view, slightly above product level. No collage, no frame, no watermark, no logos, no certification icons, no medical claims, no marketing captions, no people. Subject: one small round 50 ml brushed aluminium tin of almond hand balm, closed lid, understated cream circular paper label. Only small text 'Handbalsam Mandel'. Honest brushed metal edge and natural cream paper texture. No almonds or other props. The tin is the complete sellable product.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-2ec7aad3-7692-4c3a-9e87-5e83bc2e825f.png",
+    "path": "public/products/v18-01.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "68cbbfeac0f6d8832f96e6293aeaef2b5749344d5b115a83f44d651eac897e02",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V18",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image role: edit target and exact product identity reference. Create the second independent square ecommerce photograph of the very same fictional product. Preserve its exact material, colour, packaging design, typography and label spelling. Keep the same warm off-white seamless studio surface/backdrop, soft natural daylight and photorealistic restrained catalogue quality. A single complete sellable product at roughly 70 percent of frame, clearly different camera angle from the reference, no collage, no watermark, no brand logo, no extra products or decorative props. Open the identical aluminium Handbalsam Mandel tin to show smooth ivory balm with a clean untouched surface. Place its same labelled metal lid just behind, resting against the tin so the exact cream paper label is recognizable. Photograph from an elevated three-quarter angle, complete tin and lid in frame. The lid belongs to the same product; add nothing else.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-6d72e074-fd2e-4def-8200-4345e497b995.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v18-01.png",
+    "path": "public/products/v18-02.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "e2f59fbcdd89aee7329b55a339d989862c92f9df836e28aa9988c41032a15145",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V19",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square photorealistic ecommerce product photograph for the fictional German catalogue Fly to you. A single individual product, completely in frame and centered at about 70 percent of image size. Warm off-white seamless studio surface and backdrop, soft natural side daylight, delicate real shadows, tactile true material textures, premium restrained retail catalogue still life. Camera: three-quarter front view, slightly above product level. No collage, no frame, no watermark, no logos, no certification icons, no medical claims, no marketing captions, no people. Subject: one unscented 120 g candle in a simple small frosted white glass jar, open top showing clean ivory wax and a single unlit cotton wick. Minimal small ivory paper label with only 'Rapswachskerze'. No lid, no flame, no decorative props. The complete candle jar is fully visible.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-1b72f3ed-80bd-4d9a-bca9-e0c3786eb6d6.png",
+    "path": "public/products/v19-01.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "4d6f6bf846aab71cda2d7fdf20262c04d4d0bdef337f05cb1e07e5b260eadf65",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V19",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image role: edit target and exact product identity reference. Create the second independent square ecommerce photograph of the very same fictional product. Preserve its exact material, colour, packaging design, typography and label spelling. Keep the same warm off-white seamless studio surface/backdrop, soft natural daylight and photorealistic restrained catalogue quality. A single complete sellable product at roughly 70 percent of frame, clearly different camera angle from the reference, no collage, no watermark, no brand logo, no extra products or decorative props. Photograph the identical frosted white Rapswachskerze glass jar from a distinctly higher, nearly top-down three-quarter angle to show the ivory wax surface and single unlit cotton wick clearly. Keep the exact label on the jar front, glass shape and proportions unchanged. No flame, lid or other object; complete jar inside the frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-4329315b-eeaa-4477-9474-e5240c3716ae.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v19-01.png",
+    "path": "public/products/v19-02.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "cf916765f1a2ad69e2c17bed583d5da91179b81dcb7bd50df704e1ea7f7279a4",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V20",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: one square photorealistic ecommerce product photograph for the fictional German catalogue Fly to you. A single individual product, completely in frame and centered at about 70 percent of image size. Warm off-white seamless studio surface and backdrop, soft natural side daylight, delicate real shadows, tactile true material textures, premium restrained retail catalogue still life. Camera: three-quarter front view, slightly above product level. No collage, no frame, no watermark, no logos, no certification icons, no medical claims, no marketing captions, no people. Subject: one set of exactly three reusable beeswax food wrapping cloths, neatly folded into three overlapping rectangles showing all three textile patterns: pale sage small leaves, muted ochre simple checks, and natural ivory tiny navy dots. Natural waxed cotton texture and soft folded edges. No boxes, no text, no props. Show the three-piece set as a coherent complete product.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-bf7993dd-8fa2-4901-a9d5-c5dc1cbc1500.png",
+    "path": "public/products/v20-01.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "d194011728ea77257afdd312b91c1879dba640a0275653525a25a1d6a2105c4f",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  },
+  {
+    "id": "V20",
+    "view": 2,
+    "prompt": "Use case: product-mockup. Input image role: edit target and exact product identity reference. Create the second independent square ecommerce photograph of the very same fictional product. Preserve its exact material, colour, packaging design, typography and label spelling. Keep the same warm off-white seamless studio surface/backdrop, soft natural daylight and photorealistic restrained catalogue quality. A single complete sellable product at roughly 70 percent of frame, clearly different camera angle from the reference, no collage, no watermark, no brand logo, no extra products or decorative props. Rearrange the exact same three folded beeswax cloths into a tidy slightly fanned arrangement, each cloth separate and partially overlapping, preserving all three exact patterns and colours from the reference: sage leaves, muted ochre checks and ivory navy dots. Photograph from an overhead diagonal view so the three folds and the textile grain are visible. Exactly three cloths, no new pattern, complete three-piece set in frame.",
+    "source": "/Users/jannik/.codex/generated_images/01a15e0f-19db-77b1-88d8-fec6de7df073/exec-d7c73a6b-34b9-4c5a-b659-2c3ec8b0c584.png",
+    "reference": "/Users/jannik/Documents/ChatGPT/Hackthon/public/products/v20-01.png",
+    "path": "public/products/v20-02.png",
+    "status": "generated; visually checked; consistent product identity; copied unchanged",
+    "sha256": "f482f344dde733a4f8969f2a38b709558b0ed5c4c02276b5ec350cbbfab4765c",
+    "width": 1254,
+    "height": 1254,
+    "format": "png"
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "V13",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph, single standalone image. Primary request: One elegant fictional German paperback walking guide, title exactly 'Wuppertal zu Fuß'. Cream cover with an original restrained blue and green line illustration of Wuppertal hills, paths and a suspension railway, no real publisher, no author name, no claims. A realistic single book with 180 cream pages and matte cover. Scene: warm off-white seamless studio tabletop and background, a clean premium local shop catalog aesthetic. Style: genuinely photorealistic product photography, visible physical material texture, realistic camera and subtle natural imperfections. Composition: square 1:1, complete product centered, three-quarter front view, entire product occupies about 65 percent of frame, comfortable clear margins, no cropping. Lighting: soft window daylight from upper left, gentle grounded shadow, restrained natural colors. Avoid: collage, contact sheet, grid, split views, multiple copies, watermarks, badges, external brands, marketing claims, floating product, illustration pretending to be a photo. Exactly one finished product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-cd061c1e-9976-4a67-8584-cc356362dbdb.png",
+    "path": "public/products/v13-01.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V13",
+    "view": 2,
+    "prompt": "Use case: identity-preserve. Asset type: square ecommerce second product photograph. Reference image: edit target, the exact physical product whose identity must remain invariant. Subject identity: One elegant fictional German paperback walking guide, title exactly 'Wuppertal zu Fuß'. Cream cover with an original restrained blue and green line illustration of Wuppertal hills, paths and a suspension railway, no real publisher, no author name, no claims. A realistic single book with 180 cream pages and matte cover. Primary edit: Show the exact same book lying closed on the tabletop, photographed from a clearly different three-quarter overhead angle from its spine side, so the identical front cover, real spine and page block are visible. Keep the cover art and exact German title unchanged. This must look like a second photograph of the same physical book, not a new design. Keep materials, colors, binding, cover artwork, proportions and title exactly consistent with the reference. Warm off-white seamless studio tabletop and background, soft daylight from upper left, gentle grounded shadow, realistic paper or cloth texture. Square 1:1, centered complete product, comfortable margins, approximately 65 percent frame occupancy. No extra copy, author names, publisher logos, external brands, claims or watermarks. Do not produce a collage, grid, split view or duplicate products. One genuinely photorealistic standalone product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-3863e4d7-11b3-49ba-b327-85c73459c3b2.png",
+    "path": "public/products/v13-02.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V14",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph, single standalone image. Primary request: One elegant fictional German literary novel paperback, title exactly 'Zwischen den Hügeln'. Original muted blue-green atmospheric cover with layered hills and a small warm window, restrained typography, no real publisher, no author name, no extra copy. A realistic single novel with 280 cream pages and matte cover. Scene: warm off-white seamless studio tabletop and background, a clean premium local shop catalog aesthetic. Style: genuinely photorealistic product photography, visible physical material texture, realistic camera and subtle natural imperfections. Composition: square 1:1, complete product centered, three-quarter front view, entire product occupies about 65 percent of frame, comfortable clear margins, no cropping. Lighting: soft window daylight from upper left, gentle grounded shadow, restrained natural colors. Avoid: collage, contact sheet, grid, split views, multiple copies, watermarks, badges, external brands, marketing claims, floating product, illustration pretending to be a photo. Exactly one finished product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-48c0fd29-449e-444c-bff5-9e6d6a13c048.png",
+    "path": "public/products/v14-01.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V14",
+    "view": 2,
+    "prompt": "Use case: identity-preserve. Asset type: square ecommerce second product photograph. Reference image: edit target, the exact physical product whose identity must remain invariant. Subject identity: One elegant fictional German literary novel paperback, title exactly 'Zwischen den Hügeln'. Original muted blue-green atmospheric cover with layered hills and a small warm window, restrained typography, no real publisher, no author name, no extra copy. A realistic single novel with 280 cream pages and matte cover. Primary edit: Show the exact same book lying closed on the tabletop, photographed from a clearly different three-quarter overhead angle from its spine side, so the identical front cover, real spine and page block are visible. Keep the cover art and exact German title unchanged. This must look like a second photograph of the same physical book, not a new design. Keep materials, colors, binding, cover artwork, proportions and title exactly consistent with the reference. Warm off-white seamless studio tabletop and background, soft daylight from upper left, gentle grounded shadow, realistic paper or cloth texture. Square 1:1, centered complete product, comfortable margins, approximately 65 percent frame occupancy. No extra copy, author names, publisher logos, external brands, claims or watermarks. Do not produce a collage, grid, split view or duplicate products. One genuinely photorealistic standalone product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-2861c4df-8636-4ed7-bcfb-b79205ed8593.png",
+    "path": "public/products/v14-02.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V15",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph, single standalone image. Primary request: One fictional German children's hardcover book, title exactly 'Die kleine Schwebebahn'. Original playful hand-painted cover of a small blue suspension railway over a river between gentle green Wuppertal hills, warm yellow accents, no real characters, publisher or author. A realistic single sturdy book. Scene: warm off-white seamless studio tabletop and background, a clean premium local shop catalog aesthetic. Style: genuinely photorealistic product photography, visible physical material texture, realistic camera and subtle natural imperfections. Composition: square 1:1, complete product centered, three-quarter front view, entire product occupies about 65 percent of frame, comfortable clear margins, no cropping. Lighting: soft window daylight from upper left, gentle grounded shadow, restrained natural colors. Avoid: collage, contact sheet, grid, split views, multiple copies, watermarks, badges, external brands, marketing claims, floating product, illustration pretending to be a photo. Exactly one finished product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-ed2046d0-709e-455c-bdda-a081bca72fc9.png",
+    "path": "public/products/v15-01.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V15",
+    "view": 2,
+    "prompt": "Use case: identity-preserve. Asset type: square ecommerce second product photograph. Reference image: edit target, the exact physical product whose identity must remain invariant. Subject identity: One fictional German children's hardcover book, title exactly 'Die kleine Schwebebahn'. Original playful hand-painted cover of a small blue suspension railway over a river between gentle green Wuppertal hills, warm yellow accents, no real characters, publisher or author. A realistic single sturdy book. Primary edit: Show the exact same book lying closed on the tabletop, photographed from a clearly different three-quarter overhead angle from its spine side, so the identical front cover, real spine and page block are visible. Keep the cover art and exact German title unchanged. This must look like a second photograph of the same physical book, not a new design. Keep materials, colors, binding, cover artwork, proportions and title exactly consistent with the reference. Warm off-white seamless studio tabletop and background, soft daylight from upper left, gentle grounded shadow, realistic paper or cloth texture. Square 1:1, centered complete product, comfortable margins, approximately 65 percent frame occupancy. No extra copy, author names, publisher logos, external brands, claims or watermarks. Do not produce a collage, grid, split view or duplicate products. One genuinely photorealistic standalone product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-cd350858-bad9-423e-9ec0-5fb642e08dd2.png",
+    "path": "public/products/v15-02.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V16",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph, single standalone image. Primary request: One A5 dot-grid notebook with sage green linen cover, rounded corners, a thin matching elastic closure, cream page block. The only cover text is exactly 'Talgedanken' in small subtle dark debossed lettering. No brand, no additional words. Real binding and linen texture. Scene: warm off-white seamless studio tabletop and background, a clean premium local shop catalog aesthetic. Style: genuinely photorealistic product photography, visible physical material texture, realistic camera and subtle natural imperfections. Composition: square 1:1, complete product centered, three-quarter front view, entire product occupies about 65 percent of frame, comfortable clear margins, no cropping. Lighting: soft window daylight from upper left, gentle grounded shadow, restrained natural colors. Avoid: collage, contact sheet, grid, split views, multiple copies, watermarks, badges, external brands, marketing claims, floating product, illustration pretending to be a photo. Exactly one finished product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-e5733b31-fd86-4b2d-867d-9036986cd6ee.png",
+    "path": "public/products/v16-01.png",
+    "status": "generated_and_visually_checked"
+  },
+  {
+    "id": "V16",
+    "view": 2,
+    "prompt": "Use case: identity-preserve. Asset type: square ecommerce second product photograph. Reference image: edit target, the exact physical product whose identity must remain invariant. Subject identity: One A5 dot-grid notebook with sage green linen cover, rounded corners, a thin matching elastic closure, cream page block. The only cover text is exactly 'Talgedanken' in small subtle dark debossed lettering. No brand, no additional words. Real binding and linen texture. Primary edit: Place the exact same notebook opened flat at a three-quarter overhead camera angle, showing its cream dot-grid pages, rounded corners, sage linen cover edges and attached thin elastic. Keep pages blank except for a very subtle regular dot grid. This must be a clearly different second photo of the identical notebook. Keep materials, colors, binding, cover artwork, proportions and title exactly consistent with the reference. Warm off-white seamless studio tabletop and background, soft daylight from upper left, gentle grounded shadow, realistic paper or cloth texture. Square 1:1, centered complete product, comfortable margins, approximately 65 percent frame occupancy. No extra copy, author names, publisher logos, external brands, claims or watermarks. Do not produce a collage, grid, split view or duplicate products. One genuinely photorealistic standalone product photograph.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de8-186f-7043-bede-2b1495dfd8f0/exec-4f7b9119-0bf1-4205-80c5-dbccd3c3d075.png",
+    "path": "public/products/v16-02.png",
+    "status": "generated_and_visually_checked"
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "V01",
+    "view": 1,
+    "prompt": "Use case: product-mockup. Asset type: square ecommerce product photograph for the fictional German catalogue Fly to you. Photograph one 500g retail kraft paper pouch of fine organic rolled oats, small understated cream paper label reading 'Haferflocken', a few pale oat flakes beside it. NO brand/logo, no claim badges, no other product. Premium authentic studio still life, warm off-white seamless surface and backdrop, soft side daylight, real paper texture and delicate natural shadow, product fully in frame, centered occupying about 65 percent of the square. Primary view: eye-level three-quarter front of the unopened pouch. Photorealistic professional catalogue photography, clean and tactile, crisp detail, quiet natural colours. No collage, no frame, no watermark, no marketing captions.",
+    "source": "/Users/jannik/.codex/generated_images/01a15de6-fd5f-7b41-8626-f344777d1d33/exec-49a02b90-8bdc-4759-bcd3-61ee93639b6f.png",
+    "path": "public/products/v01-01.png",
+    "status": "generated, visually checked, copied unchanged"
+  }
+]

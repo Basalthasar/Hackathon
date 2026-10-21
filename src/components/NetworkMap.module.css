@@ -1,0 +1,85 @@
+.root { --map-blue: #2466ed; --map-ink: #153454; --map-panel: #fff; --map-border: #e3eaf2; display: flex; flex-direction: column; width: 100%; height: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--map-border); border-radius: 24px; background: #edf2f3; isolation: isolate; }
+.stage { position: relative; flex: 1; min-height: 370px; width: 100%; overflow: hidden; }
+.map { position: absolute; inset: 0; z-index: 0; background: #eef3f2; font-family: inherit; }
+.map :global(.leaflet-tile-pane) { filter: saturate(.55) contrast(.94) brightness(1.04); }
+.map :global(.leaflet-control-attribution) { max-width: calc(100% - 64px); margin: 0; padding: 5px 8px; color: #263e55; font-size: 10px; line-height: 1.4; background: rgba(255,255,255,.96); }
+.map :global(.leaflet-control-attribution) a { color: #244e91; }
+.map :global(.leaflet-control-zoom) { border: 1px solid #dce4ee; border-radius: 13px; box-shadow: 0 3px 12px #15345410; overflow: hidden; margin-left: 16px; margin-bottom: 16px; }
+.map :global(.leaflet-control-zoom) a { width: 44px; height: 44px; line-height: 44px; background: var(--map-panel); color: var(--map-ink); border-bottom-color: var(--map-border); }
+.map :global(.leaflet-control-zoom) a:hover { background: #eef4ff; }
+.map :global(.leaflet-container) { font-family: inherit; }
+.map :global(.leaflet-interactive):focus-visible, .map :global(.leaflet-marker-icon):focus-visible { outline: 3px solid #efae35; outline-offset: 5px; border-radius: 50%; }
+.locationTag { position: absolute; z-index: 500; left: 16px; top: 16px; display: flex; align-items: center; gap: 7px; height: 42px; padding: 0 13px; border: 1px solid #e2e9f1; border-radius: 12px; background: rgba(255,255,255,.96); color: #153454; font-size: 12px; font-weight: 750; box-shadow: 0 3px 12px #15345408; pointer-events: none; }
+.locationTag > span { width: 7px; height: 7px; border-radius: 50%; background: #2466ed; box-shadow: 0 0 0 3px #2466ed14; }
+.locationTag small { padding-left: 7px; border-left: 1px solid #dce5ee; color: #586c82; font-size: 10px; font-weight: 500; }
+.modeSwitch { position: absolute; top: 16px; right: 16px; z-index: 500; display: flex; padding: 3px; border: 1px solid #e2e9f1; border-radius: 12px; background: rgba(255,255,255,.96); box-shadow: 0 3px 12px #15345408; }
+.modeSwitch button { min-height: 44px; padding: 0 12px; border: 0; border-radius: 9px; background: transparent; color: #66788d; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.modeSwitch button[aria-pressed="true"] { background: #edf3ff; color: #215dda; }
+.root button:focus-visible { outline: 3px solid #efae35; outline-offset: 3px; }
+.markerRoot { background: none; border: none; }
+.pin, .nodeButton, .movingPin { position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid #fff; border-radius: 16px; background: #2466ed; color: #fff; box-shadow: 0 3px 10px #17417a30, 0 0 0 1px #2466ed22; box-sizing: border-box; }
+.pin svg, .nodeButton svg, .movingPin svg { display: block; width: 23px; height: 23px; }
+.store { border-radius: 50%; background: #fff; color: #2466ed; border: 2px solid #2466ed; }
+.hub { background: #153454; color: #fff; }
+.station { background: #2466ed; color: #fff; }
+.courier { background: #e4f6ee; color: #1b7959; border-color: #fff; }
+.active { box-shadow: 0 0 0 6px #2466ed24, 0 3px 12px #17417a30; }
+.pinNumber { position: absolute; bottom: -5px; right: -4px; display: grid; place-items: center; min-width: 17px; height: 17px; padding: 0 3px; border: 2px solid #fff; border-radius: 9px; background: #153454; color: #fff; font-size: 9px; font-weight: 750; line-height: 1; box-sizing: border-box; }
+.tooltip { padding: 7px 10px; border-color: #e0e9f2; border-radius: 8px; color: #153454; font-family: inherit; font-size: 11px; box-shadow: 0 4px 14px #15345412; }
+.movingPin { border-radius: 50%; background: #fff; color: #2466ed; border: 3px solid #2466ed; box-shadow: 0 0 0 7px #2466ed17, 0 3px 12px #17417a28; }
+.legend { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; min-height: 40px; padding: 9px 14px; border-top: 1px solid var(--map-border); background: var(--map-panel); color: #586c82; font-size: 10px; line-height: 1.5; }
+.legendDot { width: 6px; height: 6px; border-radius: 50%; background: #2466ed; flex-shrink: 0; }
+.demoLabel { margin-left: auto; color: #586c82; font-size: 8px; font-weight: 750; letter-spacing: 1.1px; }
+.loading { position: absolute; z-index: 500; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 9px 13px; border: 1px solid #e2e9f1; border-radius: 10px; background: #ffffffed; color: #526c84; font-size: 11px; box-shadow: 0 3px 15px #15345408; }
+.loading span { width: 10px; height: 10px; border: 2px solid #d9e5ff; border-top-color: #2466ed; border-radius: 50%; animation: spin 1s linear infinite; }
+.fallback { position: absolute; z-index: 600; left: 16px; right: 16px; bottom: 57px; display: flex; gap: 12px; align-items: flex-start; padding: 16px; border: 1px solid #d9e4f4; border-radius: 16px; background: #fffffffa; color: #153454; box-shadow: 0 7px 30px #15345418; }
+.fallbackIcon { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 10px; background: #edf3ff; color: #2466ed; font-size: 19px; }
+.fallback strong { font-size: 12px; }
+.fallback p { max-width: 290px; margin: 5px 0 0; color: #586c82; font-size: 11px; line-height: 1.55; }
+.fallbackActions { display: flex; gap: 5px; flex-wrap: wrap; margin-left: auto; }
+.fallbackActions button { min-height: 44px; padding: 0 12px; border: 1px solid #e2e9f1; border-radius: 10px; background: #fff; color: #526c84; font: inherit; font-size: 10px; font-weight: 700; cursor: pointer; }
+.fallbackActions button:first-child { border-color: #2466ed; background: #2466ed; color: #fff; }
+.schematic { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 15% 30%, #e8effc, transparent 60%), #f3f6fa; }
+.network { position: absolute; inset: 0; width: 100%; height: 100%; color: #dce6f2; }
+.river { fill: none; stroke: #d0e5f4; stroke-width: 32px; opacity: .65; }
+.regionLabel { position: absolute; top: 83px; left: 27px; color: #586c82; font-size: 9px; font-weight: 700; letter-spacing: 2px; }
+.schematicNode { position: absolute; display: flex; align-items: center; z-index: 2; transform: translate(-22px, -22px); }
+.nodeButton { flex-shrink: 0; cursor: pointer; }
+.nodeButton:disabled { cursor: default; opacity: 1; }
+.nodeButton > span:first-child { display: block; }
+.nodeLabel { max-width: 150px; margin-left: 10px; padding: 5px 7px; border-radius: 7px; background: #f5f8fbdc; color: #153454; font-size: 11px; font-weight: 750; line-height: 1.35; white-space: nowrap; pointer-events: none; }
+.nodeLabel small { display: block; margin-top: 2px; color: #586c82; font-size: 9px; font-weight: 500; }
+.labelLeft .nodeLabel { position: absolute; right: 54px; margin-left: 0; text-align: right; }
+.schematicVehicle { position: absolute; z-index: 4; transform: translate(-22px, -22px); }
+.schematicNote { position: absolute; left: 16px; bottom: 14px; color: #586c82; font-size: 9px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 600px) {
+  .root { border-radius: 18px; }
+  .stage { min-height: 330px; }
+  .locationTag { top: 12px; left: 12px; height: 44px; padding: 0 10px; font-size: 11px; }
+  .locationTag small { display: none; }
+  .modeSwitch { top: 12px; right: 12px; }
+  .modeSwitch button { min-height: 44px; padding: 0 11px; }
+  .legend { padding: 8px 11px; font-size: 9px; gap: 5px; }
+  .demoLabel { display: none; }
+  .fallback { left: 12px; right: 12px; bottom: 68px; gap: 8px; padding: 12px; flex-wrap: wrap; }
+  .fallback > div:nth-child(2) { flex: 1; }
+  .fallbackActions { width: 100%; margin-left: 40px; }
+  .fallbackActions button { flex: 1; padding: 0 8px; }
+  .nodeLabel { margin-left: 4px; max-width: 115px; font-size: 9px; padding: 4px; white-space: normal; }
+  .nodeLabel small { font-size: 8px; }
+  .labelLeft .nodeLabel { right: 48px; }
+  .regionLabel { top: 77px; left: 17px; font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .loading span { animation: none; } }
+:global([data-theme="dark"]) .root { --map-panel: #172b43; --map-border: #29405a; --map-ink: #e2ecf8; }
+:global([data-theme="dark"]) .legend { color: #a0b0c5; }
+:global([data-theme="dark"]) .schematic { background: #182b41; }
+:global([data-theme="dark"]) .network { color: #2b425b; }
+:global([data-theme="dark"]) .river { stroke: #25415a; }
+:global([data-theme="dark"]) .nodeLabel { background: #182b41df; color: #e2ecf8; }
+
+:global([data-theme="dark"]) .demoLabel,
+:global([data-theme="dark"]) .regionLabel,
+:global([data-theme="dark"]) .nodeLabel small,
+:global([data-theme="dark"]) .schematicNote { color: #a0b0c5; }

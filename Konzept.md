@@ -1,11 +1,11 @@
 # Lokale Lieferplattform – Konzept
 
-Stand: 2026-10-21 · Phase: integriertes Produktkonzept und Routing · Kein Realbetrieb freigegeben.
+Stand: 2026-10-21 · Phase: lokale P0-Pitch-Demo implementiert und begrenzt geprüft · Kein Realbetrieb freigegeben.
 
 ## 1. Problem und Ziel
 Die Plattform soll Menschen helfen, Produkte bei teilnehmenden lokalen Händlern und Supermärkten zu finden, Angebote zu vergleichen, zu bestellen und liefern zu lassen oder selbst abzuholen. Vor dem Kauf sollen konkrete Variante, Bestandsaktualität, Gesamtpreis und voraussichtliches Empfangsfenster erkennbar sein. Unser Team verantwortet weiterhin Routing als Dienst für Lieferbarkeit, Transportkosten und Zeitprognosen.
 
-**Beschlossene Anforderung (Nutzerauftrag 2026-10-21):** Die Notizen der anderen Gruppen sowie das gelieferte Word-Konzept und die vollständige Markdown-Arbeitsgrundlage in den Projektstand integrieren. Beides liegt unverändert unter [docs/grundlagen](docs/grundlagen/README.md). Der aktuelle Auftrag betrifft Dokumentation; der Startprompt in der Vorlage ist noch nicht als Entwicklungsauftrag aktiviert.
+**Beschlossene Anforderung (Nutzerauftrag 2026-10-21):** Die Notizen der anderen Gruppen sowie das gelieferte Word-Konzept und die vollständige Markdown-Arbeitsgrundlage in den Projektstand integrieren. Beides liegt unverändert unter [docs/grundlagen](docs/grundlagen/README.md). Der damalige Integrationsauftrag betraf Dokumentation. Der gesonderte Pitch-Auftrag vom selben Tag aktiviert jetzt ausschließlich den abgegrenzten P0-Umfang in Abschnitt 12; der umfassende Pilot-Startprompt bleibt eine Vorlage.
 
 **Einordnung des bisherigen Stands:** Das urbane Drohnennetz zwischen Lagern/Anbietern und sicheren Packstationen bleibt als Ausbau erhalten. Die folgenden Plattformabschnitte ergänzen den Auftrag; die bisherigen Drohnenanforderungen K01–K10 und R01–R14 sind Anforderungen an diesen Ausbau, keine Voraussetzungen für den ersten Kurier-Prototyp. Die dauerhaften Arbeitsregeln in [AGENTS.md](AGENTS.md) bleiben maßgeblich. Technische Spezifikation: [Architekture.md](Architekture.md).
 
@@ -26,7 +26,7 @@ Kunden suchen, bestellen, empfangen und melden Probleme. Händler/Filialmitarbei
 
 | Stufe | Umfang | Abgrenzung |
 |---|---|---|
-| P0 – Entwicklungsprototyp | Vollständiger Ablauf mit erkennbaren Demo-Daten und austauschbaren Adaptern für Bestand, Zahlung, Transport und Nachrichten | Noch nicht implementiert oder beauftragt; keine echte Zahlung oder Lieferzusage |
+| P0 – Entwicklungsprototyp | Vollständiger Ablauf mit erkennbaren Demo-Daten und austauschbaren Adaptern für Bestand, Zahlung, Transport und Nachrichten | Begrenzte Pitch-Teilmenge durch Abschnitt 12 beauftragt; keine echte Zahlung oder Lieferzusage |
 | M1 – erster echter Pilot | Kleines Gebiet, ausgewählte Händler, eine Filiale je Warenkorb; menschliche Kuriere und Selbstabholung; belastbare Bestandsanbindung/Onlinekontingent, Zahlungsdienst, Support | Nur tatsächlich verfügbare Fahrzeugarten aktivieren; Partner, Prozesse und Verträge vorher klären |
 | A2 – lokaler Ausbau | Terminfenster, KI-Bildsuche, Stationsempfang mit QR/PIN, Umleitung, Eigenversand, Lieferbündelung, mehrere Händler, vollständigeres Supermarktsortiment | Jeweilige Kapazitäts-, Übergabe- und Rückabwicklungsprozesse erforderlich |
 | A3 – Transportnetze | Lange Strecken mit Zwischenstopps, Drohnen zwischen Stationen und direkt zu Kunden, autonome Fahrzeuge, automatische Warenausgabe | Eigenständige Partner-, Sicherheits- und Betriebsnachweise; keine Flugsteuerung im Bestellkern |
@@ -145,7 +145,7 @@ Wetter ist eine zentrale Betriebsgrenze. Datenbedarf, vier Bewertungszustände u
 ## 5. Annahmen und offene Fragen
 | ID | Status | Aussage / Klärung |
 |---|---|---|
-| A01 | Annahme | Deutschland/EU als vorläufiger Einsatzraum; Stadt und konkrete Standorte offen |
+| A01 | Annahme | Deutschland/EU als vorläufiger Einsatzraum; Demo-Gebiet Wuppertal beschlossen; reales Pilotgebiet und geprüfte Standorte offen |
 | A02 | Vorschlag | Für A3 einen überschaubaren Pilotkorridor mit wenigen Stationen untersuchen; ersetzt nicht den vorgeschlagenen Kurier-Pilot M1 |
 | F01 | Offen | Einsatzgebiet, Nachfrage, Vergleichsversorgung, betroffene Gruppen und Zugänglichkeitsbedarf |
 | F02 | Offen | Drohnenmodell, belegte Parameter, Paketprofil und Wartungskonzept |
@@ -153,7 +153,7 @@ Wetter ist eine zentrale Betriebsgrenze. Datenbedarf, vier Bewertungszustände u
 | F04 | Offen | Geeignete Wetter-, Luftraum-, Gelände-, Hindernis-, Nachfrage- und Stationsdaten samt Nutzungsrechten |
 | F05 | Offen | Rollen, Genehmigungspfad, Sicherheitsnachweise, Datenschutz- und Versicherungskonzept |
 | F06 | Offen | Ladeverfahren, Stationsmechanik, Reserven und bodengebundene Ersatzversorgung für A3 |
-| F07 | Offen | P0/M1-Umfang, Pilotgebiet, Filialen, Kuriermodell, Picking-Verantwortung und Vergütung bestätigen |
+| F07 | Offen | P0-Pitch-Umfang und Demo-Gebiet Wuppertal beschlossen (Abschnitt 12); M1-Pilotgebiet, reale Filialen, Kuriermodell, Picking-Verantwortung und Vergütung offen |
 | F08 | Offen | Bestandskontingent/-anbindung, Zahlungsdienst, Vertragspartner, Kundenrechte, Abrechnung und Erstattungsprozess für M1 klären |
 | F09 | Offen | Plattform-Datenschutz, Zugriffs-/Löschfristen, Nachweisverfahren und Supportverantwortung festlegen |
 | F10 | Offen | Kundenpreis, reale ETA, Kosten und messbare Abnahmeziele aus Partnerprozessen ableiten |
@@ -178,6 +178,16 @@ Für jede spätere Quellenaufnahme festhalten: Quellen-ID, Titel, Herausgeber, g
 | Q03 / Rechtsnorm | [§ 43 Abs. 2 LuftVG](https://www.gesetze-im-internet.de/luftvg/__43.html), amtlich bereitgestellte Onlinefassung am Prüfdatum | 2026-10-21 / Deutschland | Halterpflicht zur Haftpflichtversicherung in vorgeschriebener Höhe. Deckung für den konkreten Lieferbetrieb prüfen; Sicherheitsbelehrung nicht als Versicherungs- oder Haftungsnachweis behandeln. |
 | Q04 / Herstellerdokumentation | Amazon SP-API, [Get inventory summaries](https://developer-docs.amazon.com/sp-api/docs/get-fba-inventory-summaries) und [Authorize Applications](https://developer-docs.amazon.com/sp-api/docs/authorizing-selling-partner-api-applications), laufende Dokumentation | 2026-10-21 / jeweilige SP-API-Marktplätze | FBA-Bestandszusammenfassungen betreffen Verkäuferartikel; Aufruf auf Partnerdaten benötigt passenden autorisierten Zugriff. Konzeptfolgerung: keine öffentliche Gesamtlager-Suche oder zugesagte Lagerabholung. Kein Partnerzugang getestet. |
 | Q05 / Herstellerdokumentation | Stripe, [Place a hold on a payment method](https://docs.stripe.com/payments/place-a-hold-on-a-payment-method), laufende Dokumentation | 2026-10-21 / jeweils unterstützte Konten, Regionen und Zahlarten | Getrennte Autorisierung und späterer Einzug nur bei geeigneten Zahlarten und innerhalb ihrer Fristen. Stripe ist ein Beispiel, keine Anbieterentscheidung; keine Integration getestet. |
+
+**Ergänzende Anbieterquellen für die Pitch-Umsetzung (geprüft 2026-10-21):**
+
+| ID / Art | Quelle / Stand | Geltung / Bedeutung |
+|---|---|---|
+| Q06 / Bibliothekslizenz | Leaflet [BSD-2-Clause](https://github.com/Leaflet/Leaflet/blob/main/LICENSE); installiert 1.9.4, Lizenzkopie unter docs/licenses | Weltweit / Bibliotheksnutzung und Beibehaltung der Lizenzhinweise; keine Kartenlizenz |
+| Q07 / Dienst-Nutzungsrichtlinie | OSM Foundation [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/), laufende Onlinefassung | Standarddienst tile.openstreetmap.org / sichtbare Attribution, Browser-Caching und gültiger Referer; kein Massen-/Offline-Vorladen, keine Verfügbarkeitszusage |
+| Q08 / Anbieterbedingungen | MET Norway [Terms of Service](https://api.met.no/doc/TermsOfService), [Getting Started](https://api.met.no/doc/GettingStarted), laufende Onlinefassung | Wetter-API weltweit / identifizierender User-Agent, begrenzte Koordinatenpräzision und respektiertes Expires/Last-Modified-Caching |
+| Q09 / Anbieter-Datenbeschreibung | MET [Locationforecast-Datenmodell](https://api.met.no/doc/locationforecast/datamodel), [Forecast JSON](https://api.met.no/doc/ForecastJSON), Version 2.0 | Wuppertal im globalen Modell, ungefähr 9km Auflösung; Temperatur 2m, Wind 10m über Modellboden. Keine lokalen Gebäudewinde/Flughöhenwerte; Intervallsummen und UTC-Zeiten korrekt einordnen |
+| Q10 / Datenlizenz | MET [License and attribution](https://api.met.no/doc/License), laufende Onlinefassung | Prognosedaten grundsätzlich CC BY 4.0/NLOD; Attribution und Lizenz in der Wetteransicht. Normalisierung als Bearbeitung angegeben |
 
 **Gelieferte Grundlagen G01/G02:** [Word-Produktkonzept und Markdown-Arbeitsgrundlage Version 1 vom 2026-10-21](docs/grundlagen/README.md), vom Nutzer geliefert und inhaltlich am selben Datum ausgewertet. Produktumfang, Stufen, Geschäftsregeln und Stackempfehlungen sind Teamvorschläge. Externe Quellenbehauptungen der Vorlagen sind kein eigener Nachweis; Q04/Q05 wurden für die Integration separat geöffnet. Q01–Q03 stammen aus der vorherigen Routing-Recherche.
 
@@ -219,7 +229,7 @@ Keine Umweltentlastung ohne belastbaren Vergleich ableiten. Zielwerte sind noch 
 ## 10. Übergabestand
 Commit-Konvention: Am 2026-10-21 vom Nutzer festgelegt; verbindliche Definition in [AGENTS.md](AGENTS.md#commit-schema).
 
-Stand: 2026-10-21.
+Historischer Übergabestand des Integrationsauftrags, vor der gesonderten Implementierung in Abschnitt 12 (2026-10-21).
 - **Erledigt:** Gruppenunterlagen integriert: Produktstruktur, MVP P0/M1, Ausbau A2/A3, Rollen, Bestellablauf, Sonderfälle und Wirtschaftlichkeit ergänzt. Technische Spezifikation mit Datenmodell, Zuständen, API-Vorschlägen, B01–B10 und 16 Abnahmeszenarien eingebunden. Originale in `docs/grundlagen/` erhalten; Routing und Pitch-Ergebnisse bewahrt.
 - **Offen:** MVP-Vorschlag, Pilotgebiet, Händler-/Kurierpartner, Bestandsverfahren, Picking, Vertrags-/Zahlungsmodell, Kosten und Akzeptanzkriterien entscheiden. Drohnenparameter und Betriebsvoraussetzungen vor A3 klären.
 - **Blockiert:** Keine Blockade der Dokumentation. Echter Pilot benötigt Partner und betroffene Nachweise. Keine Softwareentwicklung durch diesen Integrationsauftrag beauftragt.
@@ -232,3 +242,51 @@ Stand: 2026-10-21.
 **Implementiert als Bilddateien / Vorschlag für die Gestaltung (2026-10-21):** Drei DroneDeliver-App-/Routing-Motive anhand der vom Nutzer gelieferten Designübersicht und ein zusätzliches Stadtmotiv erstellt. Übersicht, PNGs, Prompt-Set und Einschränkungen: [assets/pitch/README.md](assets/pitch/README.md). Die Abbildungen sind KI-generierte Konzeptbilder mit illustrativen Daten; keine implementierten Oberflächen, technischen Nachweise oder Flugfreigaben. Name und Gestaltung sind aus der Referenz übernommen, keine zusätzliche verbindliche Markenentscheidung.
 
 **Übergabe Pitch-Auftrag:** Erledigt: vier Bilder im Projekt gespeichert, visuell auf Aufbau und zentrale Inhalte geprüft und dokumentiert. Offen: Motive für den Pitch auswählen; spätere UI-Umsetzung separat beauftragen. Blockiert: nichts. Nächster Schritt: ausgewählte Bilder in die Pitch-Präsentation aufnehmen. Geändert: `assets/pitch/` und `Konzept.md`, `README.md` mit Verweis ergänzt. Prüfumfang: Sichtprüfung der generierten Bilder, Datei-/Verweisprüfung und Markdown-Diff; keine technische Validierung der abgebildeten Konzepte.
+
+
+## 12. Beauftragte erste Pitch-Version – lokale Wuppertal-Demo
+
+**Beschlossene Anforderung (Nutzerauftrag 2026-10-21):** [Unveränderter eingefügter Pitch-Auftrag](docs/grundlagen/Pitch_Auftrag_2026-10-21.md). Eine mobile deutsche React-/Next.js-Website erzählt in etwa fünf Minuten „lokal einkaufen → Lieferung verfolgen → Routing verstehen → Drohnen und Packstationen als Ausbau erleben“. Dieser ursprüngliche Schwerpunkt ist durch die unten dokumentierte Nutzerkorrektur zu Fly2You mit primärer Drohnenlieferung aktualisiert. Präsentationsrechner und lokales WLAN; keine öffentliche Veröffentlichung.
+
+**Umfang:** Entdecken, Lieferung, Stationen, Routing; nach der beauftragten Sortimentserweiterung 6 fiktive Händler mit 7 Filialen, 36 Varianten und 40 Angeboten im Gebiet Elberfeld–Barmen. Der ursprüngliche Pitch-Auftrag umfasste 3 Händler/4 Filialen/20 Varianten; die spätere Nutzererweiterung ist unten dokumentiert. Ein-Filial-Warenkorb mit ausdrücklichem Wechsel, befristetem Demo-Angebot und Gesamtpreis. Drohne zur gewählten Station ist vorausgewählt; Fahrrad zum festen Beispielort und Selbstabholung ohne Lieferauftrag/-gebühr bleiben Alternativen. Ereignisse und Bewegung sind simuliert; Einlagerung, Abholbereitschaft und Kundenabholung bleiben getrennt. Eigenständige Stationsvorschau vom Tracking erreichbar.
+
+**Routing:** Ein Hub, 3 Stationen, 3 Drohnen, gerichtetes Demo-Netz mit Beispielzeiten. Dijkstra prüft verfügbare Verbindungen sowie Zielkapazität und Fahrzeugverfügbarkeit. Reproduzierbare Fälle: normal, Korridorsperre mit Alternative, volle/ausgefallene Station und ausdrücklich simulierte Wetterpause. Keine Flugfreigabe; reale Wetterbewertung ohne belegte Fahrzeuggrenzen und vollständige Pflichtdaten stets **UNBESTIMMT**.
+
+**Online-Daten:** Leaflet mit konfigurierbarer OSM-Kartenquelle und sichtbarer Attribution; Listen und Netzansicht bleiben ohne Kacheln bedienbar. MET Norway Locationforecast über serverseitigen, ortsgebundenen Wetterendpunkt mit Cache. Vorhersage, Abruf-/Anbieter-/Prognosezeit, Messhöhe und Datenlücken getrennt ausweisen. Keine Live-Messung. Anbieterquellen und technische Umsetzung in [Architektur, Abschnitt 13](Architekture.md#13-implementierte-p0-pitch-demo).
+
+**Bedienung:** Mobile ab 360 px, sichtbarer Fokus, mindestens 44 px große Touch-Ziele, Hell/Dunkel, reduzierte Bewegung; wesentliche Aktionen ohne Karte. Pitch-Menü mit Neustart, Pause, nächsten Schritten und Szenarien. Versionierter lokaler Browser-Speicher; jedes Gerät besitzt eine eigene Sitzung. Keine Standort-/Kameraberechtigung nötig.
+
+**Ausgeschlossen:** Benutzerkonten, Zahlungsanbieter, Geschäftsdatenbank, reale Händler-/Bestands-/Fahrzeuganbindungen und öffentliche Veröffentlichung. Die breiteren M1/A2/A3-Anforderungen und historischen B01–B10 sind erhalten und werden durch diese Demo nicht als umgesetzt oder geprüft ausgegeben. Originalunterlagen und Pitch-Bilder bleiben erhalten; AGENTS.md bleibt unverändert.
+
+**Abnahme:** Einkauf bis bestätigter Kundenabholung für Drohne sowie Empfang für Fahrrad/Selbstabholung; Filialwechsel, unbestätigter Bestand, Quoteablauf und Doppelklick; Stationankunft ≠ Abholung; alternative/fehlende Route; Wetterlücken, Alter, Timeout und 429 ohne positive Bewertung; Herkunft über Szenariowechsel/Reset; Kartenfehler; mobile Bedienung, Fokus, Kontraste und reduzierte Bewegung; Produktionsbuild und tatsächlicher WLAN-Test. Prüfresultate werden in Architektur Abschnitt 13 geführt, verbleibende Prüflücken ausdrücklich ausgewiesen.
+
+
+**Frühere Namens-/Textentscheidung (2026-10-21; Name durch spätere Nutzerkorrektur ersetzt):** Die App hieß **Fly to you**. Ergänzende werbliche Meta-Zeilen wie „Lokal. Verbunden.“ und „Für deinen Alltag. Für unser Tal.“ werden aus der Oberfläche entfernt. Funktionale Hinweise zu Demo-Daten, Datenherkunft, Status und Bedienung bleiben erforderlich. Der ältere Arbeitsname DroneDeliver in Originalaufträgen und Pitch-Bildern bleibt als historischer Quellstand erhalten.
+
+
+**Beschlossene Sortiment-/Bild-Erweiterung (Nutzerauftrag 2026-10-21):** Für jede Produktvariante werden zwei einzelne KI-generierte Produktfotos mit dem integrierten Imagegen-Skill erstellt und in der App als Galerie eingebunden. Pro Kategorie arbeitet ein eigener Subagent; maximal drei Subagenten laufen parallel, weitere Kategorien folgen gestaffelt. Erweiterung auf 36 Varianten/40 Angebote, 6 fiktive Händler und 7 Filialen: Lebensmittel, Technik, Spielzeug und Blumen ergänzen Vorrat, Kaffee/Tee, Süßes, Bücher und Pflege/Zuhause. Taltechnik steht als fiktiver Elektronikhandel für den genannten Geschäftstyp (beispielsweise MediaMarkt); keine reale Händlerpartnerschaft oder tatsächliche Filialverfügbarkeit wird behauptet. Frischware, Blumen und Akkuprodukte sind nur Beispielszenarien; Kühlung, Bruchschutz, Gefahrgut-/Transportvorgaben und Fahrzeugeignung sind nicht nachgewiesen und für M1 gesondert zu prüfen. Historische Sortimentsbegrenzungen für den echten Pilot bleiben bestehen.
+
+
+**Beschlossene Aktualisierung (Nutzerkorrektur 2026-10-21):** Der aktuelle App-Name ist **Fly2You** und ersetzt „Fly to you“ in der aktiven Oberfläche. Hauptfokus ist die simulierte Drohnenlieferung vom Demo-Hub zur gewählten Station: im Einkauf vorausgewählt, mit Stationsauswahl und Bestellverfolgung. Fahrrad und Selbstabholung bleiben Alternativen. Ankunft, Einlagerung, Abholbereitschaft und bestätigte Kundenabholung bleiben getrennt. Ergänzende Werbe-Meta-Zeilen bleiben entfernt. Historische Originalaufträge und Bildquellen werden bewahrt. **Implementiert und geprüft; aktueller Übergabestand folgt unten.**
+
+### Frühere Übergabe nach Implementierung und Bilderweiterung (2026-10-21)
+
+- **Erledigt:** Fly to you als mobile lokale Pitch-App umgesetzt: Einkauf, Filialvergleich/-wechsel, Quote, Fahrrad/Selbstabholung, Tracking, Stationen, Dijkstra-Szenarien, OSM-Karte/Netz-Fallback und MET-Vorhersage. Ergänzende Werbe-Meta-Zeilen entfernt. 36 Varianten/40 Angebote in 9 Kategorien bei 6 fiktiven Händlern/7 Filialen. Neun Kategorie-Subagenten haben 72 einzelne Produktfotos fertiggestellt; je zwei konsistente Ansichten, Galerie, Kennzeichnung, Originale und Promptprotokolle erhalten.
+- **Geprüft:** 72/72 Bilddateien, 57/57 Fach-/Wetter-/Vollständigkeitstests, TypeScript, Produktionsbuild und 16/16 Browserfälle. Desktop 1440×1000, mobil 360×800; Galerie, Bildladung, Fehlerszenarien, Tastatur, reduzierte Bewegung, automatische axe-Prüfung und Konsole. Echter Wetterendpunkt HTTP 200 mit 25 Prognosepunkten; reale Bewertung UNBESTIMMT. Einzelheiten und Grenzen primär in Architektur Abschnitt 13.
+- **Offen:** Tatsächlicher Aufruf von einem zweiten physischen Gerät im selben WLAN; Safari/Firefox und umfassende manuelle Screenreaderprüfung. Reale Partner, Betrieb, Produkt-/Transporteignung, Verträge und alle Drohnen-Nachweise bleiben vor M1/A3 offen.
+- **Blockiert:** Keine weitere Blockade der lokalen Demo-Implementierung. Das fehlende zweite Prüfgerät begrenzt den WLAN-Abnahmenachweis; es wird kein erfolgreicher Smartphone-Test behauptet.
+- **Nächster Schritt:** Präsentationsrechner per README starten, Smartphone im selben WLAN verbinden und den Fünf-Minuten-Ablauf vorführen. Ein späterer echter Pilot ist gesondert abzugrenzen und zu beauftragen.
+- **Geänderte Dateien:** Konzept.md, Architekture.md, README.md und Grundlagenverweis; neue App-/Test-/Builddateien unter src/, tests/, scripts/ und im Projektstamm; PNG/WebP unter public/products/; Prompt-/Quellenprotokolle unter docs/assets/ und Bibliothekslizenzen unter docs/licenses/. AGENTS.md, vorhandene Pitch-Bilder, Word und ursprüngliche Markdown-Grundlage unverändert erhalten. Keine öffentliche Veröffentlichung und kein Commit/Push ausgeführt.
+
+
+### Aktuelle Übergabe – Fly2You und Drohnenfokus (2026-10-21)
+
+- **Erledigt / implementiert:** Name Fly2You in App, Seitentitel, Paketkennung und Wetter-User-Agent. Startbereich mit vorhandenem Drohnen-Konzeptbild; Drohnenlieferung als vorausgewählte Hauptoption, Zielstation im Warenkorb, Fahrrad als sekundäre Alternative. Demo-Checkout ist mit Routen-/Stationsprüfung und zehn Bestellschritten verbunden. Flugankunft, Einlagerung, Abholbereitschaft und explizit bestätigte Kundenabholung sind getrennt. Automatische Wiedergabe endet vor der Kundenabholung. Aufträge behalten Ziel, Szenario, Fahrzeug und Beispielzeiten unabhängig von späteren Planungsänderungen. Version-1-Sitzungen werden ohne Verlust gültiger Warenkörbe/Bestellungen übernommen; alte Fahrrad-Standardauswahl wird einmal zur Drohnenauswahl, explizite Version-2-Alternativen bleiben erhalten. Alle 72 Produktfotos und Originalquellen bleiben erhalten.
+- **Geprüft:** 65/65 Vitest-Tests, TypeScript/Produktionsbuild und 21/21 Playwright-Browserfälle bestanden. Mobil 360×800 und Desktop 1440×1000 einschließlich Drohnen-Checkout, Migration, Alternativroute, Stations-/Wettersperren, Auftragsroute nach globaler Änderung/Reload sowie axe. Sichtprüfung der neuen Start-/Warenkorb-/Trackingansichten; Ergebnisse und Grenzen primär in [Architekture.md, Abschnitt 13](Architekture.md#13-implementierte-p0-pitch-demo).
+- **Offen:** Zweites physisches WLAN-Gerät, Safari/Firefox, umfassende manuelle Screenreaderprüfung und die bereits dokumentierten Voraussetzungen für einen echten Pilotbetrieb.
+- **Blockiert:** Keine funktionale Blockade der lokalen Demo. Kein Nachweis realer Flug-/Transport- oder Betriebseignung.
+- **Nächster Schritt:** Die laufende Vorschau auf Port 3000 für den Pitch nutzen; tatsächlichen Smartphone-Aufruf im gemeinsamen WLAN prüfen.
+- **Geänderte Dateien:** `src/components/PitchApp.tsx`/CSS, `NetworkMap.tsx`, `src/domain/checkout.ts`, `orders.ts`, `drone.test.ts`, `src/demo/session.ts`, `src/app/layout.tsx`, Wetter-Provider, Paketdateien, `.env.example`, Browser-Tests/-Konfiguration, optimierte Kopie `public/images/drone-delivery-vision.webp` sowie Konzept, Architektur, README und Assetverzeichnis. AGENTS.md und Originalbilder/-aufträge unverändert. **Versionierung beauftragt:** Der Nutzer hat anschließend Commit und Push des geprüften Gesamtstands auf `main` im bestehenden Repository `origin` angefordert. Dies veröffentlicht den Quellstand im Repository; ein Hosting-/App-Deployment ist nicht Bestandteil dieses Auftrags.
+
+
+**Git-Übergabe (2026-10-21):** Der geprüfte Fly2You-Stand einschließlich App, Tests, Produktfotos, Bildquellen und Dokumentation wird im bestehenden `main` versioniert. Vor Commit: Remote-Stand abgerufen, vorgesehene Dateien, Ignore-Regeln, Dateigrößen, Schlüssel-Stichmuster und Whitespace geprüft. Keine blockierenden Befunde; keine Buildausgaben, Abhängigkeiten oder echten `.env`-Dateien vorgesehen. Offen bleiben die oben genannten externen Validierungen. Commit und Remote-Abgleich werden direkt nach Ausführung geprüft; die Git-Historie ist der maßgebliche Versionsnachweis.

@@ -1,0 +1,13 @@
+import { useId } from 'react';
+export default function ProductArt({ kind, label }: { kind: string; label: string }) {
+  const id=useId();
+  const coffee=kind==='coffee', book=kind==='book', bottle=['oil','soap'].includes(kind), tea=kind==='tea';
+  return <svg viewBox="0 0 300 180" role="img" aria-label={label}>
+    <defs><linearGradient id={id} x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff" stopOpacity=".55"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient></defs>
+    <ellipse cx="155" cy="157" rx="58" ry="7" fill="#14243f" opacity=".09"/>
+    {book?<g transform="rotate(-9 150 90)"><path d="M103 25h100v126H103z" fill="#ece2d0"/><path d="M99 22h100v126H99z" fill="#557a6c"/><path d="M99 22h8v126h-8z" fill="#31554b"/><path d="M118 40h62v2h-62zm9 8h44v1h-44z" fill="#eaddbd"/><circle cx="150" cy="91" r="24" fill="#dbb970"/><path d="m135 103 17-38 16 38m-25-15h17" fill="none" stroke="#557a6c" strokeWidth="3"/><text x="152" y="128" textAnchor="middle" fill="#fff4d9" fontFamily="Georgia" fontSize="10">ZWISCHEN DEN ZEILEN</text></g>:
+    bottle?<g transform="rotate(7 150 90)"><rect x="133" y="17" width="36" height="24" rx="4" fill="#253d36"/><rect x="128" y="35" width="46" height="27" rx="9" fill={kind==='oil'?'#73813d':'#b4a783'}/><rect x="117" y="53" width="68" height="100" rx="17" fill={kind==='oil'?'#79873e':'#d6c69c'}/><rect x="120" y="75" width="62" height="58" rx="2" fill="#f8f0d9"/><path d="M137 91c11 4 21-8 26-1-3 10-17 13-26 1Z" fill="#7d915f"/><text x="151" y="116" textAnchor="middle" fontSize="11" fontFamily="Georgia" fill="#344c3e">{kind==='oil'?'Oliva':'Natur'}</text><path d="M125 63v77" stroke="#fff" strokeOpacity=".2" strokeWidth="4" strokeLinecap="round"/></g>:
+    <g transform="rotate(-7 150 90)"><path d="m111 20 73 2 11 129-96-1Z" fill={coffee?'#b9764f':tea?'#91a28a':kind==='chocolate'?'#8b637b':kind==='pasta'?'#e4ba6c':'#d8bb8f'}/><path d="m111 20 73 2-7 12-61-1Z" fill="#fff" opacity=".2"/><path d="m184 22-7 12 8 107 10 10Z" fill="#000" opacity=".08"/><rect x="110" y="57" width="73" height="65" rx="2" fill="#fbf4e9"/>{coffee?<><path d="M137 76c13-8 19 7 8 12-13 7-19-5-8-12Z" fill="#825236"/><path d="m146 76-8 12" stroke="#e0c5a4" strokeWidth="1.5"/></>:<path d="m145 71 0 20m-1-10c-16 0-12-13 1-6m1 12c16 0 13-14-1-6" fill="none" stroke="#687b4f" strokeWidth="2"/>}<text x="146" y="106" textAnchor="middle" fill="#3e4338" fontSize="13" fontFamily="Georgia">{coffee?'Talröstung':tea?'Abendruhe':kind==='chocolate'?'Kakao 70 %':kind==='pasta'?'Pasta':'Vom Feld'}</text><path d="M131 112h30" stroke="#b3a58b"/><path d="m105 140 81 1" stroke="#fff" opacity=".4" strokeWidth="2"/></g>}
+    <path d="M0 0h300v180H0Z" fill={`url(#${id})`} style={{mixBlendMode:'soft-light'}}/>
+  </svg>;
+}
