@@ -3,6 +3,7 @@ import { Badge } from '../components/Badge';
 import { DeliveryMap } from '../components/DeliveryMap';
 import { Icon } from '../components/Icon';
 import { PageHeader } from '../components/PageHeader';
+import { ReceiptCode } from '../components/ReceiptCode';
 import {
   categories,
   CURRENT_CUSTOMER_ID,
@@ -27,6 +28,7 @@ import type {
 } from '../data/types';
 import { euro, km, minutesLabel, weightKg } from '../lib/format';
 import {
+  decisionLabel,
   deliveryStatusLabel,
   fulfillmentLabel,
   methodLabel,
@@ -50,6 +52,7 @@ const orderTone: Record<OrderStatus, 'ok' | 'warn' | 'bad' | 'info' | 'mute'> = 
   FULFILLING: 'info',
   READY: 'ok',
   IN_TRANSIT: 'info',
+  ARRIVED: 'warn',
   DELIVERED: 'ok',
   REJECTED: 'bad',
   CANCELLED: 'bad',
@@ -85,6 +88,7 @@ export function CustomerView({
   selectedOrderId,
   onSelectOrder,
   onCancel,
+  onConfirmReceipt,
   onNotify,
 }: {
   step: CustomerStep;
@@ -113,6 +117,7 @@ export function CustomerView({
   selectedOrderId: string | null;
   onSelectOrder: (id: string) => void;
   onCancel: (id: string) => void;
+  onConfirmReceipt: (id: string, code: string) => boolean;
   onNotify: (message: string) => void;
 }) {
   const [onlyAvailable, setOnlyAvailable] = useState(true);
@@ -514,11 +519,16 @@ export function CustomerView({
                   </dl>
                   <p className="muted small">
                     Methode: {methodLabel[quote.method ?? 'none']} · {weightKg(quote.payloadKg)} ·
-                    {' '}Höhe {quote.altitudeBandM?.join(' bis ') ?? 'offen'} m · {quote.methodPolicy}
+                    {' '}Höhe {quote.altitudeBandM?.join(' bis ') ?? 'offen'} m (illustrative Annahme) ·
+                    {' '}Wetter {quote.weather ? decisionLabel[quote.weather] : 'für Bodenfall nicht bewertet'} · {quote.methodPolicy}
                   </p>
                   {quote.droneId ? (
                     <p className="muted small">
                       Drohne {quote.droneId} · Abgabestelle: {address}. Ziel wird vor dem Start geprüft.
+                    </p>
+                  ) : quote.groundUnitId ? (
+                    <p className="muted small">
+                      Bodenfall {quote.groundUnitId} · Abgabestelle: {address}. Kapazitäten sind illustrative Annahmen.
                     </p>
                   ) : null}
                   <div className="button-row">
@@ -566,7 +576,9 @@ export function CustomerView({
                 <h2 id="checkout-title">Bestellung prüfen</h2>
                 <p className="muted">{cartStore?.name} · {fulfillmentLabel[fulfillment]} · {serviceLabel[service]}</p>
               </div>
-              <Badge tone="warn">Demo-Zahlung</Badge>
+              <Badge tone={quoteExpired ? 'bad' : 'warn'}>
+                {quoteExpired ? 'Angebot abgelaufen' : 'Angebot 120 s gültig'}
+              </Badge>
             </header>
             <ul className="checkout-lines">
               {cart.lines.map((line) => {
@@ -605,9 +617,18 @@ export function CustomerView({
                 gegebenenfalls Transportzusage bestätigen die Bestellung.
               </span>
             </div>
+            {quoteExpired ? (
+              <div className="notice notice-bad" role="alert">
+                <Icon name="alert" size={16} />
+                <span>
+                  Das Angebot ist abgelaufen. Preis und Zeitfenster müssen neu berechnet werden, bevor die
+                  Bestellung angelegt wird.
+                </span>
+              </div>
+            ) : null}
             <div className="button-row">
               <button type="button" className="btn btn-secondary" onClick={() => onStep('cart')}>Zurück zum Warenkorb</button>
-              <button type="button" className="btn btn-primary" onClick={onCheckout}>
+              <button type="button" className="btn btn-primary" disabled={quoteExpired} onClick={onCheckout}>
                 <Icon name="card" size={16} /> Bestellung verbindlich aufgeben
               </button>
             </div>
@@ -626,6 +647,7 @@ export function CustomerView({
             <p className="muted small">Zeitfenster {minutesLabel(quote.etaFromMinutes)} bis {minutesLabel(quote.etaToMinutes)}.</p>
             <p className="muted small">Methode: {methodLabel[quote.method ?? 'none']} · {weightKg(quote.payloadKg)}.</p>
             {quote.droneId ? <p className="muted small">Drohne {quote.droneId} · Abgabestelle: {address}</p> : null}
+            {quote.groundUnitId ? <p className="muted small">Bodenfall {quote.groundUnitId} · Abgabestelle: {address}</p> : null}
             <Badge tone="info">Demodaten, keine echte Zahlung</Badge>
           </aside>
         </div>
@@ -644,11 +666,13 @@ export function CustomerView({
                   <h2 id="tracking-title">
                     {selectedOrder.status === 'DELIVERED'
                       ? 'Bestellung abgeschlossen'
-                      : selectedOrder.status === 'REJECTED'
-                        ? 'Bestellung abgelehnt'
-                        : selectedOrder.status === 'CANCELLED'
-                          ? 'Bestellung storniert'
-                          : `Voraussichtlich in ${minutesLabel(selectedOrder.quote.etaFromMinutes)} bis ${minutesLabel(selectedOrder.quote.etaToMinutes)}`}
+                      : selectedOrder.status === 'ARRIVED'
+                        ? 'Angekommen · Empfang bestätigen'
+                        : selectedOrder.status === 'REJECTED'
+                          ? 'Bestellung abgelehnt'
+                          : selectedOrder.status === 'CANCELLED'
+                            ? 'Bestellung storniert'
+                            : `Voraussichtlich in ${minutesLabel(selectedOrder.quote.etaFromMinutes)} bis ${minutesLabel(selectedOrder.quote.etaToMinutes)}`}
                   </h2>
                   <p>
                     {selectedOrder.fulfillment === 'delivery'
@@ -660,7 +684,7 @@ export function CustomerView({
                     <span><Icon name="package" size={15} /> {selectedOrder.lines.reduce((sum, line) => sum + line.quantity, 0)} Artikel · {weightKg(selectedOrder.quote.payloadKg)}</span>
                     <span><Icon name="card" size={15} /> {paymentStatusLabel[selectedOrder.paymentStatus]}</span>
                     <span><Icon name="bike" size={15} /> {deliveryStatusLabel[selectedOrder.deliveryStatus]}</span>
-                    {selectedOrder.fulfillment === 'delivery' && !['IN_TRANSIT', 'DELIVERED'].includes(selectedOrder.status) ? (
+                    {selectedOrder.fulfillment === 'delivery' && selectedOrder.droneId && !['IN_TRANSIT', 'ARRIVED', 'DELIVERED'].includes(selectedOrder.status) ? (
                       <span><Icon name="clock" size={15} /> Erwarteter Start in {Math.max(0, Math.ceil((selectedOrder.droneDepartAt - now) / 1000))} Sekunden</span>
                     ) : null}
                   </div>
@@ -672,7 +696,8 @@ export function CustomerView({
                         : selectedOrder.status === 'FULFILLING' ? 2
                           : selectedOrder.status === 'READY' ? (selectedOrder.fulfillment === 'pickup' ? 3 : 2)
                             : selectedOrder.status === 'IN_TRANSIT' ? 3
-                              : selectedOrder.status === 'DELIVERED' ? 4 : 0;
+                              : selectedOrder.status === 'ARRIVED' ? 3
+                                : selectedOrder.status === 'DELIVERED' ? 4 : 0;
                     return (
                       <div key={label} className={`progress-step ${index <= progress ? 'is-done' : ''}`}>
                         <span className="progress-dot" aria-hidden="true">{index <= progress ? <Icon name="check" size={12} /> : null}</span>
@@ -687,10 +712,12 @@ export function CustomerView({
                 <section className="panel span-12" aria-labelledby="tracking-map-title">
                   <header>
                     <div>
-                      <h2 id="tracking-map-title">Drohnenroute und Abgabestelle</h2>
-                      <p className="muted">OpenStreetMap-Karte, keine Live-Position. Die Drohne bewegt sich simuliert; Gewicht und Distanz stehen in der Kostenaufschlüsselung.</p>
+                      <h2 id="tracking-map-title">
+                        {selectedOrder.quote.method === 'car' ? 'Bodenfall-Route und Abgabestelle' : 'Drohnenroute und Abgabestelle'}
+                      </h2>
+                      <p className="muted">OpenStreetMap-Karte, keine Live-Position. Die Fahrt bzw. der Flug ist simuliert; Gewicht und Distanz stehen in der Kostenaufschlüsselung.</p>
                     </div>
-                    <Badge tone="info">{selectedOrder.quote.droneId ?? 'Drohne'}</Badge>
+                    <Badge tone="info">{selectedOrder.droneId ?? selectedOrder.groundUnitId ?? 'offen'}</Badge>
                   </header>
                   <DeliveryMap
                     store={storeById(selectedOrder.storeId)!}
@@ -699,7 +726,7 @@ export function CustomerView({
                     phase={
                       selectedOrder.status === 'IN_TRANSIT'
                         ? 'flying'
-                        : selectedOrder.status === 'DELIVERED'
+                        : selectedOrder.status === 'ARRIVED' || selectedOrder.status === 'DELIVERED'
                           ? 'landed'
                           : 'waiting'
                     }
@@ -752,7 +779,13 @@ export function CustomerView({
                 <div className="code-details">
                   <div><span className="muted small">Zahlung</span><strong>{paymentStatusLabel[selectedOrder.paymentStatus]}</strong></div>
                   <div><span className="muted small">Lieferung</span><strong>{deliveryStatusLabel[selectedOrder.deliveryStatus]}</strong></div>
-                  <div><span className="muted small">{selectedOrder.fulfillment === 'pickup' ? 'Abholung' : 'Drohne'}</span><strong>{selectedOrder.droneId ? selectedOrder.droneId : selectedOrder.fulfillment === 'pickup' ? storeById(selectedOrder.storeId)?.name : 'noch offen'}</strong></div>
+                  <div>
+                    <span className="muted small">{selectedOrder.fulfillment === 'pickup' ? 'Abholung' : 'Transport'}</span>
+                    <strong>
+                      {selectedOrder.droneId ?? selectedOrder.groundUnitId
+                        ?? (selectedOrder.fulfillment === 'pickup' ? storeById(selectedOrder.storeId)?.name : 'noch offen')}
+                    </strong>
+                  </div>
                 </div>
                 <dl className="price-breakdown">
                   <div><dt>Warenwert</dt><dd className="mono">{euro(selectedOrder.quote.itemsSubtotalMinor)}</dd></div>
@@ -762,6 +795,9 @@ export function CustomerView({
                   <div><dt>Service</dt><dd className="mono">{euro(selectedOrder.quote.serviceFeeMinor)}</dd></div>
                   <div className="price-total"><dt>Gesamt</dt><dd className="mono">{euro(selectedOrder.quote.totalMinor)}</dd></div>
                 </dl>
+                {selectedOrder.fulfillment === 'delivery' && selectedOrder.status === 'ARRIVED' ? (
+                  <ReceiptCode onConfirm={(code) => onConfirmReceipt(selectedOrder.id, code)} />
+                ) : null}
                 <div className="button-row">
                   {['PENDING', 'CONFIRMED'].includes(selectedOrder.status) ? (
                     <button type="button" className="btn btn-secondary" onClick={() => onCancel(selectedOrder.id)}>

@@ -489,6 +489,12 @@ ul, ol { padding: 0; }
 .checkout-address { display: grid; gap: var(--space-1); padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-sunken); }
 .checkout-address h3 { font-size: var(--text-sm); }
 
+/* Empfang bestätigen: Ankunft und Abschluss sind getrennte Schritte */
+.receipt-form { display: grid; gap: var(--space-2); padding: var(--space-3); margin-block-start: var(--space-3); border: 1px solid var(--border-soft); border-radius: var(--radius-md); background: var(--surface-sunken); }
+.receipt-form .field { gap: var(--space-1); }
+.receipt-form-compact { margin-block-start: var(--space-2); padding: var(--space-2); min-inline-size: 12rem; }
+.receipt-form-compact .btn { font-size: var(--text-xs); }
+
 /* Tracking */
 .tracking-hero { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
 @media (min-width: 60rem) { .tracking-hero { grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.55fr); align-items: center; } }

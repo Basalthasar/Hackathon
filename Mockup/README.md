@@ -5,6 +5,29 @@ Lieferplattform. Die Oberfläche zeigt Kunde, Händler, Flotte und Betrieb mit
 Demodaten. Es gibt kein echtes Backend, keine echte Zahlung, keine echte
 Drohnensteuerung und keine Live-Telemetrie.
 
+## Einordnung: eigenständiger Gestaltungsvorschlag
+
+Dieser Ordner ist ein separater UI-Entwurf, keine Fortschreibung des aktiven
+Projekts unter `src/` (Fly2You). Mehrere Regeln weichen bewusst ab und ersetzen
+keine bestehenden Entscheidungen:
+
+- Produktname `FlyToYou` statt `Fly2You`.
+- Direktadresse als Abgabestelle statt Station mit Anschlussweg.
+- Zusätzliche Fahrzeugklassen (Drohne, Schwerlastdrohne, Auto als Bodenfall).
+- Anderer Pilotumfang, unter anderem mit buchbarem Bodenfall.
+
+Nutzlasten, Reichweiten, Höhenbänder und Wettergrenzwerte sind illustrative
+Annahmen für die Darstellung. Sie sind keine technischen Nachweise und keine
+Betriebsgrenzen. Die Wetteransicht führt deshalb keine positive Bewertung,
+sondern `UNBESTIMMT`; ein positives Szenario ist ausdrücklich als Simulation
+gekennzeichnet.
+
+`ux-ui-agent-skills/` ist ein mitgeliefertes Fremdpaket (MIT, Copyright 2026
+Thientan Soparat, Lizenztext in `ux-ui-agent-skills/LICENSE`) und wird nur als
+Arbeitshilfe verwendet, nicht als Projektbestandteil. Build-Ausgaben
+(`Mockup/app/dist`) werden nicht versioniert, sondern mit `npm run build`
+erzeugt.
+
 ## Schnellstart
 
 Voraussetzung: Node.js 20 oder neuer und npm.

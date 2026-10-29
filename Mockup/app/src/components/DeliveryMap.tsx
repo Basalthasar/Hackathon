@@ -66,23 +66,25 @@ export function DeliveryMap({
   ], [destination.lat, destination.lon, progress, store.lat, store.lon]);
 
   const inside = quote.distanceKm <= store.deliveryRadiusKm;
+  const isGround = quote.method === 'car' || quote.method === 'bicycle' || quote.method === 'scooter';
+  const unitLabel = quote.droneId ?? quote.groundUnitId ?? (isGround ? 'Bodenfall' : 'Drohne');
   const secondsLeft = departAt ? Math.max(0, Math.ceil((departAt - now) / 1000)) : 0;
   const phaseLabel = phase === 'preview'
     ? 'Vorschau · Start erst nach Bestellung'
     : phase === 'waiting'
-      ? secondsLeft > 0 ? `Drohne wartet · erwarteter Start in ${secondsLeft} Sekunden` : 'Drohne startet nach Freigabe'
+      ? secondsLeft > 0 ? `Drohne wartet · erwarteter Start in ${secondsLeft} Sekunden` : 'Start nach Freigabe'
       : phase === 'landed'
-        ? 'Drohne am Ziel'
-        : 'Drohne simuliert im Flug';
+        ? isGround ? 'Simuliertes Fahrzeug am Ziel' : 'Drohne am Ziel'
+        : isGround ? 'Simuliertes Fahrzeug unterwegs' : 'Drohne simuliert im Flug';
   const icons = useMemo(() => ({
     store: pinIcon('store', store.name),
     target: pinIcon('target', destination.label),
-    drone: pinIcon('drone', 'Simulierte Drohne'),
-  }), [destination.label, store.name]);
+    drone: pinIcon('drone', isGround ? 'Simuliertes Fahrzeug' : 'Simulierte Drohne'),
+  }), [destination.label, isGround, store.name]);
 
   return (
     <div className="delivery-map">
-      <div className="osm-map" role="group" aria-label={`OpenStreetMap-Karte: Drohnenroute von ${store.name} zu ${destination.label}`}>
+      <div className="osm-map" role="group" aria-label={`OpenStreetMap-Karte: ${isGround ? 'Fahrtroute' : 'Drohnenroute'} von ${store.name} zu ${destination.label}`}>
         <MapContainer
           key={`${store.id}-${destination.id}`}
           bounds={[[store.lat, store.lon], [destination.lat, destination.lon]]}
@@ -111,7 +113,7 @@ export function DeliveryMap({
             <Popup><strong>Abgabestelle</strong><br />{destination.label}</Popup>
           </Marker>
           <Marker position={dronePosition} icon={icons.drone}>
-            <Popup><strong>Simulierte Drohne</strong><br />{quote.droneId ?? 'Drohne'} · {km(quote.distanceKm)} · {weightKg(quote.payloadKg)}</Popup>
+            <Popup><strong>{isGround ? 'Simuliertes Fahrzeug' : 'Simulierte Drohne'}</strong><br />{unitLabel} · {km(quote.distanceKm)} · {weightKg(quote.payloadKg)}</Popup>
           </Marker>
         </MapContainer>
         <div className="osm-overlay">
@@ -122,18 +124,22 @@ export function DeliveryMap({
 
       <div className="distance-card">
         <div>
-          <span className="eyebrow">Drohnenstrecke</span>
+          <span className="eyebrow">{isGround ? 'Fahrtstrecke' : 'Drohnenstrecke'}</span>
           <strong className="mono">{km(quote.distanceKm)}</strong>
           <span className="muted small">{store.name} zu {destination.label}</span>
         </div>
         <div>
           <span className="eyebrow">Nutzlast</span>
           <strong className="mono">{weightKg(quote.payloadKg)}</strong>
-          <span className="muted small">{quote.droneId ?? 'Drohne offen'} · Klasse bis {quote.method === 'heavy_drone' ? '60 kg' : '25 kg'}</span>
+          <span className="muted small">
+            {isGround
+              ? `${unitLabel} · Kapazität illustrativ`
+              : `${quote.droneId ?? 'Drohne offen'} · Klasse bis ${quote.method === 'heavy_drone' ? '60 kg' : '25 kg'} (illustrativ)`}
+          </span>
         </div>
         <div>
-          <span className="eyebrow">Flugprofil</span>
-          <strong className="mono">{quote.altitudeBandM?.join(' bis ') ?? 'offen'} m</strong>
+          <span className="eyebrow">{isGround ? 'Höhenprofil' : 'Flugprofil'}</span>
+          <strong className="mono">{quote.altitudeBandM?.join(' bis ') ?? 'nicht relevant'} {quote.altitudeBandM ? 'm' : ''}</strong>
           <span className="muted small">Kosten siehe Aufschlüsselung. Karte und Bewegung sind simuliert.</span>
         </div>
       </div>

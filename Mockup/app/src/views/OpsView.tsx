@@ -1,12 +1,14 @@
 import { Badge } from '../components/Badge';
 import { Icon } from '../components/Icon';
 import { PageHeader } from '../components/PageHeader';
-import { drones, inventoryIssues, storeById } from '../data/demo';
+import { ReceiptCode } from '../components/ReceiptCode';
+import { drones, groundUnits, inventoryIssues, storeById } from '../data/demo';
 import type { InventoryIssue, Order, OrderStatus } from '../data/types';
 import { euro } from '../lib/format';
 import {
   deliveryStatusLabel,
   fulfillmentLabel,
+  methodLabel,
   orderStatusLabel,
   paymentStatusLabel,
 } from '../lib/labels';
@@ -17,6 +19,7 @@ const orderTone: Record<OrderStatus, 'ok' | 'warn' | 'bad' | 'info' | 'mute'> = 
   FULFILLING: 'info',
   READY: 'ok',
   IN_TRANSIT: 'info',
+  ARRIVED: 'warn',
   DELIVERED: 'ok',
   REJECTED: 'bad',
   CANCELLED: 'bad',
@@ -32,11 +35,17 @@ const issueTone: Record<InventoryIssue['severity'], 'bad' | 'warn' | 'info'> = {
 export function OpsView({
   orders,
   onAssignDrone,
+  onAssignGroundUnit,
+  onArrive,
+  onConfirmReceipt,
   onCancel,
   onNotify,
 }: {
   orders: Order[];
   onAssignDrone: (orderId: string, droneId: string) => void;
+  onAssignGroundUnit: (orderId: string, unitId: string) => void;
+  onArrive: (id: string) => void;
+  onConfirmReceipt: (id: string, code: string) => boolean;
   onCancel: (id: string) => void;
   onNotify: (message: string) => void;
 }) {
@@ -93,7 +102,7 @@ export function OpsView({
                   <th scope="col">Status</th>
                   <th scope="col">Zahlung</th>
                   <th scope="col">Lieferung</th>
-                  <th scope="col">Drohne</th>
+                  <th scope="col">Transport</th>
                   <th scope="col" className="end">Gesamt</th>
                   <th scope="col">Aktion</th>
                 </tr>
@@ -109,6 +118,8 @@ export function OpsView({
                     <td>
                       {order.droneId ? (
                         <span className="small">{drones.find((drone) => drone.id === order.droneId)?.id} · {drones.find((drone) => drone.id === order.droneId)?.model}</span>
+                      ) : order.groundUnitId ? (
+                        <span className="small">{order.groundUnitId} · {methodLabel[order.quote.method ?? 'car']}</span>
                       ) : order.fulfillment === 'pickup' ? (
                         <span className="muted small">Selbstabholung</span>
                       ) : (
@@ -117,28 +128,63 @@ export function OpsView({
                     </td>
                     <td className="end mono">{euro(order.quote.totalMinor)}</td>
                     <td>
-                      {order.fulfillment === 'delivery' && order.status === 'READY' && !order.droneId ? (
-                        <div className="assign-row">
-                          {drones.map((drone) => (
-                            <button
-                              key={drone.id}
-                              type="button"
-                              className="chip"
-                              disabled={!assignable(order, drone.id)}
-                              onClick={() => {
-                                onAssignDrone(order.id, drone.id);
-                                onNotify(`${drone.id} wurde ${order.id} zugewiesen. Demo.`);
-                              }}
-                            >
-                              <Icon name="route" size={13} /> {drone.id}
-                            </button>
-                          ))}
-                        </div>
+                      {order.fulfillment === 'delivery' && order.status === 'READY' && !order.droneId && !order.groundUnitId ? (
+                        order.quote.method === 'car' ? (
+                          <div className="assign-row">
+                            {groundUnits.map((unit) => (
+                              <button
+                                key={unit.id}
+                                type="button"
+                                className="chip"
+                                disabled={unit.state !== 'ready' || unit.maxPayloadKg < order.quote.payloadKg}
+                                onClick={() => {
+                                  onAssignGroundUnit(order.id, unit.id);
+                                  onNotify(`${unit.id} wurde ${order.id} als Bodenfall zugewiesen. Demo.`);
+                                }}
+                              >
+                                <Icon name="route" size={13} /> {unit.id} · Bodenfall
+                              </button>
+                            ))}
+                            <span className="muted small">Keine Drohne trägt {order.quote.payloadKg.toFixed(1).replace('.', ',')} kg. Bodenfall ist der einzige Transportpfad.</span>
+                          </div>
+                        ) : (
+                          <div className="assign-row">
+                            {drones.map((drone) => (
+                              <button
+                                key={drone.id}
+                                type="button"
+                                className="chip"
+                                disabled={!assignable(order, drone.id)}
+                                onClick={() => {
+                                  onAssignDrone(order.id, drone.id);
+                                  onNotify(`${drone.id} wurde ${order.id} zugewiesen. Demo.`);
+                                }}
+                              >
+                                <Icon name="route" size={13} /> {drone.id}
+                              </button>
+                            ))}
+                          </div>
+                        )
+                      ) : null}
+                      {order.status === 'IN_TRANSIT' && !order.droneId ? (
+                        <button
+                          type="button"
+                          className="chip"
+                          onClick={() => {
+                            onArrive(order.id);
+                            onNotify(`Ankunft für ${order.id} gemeldet. Empfang bleibt offen.`);
+                          }}
+                        >
+                          <Icon name="check" size={13} /> Ankunft melden
+                        </button>
+                      ) : null}
+                      {order.status === 'ARRIVED' ? (
+                        <ReceiptCode compact onConfirm={(code) => onConfirmReceipt(order.id, code)} />
                       ) : null}
                       {['PENDING', 'CONFIRMED'].includes(order.status) ? (
                         <button type="button" className="chip" onClick={() => onCancel(order.id)}>Storno</button>
                       ) : null}
-                      {order.droneId ? (
+                      {order.droneId || order.groundUnitId ? (
                         <span className="muted small">
                           {order.address}
                         </span>

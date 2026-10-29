@@ -21,6 +21,7 @@ const orderTone: Record<OrderStatus, 'ok' | 'warn' | 'bad' | 'info' | 'mute'> = 
   FULFILLING: 'info',
   READY: 'ok',
   IN_TRANSIT: 'info',
+  ARRIVED: 'warn',
   DELIVERED: 'ok',
   REJECTED: 'bad',
   CANCELLED: 'bad',
@@ -68,7 +69,7 @@ export function MerchantView({
   const merchantOptions = merchants.filter((item) => stores.some((candidate) => candidate.merchantId === item.id));
   const merchantStores = stores.filter((item) => item.merchantId === store.merchantId);
   const storeOrders = useMemo(
-    () => orders.filter((order) => order.storeId === store.id && order.customerId === CURRENT_CUSTOMER_ID && !['DELIVERED', 'REJECTED', 'CANCELLED', 'EXPIRED', 'IN_TRANSIT'].includes(order.status)),
+    () => orders.filter((order) => order.storeId === store.id && order.customerId === CURRENT_CUSTOMER_ID && !['DELIVERED', 'REJECTED', 'CANCELLED', 'EXPIRED', 'IN_TRANSIT', 'ARRIVED'].includes(order.status)),
     [orders, store.id],
   );
   const storeOffers = offers.filter((offer) => offer.storeId === store.id);
@@ -183,18 +184,22 @@ export function MerchantView({
                     <button
                       type="button"
                       className="btn btn-primary"
-                      disabled={order.fulfillment === 'delivery' && !order.droneId}
+                      disabled={order.fulfillment === 'delivery' && !order.droneId && !order.groundUnitId}
                       onClick={() => onHandover(order.id)}
                     >
                       <Icon name={order.fulfillment === 'pickup' ? 'lock' : 'bike'} size={15} />
-                      {order.fulfillment === 'pickup' ? 'Abholung bestätigen' : 'An Drohne übergeben'}
+                      {order.fulfillment === 'pickup'
+                        ? 'Abholung bestätigen'
+                        : order.droneId ? 'An Drohne übergeben' : 'An Bodenfall übergeben'}
                     </button>
                   ) : null}
                   {order.status === 'READY' && order.merchantTask === 'HANDED_OVER' ? (
-                    <span className="muted small">Ware übergeben. Wartet auf Drohnenstart.</span>
+                    <span className="muted small">
+                      {order.droneId ? 'Ware übergeben. Wartet auf Drohnenstart.' : 'Ware übergeben. Bodenfall unterwegs.'}
+                    </span>
                   ) : null}
-                  {order.status === 'READY' && order.fulfillment === 'delivery' && !order.droneId ? (
-                    <span className="muted small">Noch keine Drohne zugewiesen. Flotte muss zuordnen.</span>
+                  {order.status === 'READY' && order.fulfillment === 'delivery' && !order.droneId && !order.groundUnitId ? (
+                    <span className="muted small">Noch kein Transportmittel zugewiesen. Der Betrieb muss Drohne oder Bodenfall zuordnen.</span>
                   ) : null}
                   <span className="muted small">Aufgabe: {merchantTaskLabel[order.merchantTask]}</span>
                 </div>

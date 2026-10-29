@@ -191,6 +191,14 @@ export default function App() {
 
   const createOrder = () => {
     if (!quote || !cart.storeId) return;
+    // Das Angebot bindet nur 120 Sekunden. Unmittelbar vor dem Anlegen erneut prüfen.
+    if (Date.now() >= quote.validUntil) {
+      setQuote(null);
+      setQuoteError('Das Angebot ist abgelaufen. Bitte Preis und Zeitfenster neu berechnen.');
+      setCustomerStep('cart');
+      setToast('Angebot abgelaufen. Bestellung wurde nicht angelegt.');
+      return;
+    }
     const store = storeById(cart.storeId);
     if (!store) return;
     const now = clockNow();
@@ -216,13 +224,14 @@ export default function App() {
       status: 'PENDING',
       merchantTask: 'NEW',
       paymentStatus: 'AUTHORIZED',
-      deliveryStatus: fulfillment === 'delivery' ? (quote.droneId ? 'ASSIGNED' : 'UNASSIGNED') : 'NONE',
+      deliveryStatus: fulfillment === 'delivery' ? (quote.droneId || quote.groundUnitId ? 'ASSIGNED' : 'UNASSIGNED') : 'NONE',
       fulfillment,
       service,
       lines,
       quote,
       address: fulfillment === 'delivery' ? address : `Abholung: ${store.address}`,
       droneId: quote.droneId,
+      groundUnitId: quote.groundUnitId,
       droneDepartAt: quote.droneId ? Date.now() + (30 + Math.floor(Math.random() * 31)) * 1000 : 0,
       pickupCode: `P-${Math.floor(1000 + Math.random() * 9000)}`,
       deliveryCode: fulfillment === 'delivery' ? `D-${Math.floor(1000 + Math.random() * 9000)}` : '',
@@ -327,8 +336,21 @@ export default function App() {
       setToast(`Abholung ${id} bestätigt. Zahlung eingezogen.`);
       return;
     }
+    if (!order.droneId && !order.groundUnitId) {
+      setToast('Kein Transportmittel zugewiesen. Zuerst im Betrieb zuordnen.');
+      return;
+    }
     if (!order.droneId) {
-      setToast('Keine Drohne zugewiesen. Zuerst im Betrieb zuordnen.');
+      // Bodenfall: die Übergabe startet den Transport. Ankunft und Empfang bleiben eigene Schritte.
+      updateOrder(id, (current) => ({
+        ...current,
+        status: 'IN_TRANSIT',
+        merchantTask: 'HANDED_OVER',
+        deliveryStatus: 'IN_TRANSIT',
+        timeline: [...current.timeline, { at: clockNow(), label: 'An Bodenfall übergeben', detail: `${current.groundUnitId ?? 'Bodeneinheit'} übernimmt die Lieferung. Ankunft wird getrennt bestätigt.`, actor: storeById(current.storeId)?.name ?? 'Händler' }],
+        note: 'Bodenfall unterwegs. Ankunft und Empfang offen.',
+      }));
+      setToast(`Ware für ${id} an den Bodenfall übergeben.`);
       return;
     }
     updateOrder(id, (current) => ({
@@ -350,16 +372,60 @@ export default function App() {
     }));
   };
 
-  const landDrone = (id: string) => {
+  const assignGroundUnit = (orderId: string, unitId: string) => {
+    setSelectedOrderId(orderId);
+    updateOrder(orderId, (current) => ({
+      ...current,
+      groundUnitId: unitId,
+      deliveryStatus: 'ASSIGNED',
+      timeline: [...current.timeline, { at: clockNow(), label: 'Bodenfall zugewiesen', detail: `${unitId} übernimmt den Transport. Ankunft wird getrennt bestätigt.`, actor: 'Betrieb' }],
+    }));
+  };
+
+  /**
+   * Ankunft am Übergabepunkt. Das ist ausdrücklich noch keine Zustellung:
+   * Zahlung und Empfang bleiben offen, bis der Empfangscode bestätigt wurde.
+   */
+  const confirmArrival = (id: string) => {
     setSelectedOrderId(id);
+    const order = orders.find((item) => item.id === id);
+    if (!order) return;
+    if (order.status !== 'IN_TRANSIT') {
+      setToast('Ankunft ist nur für laufende Transporte bestätigbar.');
+      return;
+    }
+    updateOrder(id, (current) => ({
+      ...current,
+      status: 'ARRIVED',
+      deliveryStatus: 'ARRIVED',
+      timeline: [...current.timeline, { at: clockNow(), label: current.droneId ? 'Landung bestätigt' : 'Ankunft bestätigt', detail: 'Ankunft am Übergabepunkt dokumentiert. Übergabe und Empfang stehen noch aus.', actor: 'Flugbetrieb' }],
+      note: 'Angekommen. Empfang durch Kundencode offen.',
+    }));
+    setToast(`${id} ist angekommen. Empfang offen, Zahlung nicht eingezogen.`);
+  };
+
+  /** Demo-Empfangsschritt: prüft den Empfangscode und schließt erst dann ab. */
+  const confirmReceipt = (id: string, code: string): boolean => {
+    const order = orders.find((item) => item.id === id);
+    if (!order) return false;
+    if (order.status !== 'ARRIVED') {
+      setToast('Empfang lässt sich erst nach bestätigter Ankunft erfassen.');
+      return false;
+    }
+    if (code.trim().toUpperCase() !== order.deliveryCode.toUpperCase()) {
+      setToast('Empfangscode stimmt nicht. Bitte den Code aus der Bestellung verwenden.');
+      return false;
+    }
     updateOrder(id, (current) => ({
       ...current,
       status: 'DELIVERED',
       deliveryStatus: 'DELIVERED',
       paymentStatus: 'CAPTURED',
-      timeline: [...current.timeline, { at: clockNow(), label: 'Landung bestätigt', detail: 'Drohne am Übergabepunkt gelandet. Empfangscode dokumentiert.', actor: 'Flugbetrieb' }],
-      note: 'Am Übergabepunkt angekommen.',
+      timeline: [...current.timeline, { at: clockNow(), label: 'Empfang bestätigt', detail: 'Kunde hat den Empfangscode genannt. Zahlung eingezogen.', actor: 'Kunde' }],
+      note: 'Abgeschlossen nach bestätigtem Empfang.',
     }));
+    setToast(`Empfang für ${id} bestätigt. Zahlung eingezogen (Demo).`);
+    return true;
   };
 
   return (
@@ -428,6 +494,7 @@ export default function App() {
             selectedOrderId={selectedOrderId}
             onSelectOrder={setSelectedOrderId}
             onCancel={cancelOrder}
+            onConfirmReceipt={confirmReceipt}
             onNotify={setToast}
           />
         ) : null}
@@ -449,7 +516,7 @@ export default function App() {
         {role === 'fleet' ? (
           <FleetView
             orders={orders}
-            onLand={landDrone}
+            onArrive={confirmArrival}
             onNotify={setToast}
           />
         ) : null}
@@ -458,6 +525,9 @@ export default function App() {
           <OpsView
             orders={orders}
             onAssignDrone={assignDrone}
+            onAssignGroundUnit={assignGroundUnit}
+            onArrive={confirmArrival}
+            onConfirmReceipt={confirmReceipt}
             onCancel={cancelOrder}
             onNotify={setToast}
           />

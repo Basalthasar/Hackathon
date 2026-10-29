@@ -17,13 +17,15 @@ export type OrderStatus =
   | 'FULFILLING'
   | 'READY'
   | 'IN_TRANSIT'
+  /** Am Übergabepunkt angekommen. Der Empfang ist noch nicht bestätigt. */
+  | 'ARRIVED'
   | 'DELIVERED'
   | 'REJECTED'
   | 'CANCELLED'
   | 'EXPIRED';
 
 export type PaymentStatus = 'PENDING' | 'AUTHORIZED' | 'CAPTURED' | 'REFUNDED' | 'FAILED' | 'VOIDED';
-export type DeliveryStatus = 'NONE' | 'UNASSIGNED' | 'ASSIGNED' | 'PICKED_UP' | 'IN_TRANSIT' | 'DELIVERED' | 'FAILED';
+export type DeliveryStatus = 'NONE' | 'UNASSIGNED' | 'ASSIGNED' | 'PICKED_UP' | 'IN_TRANSIT' | 'ARRIVED' | 'DELIVERED' | 'FAILED';
 export type MerchantTaskStatus = 'NEW' | 'ACCEPTED' | 'PICKING' | 'READY' | 'HANDED_OVER' | 'REJECTED';
 
 export interface Product {
@@ -80,7 +82,11 @@ export interface Quote {
   payloadKg: number;
   weightFeeMinor: number;
   droneId: string | null;
+  /** Bodeneinheit für den Auto-Fallback. Nur gesetzt, wenn keine Drohne tragen kann. */
+  groundUnitId: string | null;
+  /** Illustrative Annahme, kein nachgewiesener Höhenbereich. */
   altitudeBandM: [number, number] | null;
+  /** Wetterbewertung der Mission. Ohne belegte Datenquelle immer 'unknown'. */
   weather: Decision | null;
   distanceKm: number;
   baseFeeMinor: number;
@@ -129,6 +135,7 @@ export interface Order {
   quote: Quote;
   address: string;
   droneId: string | null;
+  groundUnitId: string | null;
   droneDepartAt: number;
   pickupCode: string;
   deliveryCode: string;
@@ -144,6 +151,14 @@ export interface Drone {
   batteryPct: number;
   reservePct: number;
   state: 'ready' | 'flying' | 'charging' | 'grounded';
+  note: string;
+}
+
+export interface GroundUnit {
+  id: string;
+  label: string;
+  maxPayloadKg: number;
+  state: 'ready' | 'driving';
   note: string;
 }
 

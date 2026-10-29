@@ -5,7 +5,7 @@ import { PageHeader } from '../components/PageHeader';
 import { drones, findDestination, storeById } from '../data/demo';
 import type { Drone, Order, OrderStatus } from '../data/types';
 import { euro, km, weightKg } from '../lib/format';
-import { deliveryStatusLabel, methodLabel, orderStatusLabel } from '../lib/labels';
+import { decisionLabel, deliveryStatusLabel, methodLabel, orderStatusLabel } from '../lib/labels';
 
 const orderTone: Record<OrderStatus, 'ok' | 'warn' | 'bad' | 'info' | 'mute'> = {
   PENDING: 'warn',
@@ -13,6 +13,7 @@ const orderTone: Record<OrderStatus, 'ok' | 'warn' | 'bad' | 'info' | 'mute'> = 
   FULFILLING: 'info',
   READY: 'ok',
   IN_TRANSIT: 'info',
+  ARRIVED: 'warn',
   DELIVERED: 'ok',
   REJECTED: 'bad',
   CANCELLED: 'bad',
@@ -28,16 +29,16 @@ const droneTone: Record<Drone['state'], 'ok' | 'info' | 'warn' | 'bad'> = {
 
 export function FleetView({
   orders,
-  onLand,
+  onArrive,
   onNotify,
 }: {
   orders: Order[];
-  onLand: (id: string) => void;
+  onArrive: (id: string) => void;
   onNotify: (message: string) => void;
 }) {
   const droneOrders = orders.filter((order) => order.droneId && !['REJECTED', 'CANCELLED', 'EXPIRED'].includes(order.status));
   const ready = drones.filter((drone) => drone.state === 'ready');
-  const active = droneOrders.filter((order) => ['READY', 'IN_TRANSIT'].includes(order.status));
+  const active = droneOrders.filter((order) => ['READY', 'IN_TRANSIT', 'ARRIVED'].includes(order.status));
   const lowestBattery = Math.min(...drones.map((drone) => drone.batteryPct));
   const [now, setNow] = useState(Date.now());
 
@@ -51,8 +52,8 @@ export function FleetView({
       <PageHeader
         eyebrow="FlyToYou · Flugbetrieb"
         title="Drohnenflotte"
-        description="Drohnen sind das primäre Transportmittel. Nutzlast bis 25 kg, Schwerlast bis 60 kg, Reichweite bis 30 km. Jede Mission braucht Wetter-, Energie- und Zielprüfung. Der Start erfolgt frühestens 30 bis 60 Sekunden nach Bestellung."
-        actions={<Badge tone="warn">Wetterfenster geprüft · Demo</Badge>}
+        description="Drohnen sind das primäre Transportmittel. Die gezeigten Nutzlast- und Reichweitenwerte (25 kg, 60 kg, 30 km) sind illustrative Annahmen des Prototyps, keine belegten Betriebsgrenzen. Jede Mission braucht Wetter-, Energie- und Zielprüfung. Der Start erfolgt frühestens 30 bis 60 Sekunden nach Bestellung."
+        actions={<Badge tone="warn">Wetterbewertung unbestimmt</Badge>}
       />
 
       <div className="metrics">
@@ -94,9 +95,9 @@ export function FleetView({
                   <div className="drone-metrics">
                     <span><Icon name="package" size={14} /> {weightKg(order.quote.payloadKg)}</span>
                     <span><Icon name="route" size={14} /> {km(order.quote.distanceKm)}</span>
-                    <span><Icon name="layers" size={14} /> {order.quote.altitudeBandM?.join(' bis ') ?? 'offen'} m</span>
+                    <span><Icon name="layers" size={14} /> {order.quote.altitudeBandM?.join(' bis ') ?? 'offen'} m (illustrativ)</span>
                     <span><Icon name="battery" size={14} /> {drone?.batteryPct ?? 'offen'} %</span>
-                    <span><Icon name="shield" size={14} /> Wetter {order.quote.weather === 'go' ? 'möglich' : order.quote.weather ?? 'offen'}</span>
+                    <span><Icon name="shield" size={14} /> Wetter {order.quote.weather ? decisionLabel[order.quote.weather] : 'offen'}</span>
                     <span><Icon name="card" size={14} /> {euro(order.quote.totalMinor)}</span>
                   </div>
                   <div className="drone-mission-actions">
@@ -113,9 +114,14 @@ export function FleetView({
                       )
                     ) : null}
                     {order.status === 'IN_TRANSIT' ? (
-                      <button type="button" className="btn btn-primary" onClick={() => { onLand(order.id); onNotify(`Landung für ${order.id} bestätigt. Demo.`); }}>
-                        <Icon name="check" size={16} /> Landung bestätigen
+                      <button type="button" className="btn btn-primary" onClick={() => { onArrive(order.id); onNotify(`Ankunft für ${order.id} bestätigt. Empfang bleibt offen.`); }}>
+                        <Icon name="check" size={16} /> Ankunft bestätigen
                       </button>
+                    ) : null}
+                    {order.status === 'ARRIVED' ? (
+                      <span className="muted small">
+                        Angekommen. Übergabe und Empfang offen; der Abschluss erfolgt nur über den Empfangscode des Kunden.
+                      </span>
                     ) : null}
                     {order.status === 'PENDING' || order.status === 'CONFIRMED' || order.status === 'FULFILLING' ? (
                       <span className="muted small">Wartet auf Händlerfreigabe und Beladung.</span>
@@ -165,17 +171,29 @@ export function FleetView({
           <header>
             <div>
               <h2 id="drone-weather-title">Flugwetter und Freigabegrenzen</h2>
-              <p className="muted">Wetter ist eine von mehreren Bedingungen. Keine automatische Freigabe bei fehlenden Daten.</p>
+              <p className="muted">Wetter ist eine von mehreren Bedingungen. Ohne Datenquelle, Messhöhe, Zeitfenster und belegte Fahrzeuggrenzen gibt es keine positive Freigabe.</p>
             </div>
-            <Badge tone="ok">Flug möglich</Badge>
+            <Badge tone="warn">Bewertung {decisionLabel.unknown}</Badge>
           </header>
           <div className="weather-grid">
-            <div><span className="eyebrow">Wind</span><strong className="mono">6,4 m/s</strong><span className="muted small">Grenzwert 12,0 m/s</span></div>
-            <div><span className="eyebrow">Böen</span><strong className="mono">9,2 m/s</strong><span className="muted small">Reserve 2,8 m/s</span></div>
-            <div><span className="eyebrow">Sicht</span><strong className="mono">8,0 km</strong><span className="muted small">Minimum 2,0 km</span></div>
-            <div><span className="eyebrow">Niederschlag</span><strong>Keiner</strong><span className="muted small">Demo-Beobachtung</span></div>
-            <div><span className="eyebrow">Temperatur</span><strong className="mono">13,4 °C</strong><span className="muted small">Keine Vereisung erwartet</span></div>
-            <div><span className="eyebrow">Datenalter</span><strong className="mono">42 s</strong><span className="muted small">Quelle in Demo simuliert</span></div>
+            <div><span className="eyebrow">Wind</span><strong className="mono">6,4 m/s</strong><span className="muted small">Annahmewert 12,0 m/s (illustrativ)</span></div>
+            <div><span className="eyebrow">Böen</span><strong className="mono">9,2 m/s</strong><span className="muted small">Reserve 2,8 m/s (illustrativ)</span></div>
+            <div><span className="eyebrow">Sicht</span><strong className="mono">8,0 km</strong><span className="muted small">Annahmewert 2,0 km (illustrativ)</span></div>
+            <div><span className="eyebrow">Niederschlag</span><strong>Keiner</strong><span className="muted small">feste Demo-Eingabe, keine Messung</span></div>
+            <div><span className="eyebrow">Temperatur</span><strong className="mono">13,4 °C</strong><span className="muted small">feste Demo-Eingabe, keine Messung</span></div>
+            <div><span className="eyebrow">Datenalter</span><strong className="mono">42 s</strong><span className="muted small">konstant, simuliert, keine Quelle</span></div>
+          </div>
+          <div className="notice notice-warn">
+            <Icon name="alert" size={16} />
+            <span>Diese Werte sind fest eingetragen. Es gibt keine Datenquelle, keine Messhöhe und kein Missionsfenster. Deshalb bleibt die reale Bewertung unbestimmt.</span>
+          </div>
+          <div className="notice">
+            <Icon name="info" size={16} />
+            <span>
+              <strong>Ausdrücklich simuliertes Szenario:</strong> mit diesen Beispielwerten und vollständigen
+              Pflichtdaten wäre eine Freigabe denkbar. Das ist eine getroffene Annahme für die Demo,
+              kein Nachweis und keine belastbare Grenze.
+            </span>
           </div>
           <div className="notice notice-warn">
             <Icon name="alert" size={16} />

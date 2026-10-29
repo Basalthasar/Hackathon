@@ -1,4 +1,4 @@
-import { findDestination, findDrone, MAP_KM_PER_UNIT, offerById, productById, storeById } from '../data/demo';
+import { findDestination, findDrone, findGroundUnit, MAP_KM_PER_UNIT, offerById, productById, storeById } from '../data/demo';
 import type { Cart, FulfillmentMode, Quote, ServiceLevel, TransportMethod } from '../data/types';
 
 const baseFee: Record<TransportMethod, number> = {
@@ -64,6 +64,7 @@ export function calculateQuote({
 
   let method: TransportMethod | null = null;
   let droneId: string | null = null;
+  let groundUnitId: string | null = null;
   if (fulfillment === 'delivery') {
     if (weight > 80) return { error: 'Die Bestellung überschreitet die Kapazität der verfügbaren Drohnen und des Bodenfalls.' };
     const drone = findDrone(weight, distanceKm);
@@ -71,7 +72,13 @@ export function calculateQuote({
       method = drone.maxPayloadKg <= 25 ? 'drone' : 'heavy_drone';
       droneId = drone.id;
     } else {
+      // Bodenfall: ohne Bodeneinheit ist die Bestellung nicht abschließbar, also nicht buchbar.
+      const unit = findGroundUnit(weight);
+      if (!unit) {
+        return { error: `Für ${weight.toFixed(1).replace('.', ',')} kg ist weder eine Drohne noch eine Bodeneinheit verfügbar. Selbstabholung wählen.` };
+      }
       method = 'car';
+      groundUnitId = unit.id;
     }
   }
 
@@ -91,8 +98,11 @@ export function calculateQuote({
       payloadKg: weight,
       weightFeeMinor: weightFee,
       droneId,
+      groundUnitId,
+      // Illustrative Annahme des Prototyps, kein nachgewiesener Höhenbereich.
       altitudeBandM: method === 'drone' || method === 'heavy_drone' ? [60, 80] : null,
-      weather: method === 'drone' || method === 'heavy_drone' ? 'go' : null,
+      // Ohne belegte Wetterquelle und belegte Fahrzeuggrenzen bleibt die Bewertung unbestimmt.
+      weather: method === 'drone' || method === 'heavy_drone' ? 'unknown' : null,
       distanceKm,
       baseFeeMinor: base,
       distanceFeeMinor: distanceFee,
@@ -105,7 +115,7 @@ export function calculateQuote({
       method,
       methodPolicy: fulfillment === 'pickup'
         ? 'Selbstabholung, kein Transportauftrag'
-        : 'Drohne zuerst; Auto nur bei Überschreitung von Nutzlast oder Reichweite',
+        : 'Drohne zuerst; Auto nur bei Überschreitung von Nutzlast oder Reichweite (Kapazitäten illustrativ)',
       validUntil: Date.now() + 120_000,
       isDemo: true,
     },

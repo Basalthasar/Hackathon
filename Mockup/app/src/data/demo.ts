@@ -2,6 +2,7 @@ import type {
   Cart,
   Destination,
   Drone,
+  GroundUnit,
   InventoryIssue,
   Merchant,
   Offer,
@@ -135,6 +136,21 @@ export function findDrone(payloadKg: number, distanceKm = 0): Drone | undefined 
     .sort((a, b) => a.maxPayloadKg - b.maxPayloadKg)[0];
 }
 
+/**
+ * Bodenfall für Lasten, die keine Drohne tragen kann.
+ * Feste Kapazitätsangaben sind illustrative Annahmen des Prototyps, keine Betriebsgrenzen.
+ */
+export const groundUnits: GroundUnit[] = [
+  { id: 'V-01', label: 'Transporter V-01 (Bodenfall)', maxPayloadKg: 400, state: 'ready', note: 'Fahrer M. Reuter, illustrativ 400 kg Ladekapazität (Annahme).' },
+  { id: 'V-02', label: 'Kleinwagen V-02 (Bodenfall)', maxPayloadKg: 120, state: 'driving', note: 'Im Umlauf, Rückkehr illustrativ in 25 Minuten (Annahme).' },
+];
+
+export function findGroundUnit(payloadKg: number): GroundUnit | undefined {
+  return groundUnits
+    .filter((unit) => unit.state === 'ready' && unit.maxPayloadKg >= payloadKg)
+    .sort((a, b) => a.maxPayloadKg - b.maxPayloadKg)[0];
+}
+
 export const destinations: Destination[] = [
   { id: 'd-luisen', label: 'Luisenstraße 14, Wuppertal', district: 'Elberfeld', x: 450, y: 200, lat: 51.2568, lon: 7.146 },
   { id: 'd-berliner', label: 'Berliner Platz 7, Wuppertal', district: 'Barmen', x: 610, y: 245, lat: 51.2698, lon: 7.187 },
@@ -259,12 +275,14 @@ const quote = (
   payloadKg: 0,
   weightFeeMinor: 0,
   droneId: null,
+  groundUnitId: null,
   altitudeBandM: method === 'drone' || method === 'heavy_drone' ? [60, 80] : null,
-  weather: method === 'drone' || method === 'heavy_drone' ? 'go' : null,
+  // Kein Wetterdatensatz und keine belegten Fahrzeuggrenzen: Bewertung bleibt unbestimmt.
+  weather: method === 'drone' || method === 'heavy_drone' ? 'unknown' : null,
   distanceKm: method ? 2.4 : 0,
-  baseFeeMinor: method === 'bicycle' ? 250 : method === 'scooter' ? 320 : method === 'car' ? 450 : 0,
-  distanceFeeMinor: method ? Math.max(0, deliveryFee - (method === 'bicycle' ? 250 : method === 'scooter' ? 320 : 450)) : 0,
-  perKmFeeMinor: method === 'bicycle' ? 35 : method === 'scooter' ? 55 : method === 'car' ? 80 : 0,
+  baseFeeMinor: method === 'bicycle' ? 250 : method === 'scooter' ? 320 : method === 'car' ? 650 : 0,
+  distanceFeeMinor: method ? Math.max(0, deliveryFee - (method === 'bicycle' ? 250 : method === 'scooter' ? 320 : method === 'car' ? 650 : 0)) : 0,
+  perKmFeeMinor: method === 'bicycle' ? 35 : method === 'scooter' ? 55 : method === 'car' ? 65 : 0,
   deliveryFeeMinor: deliveryFee,
   serviceFeeMinor: 0,
   totalMinor: subtotal + deliveryFee,
@@ -281,7 +299,7 @@ const baseTimeline = (label: string, detail: string): Order['timeline'] => [
   { at: '14:02', label, detail, actor: 'System' },
 ];
 
-const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
+const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> & { groundUnitId?: string | null })[] = [
   {
     id: 'SK-1041',
     createdAt: '14:02',
@@ -298,7 +316,7 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
       { offerId: 'o-hafer-e', productId: 'p-hafer', quantity: 2, unitPriceMinor: 179, titleSnapshot: 'Haferdrink Natur · 1 L' },
       { offerId: 'o-brot-e', productId: 'p-brot', quantity: 1, unitPriceMinor: 349, titleSnapshot: 'Sauerteigbrot · 750 g' },
     ],
-    quote: quote(707, 390, 25, 40, 'bicycle'),
+    quote: quote(707, 390, 25, 40, 'drone'),
     address: 'Luisenstraße 14, Wuppertal',
     droneId: 'D-01',
     pickupCode: 'P-4821',
@@ -346,7 +364,7 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
       { offerId: 'o-wasser-e', productId: 'p-wasser', quantity: 1, unitPriceMinor: 499, titleSnapshot: 'Mineralwasser still · 6 x 1,5 L' },
       { offerId: 'o-pasta-e', productId: 'p-pasta', quantity: 2, unitPriceMinor: 149, titleSnapshot: 'Pasta Penne · 500 g' },
     ],
-    quote: quote(797, 390, 20, 35, 'bicycle'),
+    quote: quote(797, 390, 20, 35, 'drone'),
     address: 'Nützenberger Straße 22, Wuppertal',
     droneId: 'D-02',
     pickupCode: 'P-5301',
@@ -374,7 +392,8 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
     ],
     quote: quote(899, 590, 20, 35, 'car'),
     address: 'Berliner Platz 7, Wuppertal',
-    droneId: 'D-03',
+    droneId: null,
+    groundUnitId: 'V-01',
     pickupCode: 'P-6634',
     deliveryCode: 'D-4421',
     timeline: [
@@ -426,7 +445,7 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
     lines: [
       { offerId: 'o-tomaten-e', productId: 'p-tomaten', quantity: 1, unitPriceMinor: 249, titleSnapshot: 'Rispentomaten · 500 g' },
     ],
-    quote: quote(249, 390, 20, 35, 'bicycle'),
+    quote: quote(249, 390, 20, 35, 'drone'),
     address: 'Obere Sehlhofstraße 3, Wuppertal',
     droneId: null,
     pickupCode: '',
@@ -515,7 +534,8 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
     droneId: 'D-01', pickupCode: 'P-7706', deliveryCode: 'D-7706',
     timeline: [
       ...baseTimeline('Start freigegeben', 'Drohne D-01 zum Alter Markt.'),
-      { at: '13:12', label: 'Gelandet', detail: 'Abgabestelle Alter Markt, Empfang bestätigt.', actor: 'Flugbetrieb' },
+      { at: '13:10', label: 'Landung bestätigt', detail: 'Ankunft am Übergabepunkt Alter Markt dokumentiert, Empfang offen.', actor: 'Flugbetrieb' },
+      { at: '13:12', label: 'Empfang bestätigt', detail: 'Kunde hat den Empfangscode genannt. Zahlung eingezogen.', actor: 'Kunde' },
     ],
     note: 'Abgeschlossen.',
   },
@@ -562,7 +582,8 @@ const seedOrders: Omit<Order, 'customerId' | 'droneDepartAt'>[] = [
     timeline: [
       ...baseTimeline('Bestellung angelegt', 'Apothekenbestellung, Zahlung autorisiert.'),
       { at: '12:18', label: 'Start freigegeben', detail: 'Drohne D-05 zum Alter Markt.', actor: 'Flugbetrieb' },
-      { at: '12:31', label: 'Gelandet', detail: 'Abgabestelle Alter Markt 6, Empfang bestätigt.', actor: 'Flugbetrieb' },
+      { at: '12:29', label: 'Landung bestätigt', detail: 'Ankunft am Übergabepunkt Alter Markt 6 dokumentiert, Empfang offen.', actor: 'Flugbetrieb' },
+      { at: '12:31', label: 'Empfang bestätigt', detail: 'Kunde hat den Empfangscode genannt. Zahlung eingezogen.', actor: 'Kunde' },
     ],
     note: 'Vollständig abgeschlossen. Apothekenprodukte, keine Beratung.',
   },
@@ -623,6 +644,7 @@ export const initialOrders: Order[] = seedOrders.map((order) => {
     ...order,
     customerId: isCurrent ? CURRENT_CUSTOMER_ID : 'c-other',
     customerName: isCurrent ? 'A. Yilmaz' : order.customerName,
+    groundUnitId: order.groundUnitId ?? (method === 'car' ? findGroundUnit(payloadKg)?.id ?? null : null),
     droneDepartAt: order.droneId
       ? order.status === 'DELIVERED'
         ? Date.now() - 3_600_000

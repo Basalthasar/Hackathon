@@ -1,4 +1,5 @@
 import type {
+  Decision,
   DeliveryStatus,
   MerchantTaskStatus,
   OrderStatus,
@@ -14,7 +15,8 @@ export const orderStatusLabel: Record<OrderStatus, string> = {
   FULFILLING: 'In Vorbereitung',
   READY: 'Abholbereit',
   IN_TRANSIT: 'Unterwegs',
-  DELIVERED: 'Zugestellt',
+  ARRIVED: 'Angekommen, Empfang offen',
+  DELIVERED: 'Empfangen',
   REJECTED: 'Abgelehnt',
   CANCELLED: 'Storniert',
   EXPIRED: 'Abgelaufen',
@@ -31,12 +33,21 @@ export const paymentStatusLabel: Record<PaymentStatus, string> = {
 
 export const deliveryStatusLabel: Record<DeliveryStatus, string> = {
   NONE: 'Kein Lieferauftrag',
-  UNASSIGNED: 'Drohne offen',
-  ASSIGNED: 'Drohne zugewiesen',
+  UNASSIGNED: 'Transport offen',
+  ASSIGNED: 'Transport zugewiesen',
   PICKED_UP: 'An Bord',
-  IN_TRANSIT: 'Im Flug',
-  DELIVERED: 'Gelandet',
+  IN_TRANSIT: 'Unterwegs',
+  ARRIVED: 'Angekommen, Empfang offen',
+  DELIVERED: 'Empfangen',
   FAILED: 'Fehlgeschlagen',
+};
+
+/** Wetterbewertung. Positive Werte gelten nur im ausdrücklich simulierten Szenario. */
+export const decisionLabel: Record<Decision, string> = {
+  go: 'Freigabe (nur simuliert)',
+  restricted: 'Eingeschränkt (nur simuliert)',
+  no_go: 'Keine Freigabe (nur simuliert)',
+  unknown: 'Unbestimmt',
 };
 
 export const merchantTaskLabel: Record<MerchantTaskStatus, string> = {
