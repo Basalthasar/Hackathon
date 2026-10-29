@@ -290,3 +290,32 @@ Historischer Übergabestand des Integrationsauftrags, vor der gesonderten Implem
 
 
 **Git-Übergabe (2026-10-21):** Der geprüfte Fly2You-Stand einschließlich App, Tests, Produktfotos, Bildquellen und Dokumentation wird im bestehenden `main` versioniert. Vor Commit: Remote-Stand abgerufen, vorgesehene Dateien, Ignore-Regeln, Dateigrößen, Schlüssel-Stichmuster und Whitespace geprüft. Keine blockierenden Befunde; keine Buildausgaben, Abhängigkeiten oder echten `.env`-Dateien vorgesehen. Offen bleiben die oben genannten externen Validierungen. Commit und Remote-Abgleich werden direkt nach Ausführung geprüft; die Git-Historie ist der maßgebliche Versionsnachweis.
+
+
+### Übergabe – QR-Launcher für Mockup und Produktionsseite (2026-10-22)
+
+**Beschlossene Anforderung (Nutzerauftrag 2026-10-22):** Ein Python-Skript im
+Projektstamm startet Mockup und echte Website gemeinsam über die
+Cloudflare-Quick-Tunnel-Methode und legt für beide beschriftete QR-Code-Bilder im
+Arbeitsverzeichnis ab. Der Nutzer hat ergänzt, dass die Lösung nur auf diesem
+Rechner funktionieren muss. Technische Umsetzung und Prüfresultate:
+[Architekture.md, Abschnitt 13](Architekture.md#qr-launcher-für-mockup-und-produktionsseite-2026-10-22);
+Aufruf und Voraussetzungen in [README.md](README.md#mockup-und-produktionsseite-gemeinsam-mit-qr-codes).
+
+- **Erledigt:** `launch_sites_qr.py` startet `next start` auf Port 3000 und das
+  gebaute Vite-Mockup (`Mockup/app/dist`) auf Port 4173, öffnet pro Website einen
+  Quick Tunnel und erzeugt `qr-mockup.png` (**MOCKUP**) und `qr-prod.png`
+  (**PROD**) mit URL-Text. Builds werden bei veralteten Artefakten automatisch
+  erneuert; `--rebuild` erzwingt dies. `Ctrl+C`/SIGTERM räumt Server und Tunnel ab.
+- **Geprüft:** Zwei Läufe mit neuen Tunnel-URLs; beide URLs HTTP 200 mit erwarteten
+  Seitentiteln; beide QR-PNGs dekodiert und sichtgeprüft; Ports und Tunnel nach
+  Beenden frei. Details in Architektur Abschnitt 13.
+- **Offen:** Quick Tunnels bleiben ohne Uptime-Zusage; jede Ausführung erzeugt neue
+  URLs. Ein Zugriff von einem zweiten physischen Gerät wurde nicht erneut geprüft.
+- **Blockiert:** Nichts.
+- **Nächster Schritt:** `python3 launch_sites_qr.py` vor der Präsentation starten
+  und die erzeugten QR-Bilder verwenden; Skript bis zum Ende der Vorführung laufen
+  lassen.
+- **Geänderte Dateien:** `launch_sites_qr.py` (neu), `README.md`,
+  `Architekture.md`, `Konzept.md`, `.gitignore`; generierte `qr-*.png` bleiben
+  unversionierte Laufzeitartefakte. `AGENTS.md` unverändert. Kein Commit/Push ausgeführt.

@@ -8,3 +8,6 @@ playwright-report/
 !.env.example
 .DS_Store
 .tools/
+qr-mockup.png
+qr-prod.png
+__pycache__/

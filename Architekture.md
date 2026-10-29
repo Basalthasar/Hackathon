@@ -460,3 +460,34 @@ Sitzungsversion 2 nutzt weiterhin denselben Speicherschlüssel, damit gültige v
 **Sichtprüfung / temporäre Nachweise:** `/tmp/fly2you-mobile-final.png`, `/tmp/fly2you-desktop-final.png`, `/tmp/fly2you-drone-cart-mobile-final.png`, `/tmp/fly2you-drone-cart-desktop-final.png`, `/tmp/fly2you-drone-tracking-final.png`; Browserberichte unter `/tmp/fly2you-test-results`. Startmotiv ist eine 1400px-WebP-Ableitung von `assets/pitch/04-stadtvision.png`, Original bewahrt. Keine zusätzliche Bildgenerierung für die Umbenennung.
 
 **Grenzen unverändert:** Reale Wetterbewertung bleibt UNBESTIMMT. Browserfixtures sind keine echte Anbieterantwort; der oben datierte echte Wetterabruf bleibt der frühere Integrationsnachweis und wurde für diese UI-Änderung nicht als neue Messung ausgegeben. Keine echten Drohnen, Nutzlast-/Verpackungs-/Gefahrgutnachweise, Reservierungsserver oder Flugsteuerung. Zweites physisches WLAN-Gerät, weitere Browser und vollständige manuelle Screenreaderprüfung bleiben offen.
+
+### QR-Launcher für Mockup und Produktionsseite (2026-10-22)
+
+**Implementiert und lokal geprüft:** `launch_sites_qr.py` startet die vorhandene
+Produktionsseite und das Vite-Mockup parallel, veröffentlicht beide über je einen
+Cloudflare Quick Tunnel und erzeugt zwei beschriftete QR-Codes im Projektstamm.
+Der Auftrag nennt ausdrücklich nur diesen Rechner als Zielumgebung.
+
+| Bestandteil | Umsetzung |
+|---|---|
+| Produktionsseite | `node_modules/.bin/next start --hostname 127.0.0.1 --port 3000`; Warten auf HTTP-Antwort vor dem Tunnelstart |
+| Mockup | eigener `ThreadingHTTPServer` auf `127.0.0.1:4173` mit `Mockup/app/dist` als Wurzel |
+| Tunnel | `.tools/cloudflared tunnel --url http://127.0.0.1:<port> --no-autoupdate`, je Website ein Prozess; URL per Regex `https://[a-z0-9-]+\.trycloudflare\.com` aus der Ausgabe |
+| QR-Codes | `qrcode` (Fehlerkorrektur M, `box_size` 12) plus Pillow; Überschrift **MOCKUP** bzw. **PROD**, Untertitel und URL als Text; Ausgabe `qr-mockup.png`/`qr-prod.png` |
+| Builds | automatische Neuerzeugung, wenn `.next/BUILD_ID` bzw. `Mockup/app/dist/index.html` älter ist als die jeweiligen Quelldateien; `--rebuild` erzwingt beide Builds |
+| Aufräumen | `SIGINT`, `SIGTERM` und `SIGHUP` beenden Tunnel und Server über Prozessgruppen (`start_new_session=True`); Ports 3000/4173 werden freigegeben |
+
+**Prüfresultate (2026-10-22):** Zwei aufeinanderfolgende Läufe erzeugten jeweils
+neue Quick-Tunnel-URLs. Beide öffentlichen URLs lieferten HTTP 200 mit den
+erwarteten Titeln `FlyToYou - Lokale Lieferplattform` (Mockup) und
+`Fly2You · Wuppertal` (Produktionsseite). `cv2.QRCodeDetector` dekodierte beide
+PNGs und gab exakt die jeweilige Tunnel-URL zurück; die Bilder wurden zusätzlich
+sichtgeprüft (Überschrift, Untertitel, URL). Nach `SIGINT` und nach `SIGTERM` waren
+keine Prozesse auf Port 3000/4173 und keine `cloudflared tunnel`-Prozesse mehr
+vorhanden.
+
+**Grenzen:** Quick Tunnel bleiben ohne Uptime-Zusage, die URL wechselt bei jedem
+Start, und die QR-Dateien sind deshalb nicht versioniert. Der Launcher setzt
+Python 3 mit `qrcode` und Pillow sowie ein vorhandenes oder automatisch
+installierbares `cloudflared` voraus. Er verändert keine App-Logik und belegt
+keine Betriebs- oder Veröffentlichungsfreigabe der Demo.
