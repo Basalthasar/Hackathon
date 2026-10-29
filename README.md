@@ -114,6 +114,39 @@ CLOUDFLARED_BIN="$(brew --prefix cloudflared)/bin/cloudflared" npm run cloudflar
 - Bei einem Netzwerkwechsel zuerst den Server neu starten und die neue lokale
   Erreichbarkeit prüfen.
 
+### Mockup und Produktionsseite gemeinsam mit QR-Codes
+
+`launch_sites_qr.py` startet beide Websites gleichzeitig und veröffentlicht jede
+über einen eigenen Cloudflare Quick Tunnel:
+
+```sh
+python3 launch_sites_qr.py
+python3 launch_sites_qr.py --rebuild          # beide Builds neu erzeugen
+python3 launch_sites_qr.py --prod-port 3000 --mockup-port 4173
+```
+
+| Bestandteil | Lokal | Veröffentlichung |
+|---|---|---|
+| Produktionsseite | `next start` auf `127.0.0.1:3000` | Quick Tunnel → `https://<zufall>.trycloudflare.com` |
+| Mockup (`Mockup/app/dist`) | statischer Python-Server auf `127.0.0.1:4173` | Quick Tunnel → `https://<zufall>.trycloudflare.com` |
+
+Im Projektstamm entstehen zwei beschriftete QR-Bilder: `qr-mockup.png` (Aufschrift
+**MOCKUP**) und `qr-prod.png` (Aufschrift **PROD**). Jedes Bild enthält zusätzlich
+die öffentliche URL als Text. Die Dateien sind generierte Laufzeitartefakte und
+werden nicht versioniert; die URL ändert sich bei jedem Start.
+
+Voraussetzungen: Python 3 mit `qrcode` und Pillow, Node.js und `cloudflared`
+(wird bei Bedarf über `scripts/install-cloudflared.mjs` nach `.tools/` geladen).
+Fehlt ein Build oder ist er älter als die Quelldateien, wird er automatisch neu
+erzeugt. `Ctrl+C` beendet beide Server und beide Tunnel; die Ports werden
+freigegeben.
+
+**Geprüft am 22. Oktober 2026:** Beide öffentlichen URLs antworteten mit HTTP 200
+und dem erwarteten Seitentitel (`FlyToYou - Lokale Lieferplattform` für das Mockup,
+`Fly2You · Wuppertal` für die Produktionsseite), die QR-Bilder wurden dekodiert und
+enthielten die jeweilige URL, und `Ctrl+C`/SIGTERM beendeten Server und Tunnel ohne
+verbleibende Prozesse auf Port 3000/4173. Quick Tunnels bleiben ohne Uptime-Zusage.
+
 ## In fünf Minuten vorführen
 
 1. **Entdecken, etwa eine Minute:** „Bio Haferflocken“ suchen und die Filialangebote vergleichen. Zwei Produkte derselben Filiale in die Tasche legen. Ein Artikel einer anderen Filiale zeigt den ausdrücklichen Wechselhinweis; „Tasche behalten“ erhält den bisherigen Einkauf.
