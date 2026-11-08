@@ -149,8 +149,7 @@ verbleibende Prozesse auf Port 3000/4173. Quick Tunnels bleiben ohne Uptime-Zusa
 
 ## Statische Vorschau auf GitHub Pages
 
-Der Fork kann die Demo als rein statische Seite veröffentlichen:
-`https://basalthasar.github.io/Hackathon/`. Der Workflow `.github/workflows/pages.yml` baut dafür mit `GITHUB_PAGES=true` einen statischen Export (`out/`) und lädt ihn als Pages-Artefakt hoch.
+Die statische Vorschau ist veröffentlicht: `https://basalthasar.github.io/Hackathon/`. Sie liegt im Branch `gh-pages` und wird mit `GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/Hackathon NEXT_PUBLIC_STATIC_EXPORT=true npm run build` erzeugt; für diesen Build entfallen die API-Route und `*.test.ts`, zusätzlich wird `.nojekyll` gesetzt. Für eine automatische Veröffentlichung liegt eine Workflow-Vorlage in `docs/deploy/pages.yml`; sie muss nach `.github/workflows/pages.yml` kopiert werden, sobald der Token den Scope `workflow` hat.
 
 - **Voraussetzung:** Repository öffentlich (oder GitHub Pro) und unter *Settings → Pages → Source* die Option **GitHub Actions**.
 - **Basis-Pfad:** Projektseiten laufen unter `/<repo-name>/`. Der Workflow setzt `NEXT_PUBLIC_BASE_PATH` entsprechend; Bild- und Produktpfade werden über `src/lib/paths.ts` präfixiert.
