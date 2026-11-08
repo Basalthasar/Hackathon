@@ -135,10 +135,10 @@ als absolute Millisekunden geführt und in der Oberfläche lokal formatiert.
 
 | Bereich | Ablauf | Abweichungen |
 |---|---|---|
-| Bestellung | PENDING -> CONFIRMED -> FULFILLING -> READY -> IN_TRANSIT -> DELIVERED | REJECTED, CANCELLED, EXPIRED |
+| Bestellung | PENDING -> CONFIRMED -> FULFILLING -> READY -> IN_TRANSIT -> ARRIVED -> DELIVERED | REJECTED, CANCELLED, EXPIRED |
 | Vorbereitung | NEW -> ACCEPTED -> PICKING -> READY -> HANDED_OVER | REJECTED |
-| Zahlung | PENDING -> AUTHORIZED -> CAPTURED | FAILED, VOIDED, REFUNDED |
-| Lieferung | NONE/UNASSIGNED -> ASSIGNED -> PICKED_UP -> IN_TRANSIT -> DELIVERED | FAILED |
+| Zahlung | PENDING -> AUTHORIZED -> CAPTURED (Abholung: bei Übergabe; Lieferung: erst bei bestätigtem Empfang) | FAILED, VOIDED, REFUNDED |
+| Lieferung | NONE/UNASSIGNED -> ASSIGNED -> PICKED_UP -> IN_TRANSIT -> ARRIVED -> DELIVERED | FAILED |
 
 Der Status wird nicht frei gesetzt. Die UI leitet ihn aus den Übergängen ab.
 Der Kundenstatus ist eine verständliche Zusammenfassung, nicht ein einzelnes
@@ -158,7 +158,7 @@ Transportauswahl:
 
 1. Drohne D25, wenn Nutzlast ≤ 25 kg und Reichweite ≤ 18 km.
 2. Schwerlast-Drohne H60, wenn Nutzlast ≤ 60 kg und Reichweite ≤ 30 km.
-3. Auto als Bodenfall bis 80 kg.
+3. Auto als Bodenfall, wenn keine Drohne die Nutzlast trägt und eine Bodeneinheit verfügbar ist. Die Demo-Kapazität von V-01 (400 kg) ist eine illustrative Annahme, keine Betriebsgrenze.
 
 Die Distanz wird im Prototyp aus den schematischen Koordinaten der Filiale und
 der Abgabestelle berechnet. In einem echten System kommen Geocoding und Routing
@@ -176,7 +176,7 @@ stehen als Zahl in der verursachenden Zeile.
   - `preview`: vor Bestellaufgabe, statisch.
   - `waiting`: nach Bestellung, wartet auf erwarteten Start.
   - `flying`: Bewegung simuliert, nur bei Status IN_TRANSIT.
-  - `landed`: Marker an der Abgabestelle, Status DELIVERED.
+  - `landed`: Marker an der Abgabestelle, Status ARRIVED oder DELIVERED (Empfang bestätigt).
 - Keine Live-Position, keine Telemetrie, keine Flugsteuerung.
 
 ## 7. Startdelay
@@ -195,8 +195,9 @@ Die Drohne startet nur, wenn:
 
 Ein Intervall in `App.tsx` prüft dies jede Sekunde und setzt den Status auf
 `IN_TRANSIT`, die Lieferung auf `IN_TRANSIT` und ergänzt die Statusfolge. Das ist
-die Simulation einer Backend-Aufgabe. Vorher zeigen Karte und Bestellverfolgung
-„erwarteter Start in X Sekunden“ und bewegen die Drohne nicht.
+die Simulation einer Backend-Aufgabe. Die Zahlung bleibt dabei autorisiert; sie
+wird erst bei bestätigtem Empfang eingezogen. Vorher zeigen Karte und
+Bestellverfolgung „erwarteter Start in X Sekunden“ und bewegen die Drohne nicht.
 
 ## 8. Schnittstellen (geplant)
 
@@ -208,9 +209,11 @@ die Simulation einer Backend-Aufgabe. Vorher zeigen Karte und Bestellverfolgung
 | `GET /api/orders/:id` | Bestellung und Statusfolge |
 | `POST /api/merchant/orders/:id/accept` | Händlerannahme |
 | `POST /api/merchant/orders/:id/ready` | Abholbereit melden |
-| `POST /api/orders/:id/handover` | Übergabe an Drohne |
-| `POST /api/fleet/missions/:id/land` | Landung bestätigen |
+| `POST /api/orders/:id/handover` | Übergabe an Drohne oder Bodenfall |
+| `POST /api/fleet/missions/:id/arrive` | Ankunft bzw. Landung bestätigen, noch keine Zustellung |
+| `POST /api/orders/:id/receipt` | Empfang mit Kunden-Code bestätigen und Zahlung einziehen |
 | `POST /api/ops/jobs/:id/assign-drone` | Drohne zuweisen |
+| `POST /api/ops/jobs/:id/assign-ground-unit` | Bodeneinheit zuweisen |
 | `GET /api/orders/:id/map` | Route, Abgabestelle, Distanz |
 
 Der Server berechnet Preise, Distanz und Status. Der Browser übermittelt
@@ -235,6 +238,7 @@ Umgesetzt:
 - Drohnenzentrierte Preislogik mit Distanz und Gewicht.
 - OSM-Karte mit simulierter Bewegung.
 - 30-60-Sekunden-Startdelay in der Zustandslogik.
+- Getrennte Ankunft (`ARRIVED`) und Empfang mit Kunden-Code; Zahlung wird erst beim Empfang eingezogen.
 - Händler-, Flotten- und Betriebsansicht.
 - Apotheke und erweiterte Mockdaten.
 - Sieben vollständige Bestellungen im Demo-Kundenkonto.

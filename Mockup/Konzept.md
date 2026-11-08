@@ -38,13 +38,14 @@ und mandantenbezogen geprüft; ein frei wählbarer Rollenschalter ist unzulässi
 ## 3. Transportmodell
 
 Drohnen sind der Standard. Fahrrad und E-Scooter sind im Pilot nicht vorgesehen.
-Auto ist nur der Bodenfall oberhalb der Drohnengrenze.
+Auto ist nur der Bodenfall, wenn keine Drohne die Nutzlast trägt und eine
+Bodeneinheit verfügbar ist.
 
 | Klasse | Nutzlast | Reichweite | Einsatz |
 |---|---:|---:|---|
 | D25 | 25 kg | 18 km | Standardlieferungen, Apotheke, Lebensmittel |
 | H60 | 60 kg | 30 km | Gebinde, Kisten, schwerere Waren |
-| Auto | bis 80 kg | Liefergebiet | Nur wenn Nutzlast oder Reichweite der Drohne nicht reichen |
+| Auto | bis 400 kg (Demo, illustrativ) | Liefergebiet | Nur wenn Nutzlast oder Reichweite der Drohne nicht reichen und eine Bodeneinheit verfügbar ist |
 
 Der Lieferradius der Pilotfilialen liegt bei 10 bis 12 km. Die Drohne fliegt zur
 angegebenen **Abgabestelle**, nicht zu einer Übergabestation. Die letzte Meile
@@ -160,16 +161,20 @@ Apotheke:
 Die Flottenansicht zeigt Drohnen, Batterie, Nutzlast, Reichweite und Missionen.
 Ein Auftrag durchläuft getrennt:
 
-- Bestellstatus: PENDING, CONFIRMED, FULFILLING, READY, IN_TRANSIT, DELIVERED,
-  REJECTED, CANCELLED, EXPIRED.
+- Bestellstatus: PENDING, CONFIRMED, FULFILLING, READY, IN_TRANSIT, ARRIVED,
+  DELIVERED, REJECTED, CANCELLED, EXPIRED.
 - Vorbereitung: NEW, ACCEPTED, PICKING, READY, HANDED_OVER, REJECTED.
-- Zahlung: PENDING, AUTHORIZED, CAPTURED, REFUNDED, FAILED, VOIDED.
-- Lieferung: NONE, UNASSIGNED, ASSIGNED, PICKED_UP, IN_TRANSIT, DELIVERED,
-  FAILED.
+- Zahlung: PENDING, AUTHORIZED, CAPTURED, REFUNDED, FAILED, VOIDED. CAPTURED
+  entsteht erst bei der Übergabe (Abholung) bzw. nach bestätigtem Empfang
+  (Lieferung).
+- Lieferung: NONE, UNASSIGNED, ASSIGNED, PICKED_UP, IN_TRANSIT, ARRIVED,
+  DELIVERED, FAILED.
 
 Der erwartete Start wird aus `droneDepartAt` berechnet. Der Status wechselt erst
-nach Ablauf des Delays und nach Händlerübergabe auf „Unterwegs“. Die
-Bestellverfolgung zeigt denselben Status und dieselbe Karte wie die konkrete
+nach Ablauf des Delays und nach Händlerübergabe auf „Unterwegs“. Ankunft und
+Empfang sind getrennte Schritte: Die Ankunft belegt noch keine Zustellung; erst
+der Empfangscode des Kunden schließt die Lieferung ab und zieht die Zahlung ein.
+Die Bestellverfolgung zeigt denselben Status und dieselbe Karte wie die konkrete
 Bestellung.
 
 ## 9. Fehlerfälle

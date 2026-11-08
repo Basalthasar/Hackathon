@@ -356,7 +356,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
     merchantId: 'm-frische',
     status: 'READY',
     merchantTask: 'READY',
-    paymentStatus: 'CAPTURED',
+    paymentStatus: 'AUTHORIZED',
     deliveryStatus: 'ASSIGNED',
     fulfillment: 'delivery',
     service: 'standard',
@@ -383,7 +383,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
     merchantId: 'm-barmen',
     status: 'IN_TRANSIT',
     merchantTask: 'HANDED_OVER',
-    paymentStatus: 'CAPTURED',
+    paymentStatus: 'AUTHORIZED',
     deliveryStatus: 'IN_TRANSIT',
     fulfillment: 'delivery',
     service: 'standard',
@@ -482,7 +482,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
   },
   {
     id: 'SK-1049', createdAt: '14:08', customerName: 'K. Braun', storeId: 's-barmen', merchantId: 'm-barmen',
-    status: 'FULFILLING', merchantTask: 'PICKING', paymentStatus: 'CAPTURED', deliveryStatus: 'ASSIGNED',
+    status: 'FULFILLING', merchantTask: 'PICKING', paymentStatus: 'AUTHORIZED', deliveryStatus: 'ASSIGNED',
     fulfillment: 'delivery', service: 'express',
     lines: [
       { offerId: 'o-aepfel-b', productId: 'p-aepfel', quantity: 1, unitPriceMinor: 239, titleSnapshot: 'Äpfel Elstar · 1 kg' },
@@ -495,7 +495,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
   },
   {
     id: 'SK-1050', createdAt: '13:56', customerName: 'P. Lang', storeId: 's-cronenberg', merchantId: 'm-cronenberg',
-    status: 'READY', merchantTask: 'HANDED_OVER', paymentStatus: 'CAPTURED', deliveryStatus: 'ASSIGNED',
+    status: 'READY', merchantTask: 'HANDED_OVER', paymentStatus: 'AUTHORIZED', deliveryStatus: 'ASSIGNED',
     fulfillment: 'delivery', service: 'standard',
     lines: [
       { offerId: 'o-aepfel-c', productId: 'p-aepfel', quantity: 2, unitPriceMinor: 279, titleSnapshot: 'Äpfel Elstar · 1 kg' },
@@ -508,7 +508,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
   },
   {
     id: 'SK-1051', createdAt: '13:30', customerName: 'S. Krüger', storeId: 's-elberfeld', merchantId: 'm-frische',
-    status: 'IN_TRANSIT', merchantTask: 'HANDED_OVER', paymentStatus: 'CAPTURED', deliveryStatus: 'IN_TRANSIT',
+    status: 'IN_TRANSIT', merchantTask: 'HANDED_OVER', paymentStatus: 'AUTHORIZED', deliveryStatus: 'IN_TRANSIT',
     fulfillment: 'delivery', service: 'standard',
     lines: [
       { offerId: 'o-muesli-e', productId: 'p-muesli', quantity: 1, unitPriceMinor: 429, titleSnapshot: 'Hafermüsli · 750 g' },
@@ -589,7 +589,7 @@ const seedOrders: (Omit<Order, 'customerId' | 'droneDepartAt' | 'groundUnitId'> 
   },
   {
     id: 'SK-2002', createdAt: '14:01', customerName: 'A. Yilmaz', storeId: 's-apotheke', merchantId: 'm-apotheke',
-    status: 'IN_TRANSIT', merchantTask: 'HANDED_OVER', paymentStatus: 'CAPTURED', deliveryStatus: 'IN_TRANSIT',
+    status: 'IN_TRANSIT', merchantTask: 'HANDED_OVER', paymentStatus: 'AUTHORIZED', deliveryStatus: 'IN_TRANSIT',
     fulfillment: 'delivery', service: 'express',
     lines: [
       { offerId: 'o-desinfektion-a', productId: 'p-desinfektion', quantity: 1, unitPriceMinor: 449, titleSnapshot: 'Handdesinfektion · 250 ml' },

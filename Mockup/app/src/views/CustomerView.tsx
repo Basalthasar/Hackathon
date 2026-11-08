@@ -519,7 +519,7 @@ export function CustomerView({
                   </dl>
                   <p className="muted small">
                     Methode: {methodLabel[quote.method ?? 'none']} · {weightKg(quote.payloadKg)} ·
-                    {' '}Höhe {quote.altitudeBandM?.join(' bis ') ?? 'offen'} m (illustrative Annahme) ·
+                    {' '}{quote.altitudeBandM ? `Höhe ${quote.altitudeBandM.join(' bis ')} m (illustrative Annahme)` : 'Höhe nicht relevant'} ·
                     {' '}Wetter {quote.weather ? decisionLabel[quote.weather] : 'für Bodenfall nicht bewertet'} · {quote.methodPolicy}
                   </p>
                   {quote.droneId ? (
@@ -598,7 +598,7 @@ export function CustomerView({
               <p>{fulfillment === 'delivery' ? address : `${cartStore?.name}, ${cartStore?.address}`}</p>
               <p className="muted small">
                 {fulfillment === 'delivery'
-                  ? 'Die Adresse wird nur für diesen Auftrag an die zugewiesene Drohne freigegeben.'
+                  ? 'Die Adresse wird nur für diesen Auftrag an das zugewiesene Transportmittel freigegeben.'
                   : `Abholung ${cartStore?.pickupHours}. Ein Abholcode wird nach der Bestätigung erzeugt.`}
               </p>
             </div>
@@ -644,7 +644,7 @@ export function CustomerView({
               <div><dt>Service</dt><dd className="mono">{euro(quote.serviceFeeMinor)}</dd></div>
               <div className="price-total"><dt>Gesamt</dt><dd className="mono">{euro(quote.totalMinor)}</dd></div>
             </dl>
-            <p className="muted small">Zeitfenster {minutesLabel(quote.etaFromMinutes)} bis {minutesLabel(quote.etaToMinutes)}.</p>
+            <p className="muted small">Zeitfenster {minutesLabel(quote.etaFromMinutes)} bis {minutesLabel(quote.etaToMinutes)}</p>
             <p className="muted small">Methode: {methodLabel[quote.method ?? 'none']} · {weightKg(quote.payloadKg)}.</p>
             {quote.droneId ? <p className="muted small">Drohne {quote.droneId} · Abgabestelle: {address}</p> : null}
             {quote.groundUnitId ? <p className="muted small">Bodenfall {quote.groundUnitId} · Abgabestelle: {address}</p> : null}
@@ -858,7 +858,7 @@ export function CustomerView({
           <section className="panel" aria-labelledby="account-address-title">
             <h2 id="account-address-title">Adresse</h2>
             <p>{address}</p>
-            <p className="muted small">Wird nur für Lieferungen an die zugewiesene Drohne freigegeben.</p>
+            <p className="muted small">Wird nur für Lieferungen an das zugewiesene Transportmittel freigegeben.</p>
             <button type="button" className="btn btn-secondary" onClick={() => onNotify('Adressbearbeitung ist im Prototyp nicht implementiert.')}>Adresse bearbeiten</button>
           </section>
           <section className="panel" aria-labelledby="account-payment-title">

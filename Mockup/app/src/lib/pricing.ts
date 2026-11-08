@@ -66,7 +66,6 @@ export function calculateQuote({
   let droneId: string | null = null;
   let groundUnitId: string | null = null;
   if (fulfillment === 'delivery') {
-    if (weight > 80) return { error: 'Die Bestellung überschreitet die Kapazität der verfügbaren Drohnen und des Bodenfalls.' };
     const drone = findDrone(weight, distanceKm);
     if (drone) {
       method = drone.maxPayloadKg <= 25 ? 'drone' : 'heavy_drone';

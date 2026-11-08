@@ -141,7 +141,7 @@ New-NetFirewallRule `
 |---|---|
 | Kunde | Suche, Angebotsvergleich, Warenkorb, Checkout, Bestellverfolgung |
 | Händler | Händlerauswahl, Arbeitsliste des Demo-Kunden, Annehmen, Vorbereiten, Übergeben |
-| Flotte | Drohnen, Batterie, Nutzlast, Missionen, erwarteter Start, Landung |
+| Flotte | Drohnen, Batterie, Nutzlast, Missionen, erwarteter Start, Ankunft (Landung) und Empfang |
 | Betrieb | Bestellungen, Drohnenzuweisung, Zahlungen, Ausnahmen |
 
 Demo-Kunde ist **A. Yilmaz**. Die Händleransicht zeigt dessen Aufträge für den

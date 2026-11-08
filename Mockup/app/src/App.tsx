@@ -90,7 +90,7 @@ export default function App() {
           ...order,
           status: 'IN_TRANSIT',
           deliveryStatus: 'IN_TRANSIT',
-          paymentStatus: 'CAPTURED',
+          // Zahlung bleibt bis zum bestätigten Empfang autorisiert.
           timeline: [
             ...order.timeline,
             {
@@ -314,8 +314,8 @@ export default function App() {
       ...current,
       status: 'READY',
       merchantTask: 'READY',
-      timeline: [...current.timeline, { at: clockNow(), label: 'Abholbereit', detail: current.fulfillment === 'pickup' ? 'Kunde kann abholen.' : 'Wartet auf Drohnenübergabe.', actor: storeById(current.storeId)?.name ?? 'Händler' }],
-      note: current.fulfillment === 'pickup' ? 'Abholbereit an der Warenausgabe.' : 'Abholbereit für die Drohne.',
+      timeline: [...current.timeline, { at: clockNow(), label: 'Abholbereit', detail: current.fulfillment === 'pickup' ? 'Kunde kann abholen.' : current.groundUnitId ? 'Wartet auf Übergabe an den Bodenfall.' : 'Wartet auf Drohnenübergabe.', actor: storeById(current.storeId)?.name ?? 'Händler' }],
+      note: current.fulfillment === 'pickup' ? 'Abholbereit an der Warenausgabe.' : current.groundUnitId ? 'Abholbereit für den Bodenfall.' : 'Abholbereit für die Drohne.',
     }));
     setToast(`Bestellung ${id} ist abholbereit.`);
   };
@@ -398,7 +398,7 @@ export default function App() {
       ...current,
       status: 'ARRIVED',
       deliveryStatus: 'ARRIVED',
-      timeline: [...current.timeline, { at: clockNow(), label: current.droneId ? 'Landung bestätigt' : 'Ankunft bestätigt', detail: 'Ankunft am Übergabepunkt dokumentiert. Übergabe und Empfang stehen noch aus.', actor: 'Flugbetrieb' }],
+      timeline: [...current.timeline, { at: clockNow(), label: current.droneId ? 'Landung bestätigt' : 'Ankunft bestätigt', detail: 'Ankunft am Übergabepunkt dokumentiert. Übergabe und Empfang stehen noch aus.', actor: current.droneId ? 'Flugbetrieb' : 'Bodenfall' }],
       note: 'Angekommen. Empfang durch Kundencode offen.',
     }));
     setToast(`${id} ist angekommen. Empfang offen, Zahlung nicht eingezogen.`);

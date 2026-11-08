@@ -48,8 +48,12 @@ aktuelle Produktstand.
 - Eine Filiale pro Warenkorb. Ein Filialwechsel darf den Warenkorb nicht
   stillschweigend mischen.
 - Drohne ist der Standard. Nutzlastklassen: D25 bis 25 kg und 18 km Reichweite,
-  H60 bis 60 kg und 30 km Reichweite. Auto ist der Bodenfall oberhalb der
-  Drohnengrenze. Fahrrad und E-Scooter sind im Pilot nicht vorgesehen.
+  H60 bis 60 kg und 30 km Reichweite. Auto ist der Bodenfall, wenn keine Drohne
+  die Nutzlast trägt und eine Bodeneinheit verfügbar ist. Fahrrad und E-Scooter
+  sind im Pilot nicht vorgesehen.
+- Ankunft ist keine Zustellung: Landung bzw. Ankunft setzt `ARRIVED`, nicht
+  `DELIVERED`. Erst der Empfangscode des Kunden schließt eine Lieferung ab und
+  zieht die Zahlung ein. Bei Selbstabholung genügt die dokumentierte Übergabe.
 - Lieferziel ist die angegebene Abgabestelle, nicht eine Übergabestation.
 - Karte: OpenStreetMap mit Attribution. Die Drohnenbewegung ist sichtbar simuliert und keine Live-Position.
 - Nach Bestellaufgabe startet die Drohne frühestens nach einem randomisierten Delay von 30 bis 60 Sekunden. Der Delay liegt in der Zustandslogik (Demo-Backend), nicht in einer CSS-Animation. Vorher bleibt der Status „wartet“.
