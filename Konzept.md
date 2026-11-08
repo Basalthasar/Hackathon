@@ -326,6 +326,7 @@ Aufruf und Voraussetzungen in [README.md](README.md#mockup-und-produktionsseite-
 
 - **Erledigt:** Einheitliche Begriffe (**Tasche** in der Oberfläche, „Szenario“ statt „Störungsszenario“), eindeutige Statusbeschriftungen (Vorbereitung vs. Lieferung), Empfang nur als eigener Schritt (auch im Pitch-Menü), abgeleitete Zähler statt Literale, deutsches Wetterpanel mit Zielbezug, modusabhängige Leerzustände, Erfolgs-/Fehler-Toasts, `type="button"` überall, Kategorie-Icons über explizite Zuordnung, Kartenpalette auf den Projekt-Tokens samt einheitlicher Fokusfarbe und ein gemeinsamer Marine-Token für Demo-Leiste und Kartenknoten. Das `theme-color`-Meta folgt dem Dunkelmodus.
 - **Geprüft:** `tsc --noEmit` 0 Fehler, `vitest run` 76/76, `next build` erfolgreich, `playwright test` 25/25 (inklusive axe WCAG A/AA und 360×800/1440×1000), Sichtprüfung hell/dunkel. Der Herbstlaub-Effekt animiert bei erlaubter Bewegung und pausiert bei `prefers-reduced-motion`.
+- **Nachtrag (2026-11-08, Karten):** Die Routing-Ansicht ist jetzt eine Drohnenübersicht mit zwei simulierten Dauerflügen (A Hinweg, C Rückweg) und nur Hub plus Zielstation als Marker; die Stationsansicht führt Karte und Schritte-Liste zusammen (Hub, Flug, Ankunft, Rückflug zum Hub). Die Bewegung gleitet weich und pausiert bei `prefers-reduced-motion`. Prüfumfang: 27/27 Browserfälle. Details in Architektur.
 - **Offen:** Prüfung in Safari/Firefox und mit einem echten Screenreader.
 - **Blockiert:** Nichts.
 - **Nächster Schritt:** Änderungen versionieren und als eigenen PR gegen das Basis-Repository stellen.

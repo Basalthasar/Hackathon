@@ -225,6 +225,42 @@ test('routing finds the blocked-corridor alternative and explains full, offline 
   await noHorizontalOverflow(page);
 });
 
+test('routing is a drone overview with minimal stations and several simulated flights', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await nav(page, 'Routing').click();
+  // Nur Hub und gewähltes Ziel bleiben als Marker.
+  await expect(page.locator('.leaflet-marker-icon[title*="fiktiver Standort"]')).toHaveCount(2);
+  const drones = page.locator('.leaflet-marker-icon[title^="Drohne"]');
+  await expect(drones).toHaveCount(2);
+  await expect(page.getByText('2 simulierte Drohnen im Flug · Beispielzeiten')).toBeVisible();
+  const firstTransform = await drones.first().evaluate(element => getComputedStyle(element).transform);
+  await expect.poll(async () => drones.first().evaluate(element => getComputedStyle(element).transform), { timeout: 5000 }).not.toBe(firstTransform);
+  await page.getByRole('button', { name: 'Netz', exact: true }).first().click();
+  await expect(page.locator('[class*="schematicVehicle"]')).toHaveCount(2);
+  // Wetterstopp: keine Drohne im Flug, keine Flugspur in der Netzansicht.
+  await page.getByRole('combobox', { name: 'Szenario', exact: true }).selectOption('weather');
+  await expect(page.locator('[class*="schematicVehicle"]')).toHaveCount(0);
+  await expect(page.getByText('Demo-Netz · Beispielzeiten')).toBeVisible();
+  await noHorizontalOverflow(page);
+});
+
+test('station map mirrors the step list from hub to station and back', async ({ page }) => {
+  await nav(page, 'Stationen').click();
+  await expect(page.locator('.leaflet-marker-icon[title*="fiktiver Standort"]')).toHaveCount(2);
+  const drone = page.locator('.leaflet-marker-icon[title="Simulierte Drohnenposition"]');
+  await expect(drone).toHaveCount(1);
+  const hubPosition = await drone.evaluate(element => getComputedStyle(element).transform);
+  await step(page);
+  await step(page);
+  await expect(page.getByText('Die Drohne ist angekommen. Das Paket ist noch nicht eingelagert.')).toBeVisible();
+  const stationPosition = await drone.evaluate(element => getComputedStyle(element).transform);
+  expect(stationPosition).not.toBe(hubPosition);
+  await step(page, 2);
+  await page.getByRole('button', { name: 'Abholung in der Demo bestätigen', exact: true }).click();
+  await expect(page.getByText('Die Drohne ist zurück am Hub; der Rückflug ist simuliert.')).toBeVisible();
+  await expect.poll(async () => drone.evaluate(element => getComputedStyle(element).transform), { timeout: 3000 }).toBe(hubPosition);
+});
+
 test('tile failure leaves routing, attribution and a schematic fallback usable', async ({ page }) => {
   await page.unroute(TILE_REQUEST);
   await page.route(TILE_REQUEST, route => route.abort('failed'));

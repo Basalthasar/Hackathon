@@ -515,3 +515,17 @@ keine Betriebs- oder Veröffentlichungsfreigabe der Demo.
 **Prüfumfang (2026-11-08):** `tsc --noEmit` ohne Fehler; `vitest run` 76/76 in 8 Dateien; `next build` erfolgreich; `playwright test` 25/25 gegen `next start`, einschließlich axe (WCAG A/AA) auf Entdecken, Stationen, Routing, Taschendialog und Galerie sowie 360×800 und 1440×1000. Sichtprüfung in Hell und Dunkel bei 1200 und 1440 px. Zusätzlich geprüft: Canvas des Herbstlaub-Effekts animiert bei `prefers-reduced-motion: no-preference` und bleibt bei `reduce` stehen.
 
 **Grenzen:** Nur Chromium geprüft; kein Screenreader- und kein Safari-/Firefox-Lauf. Die Änderungen betreffen ausschließlich Darstellung, Texte und Ableitungen; Fachlogik, Simulation und die Kennzeichnung „UNBESTIMMT“ bleiben unverändert.
+
+### Drohnenübersicht und weiche Kartenbewegung (2026-11-08)
+
+**Auftrag (2026-11-08):** Die Routing-Ansicht als Drohnenübersicht mit mehreren gleichzeitig fliegenden, simulierten Drohnen; die Karte im Abschnitt Stationen soll zur darunterliegenden Schritte-Liste passen; die Bewegung soll weich sein. Damit die Karte nicht überladen wirkt, zeigen die Karten nur die jeweils nötigen Stationen.
+
+| Bereich | Umsetzung |
+|---|---|
+| Routing | Karte zeigt nur Demo-Hub und gewähltes Ziel als Marker (statt aller drei Stationen). Auf der gewählten Route kreisen zwei simulierte Dauerflüge: Drohne A auf dem Hinweg, Drohne C versetzt auf dem Rückweg. Der Badge nennt die Anzahl („2 simulierte Drohnen im Flug · Beispielzeiten“); ist das Ziel voll, ausgefallen oder wetterbedingt gesperrt, entfallen die Flüge und der Badge bleibt neutral („Demo-Netz · Beispielzeiten“). |
+| Flottenstatus | Der Status in der Flottenliste folgt den Flügen: A und C stehen auf „Unterwegs“, solange ihre Flüge aktiv sind; B lädt unverändert (Beispieldaten). |
+| Stationen | Die Karte spiegelt die sechs Schritte: Drohne am Hub (Schritt 0), unterwegs (Schritt 1), an der Station (Schritte 2–4). Nach der bestätigten Abholung zeigt die Linie den Rückweg und die Drohne steht wieder am Hub; der Statustext nennt den simulierten Rückflug ausdrücklich. Marker: nur Hub und gewähltes Ziel. |
+| Bewegung | `NetworkMap` interpoliert Einzelpositionen und Dauerflüge per `requestAnimationFrame`; die Fahrzeuge springen nicht mehr im 300-ms-Takt, sondern gleiten gleichmäßig. Die Animation läuft ohne React-Render pro Frame. Bei `prefers-reduced-motion: reduce` werden feste Positionen gesetzt. |
+| Grenzen | Die Flugbahnen, Umlaufzeiten und Positionen sind illustrative Demo-Werte, keine Telemetrie. Schnittstellen und Kennzeichnung „UNBESTIMMT“ bleiben unverändert. |
+
+**Prüfumfang (2026-11-08):** `tsc --noEmit` ohne Fehler; `vitest run` 76/76; `next build` erfolgreich; `playwright test` 27/27, neu: „routing is a drone overview with minimal stations and several simulated flights“ (prüft zwei Marker, zwei bewegte Drohnen, Netzansicht und Wetterstopp) und „station map mirrors the step list from hub to station and back“ (prüft Hub-, Stations- und Rückflugposition). Gemessen im Browser: 28 verschiedene Marker-Transformationen in 1,5 s statt eines Sprungs pro 300 ms; in der Netzansicht 18 verschiedene Positionen in 1,1 s.
