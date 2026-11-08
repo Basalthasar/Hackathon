@@ -510,7 +510,7 @@ keine Betriebs- oder Veröffentlichungsfreigabe der Demo.
 | Farben | Das Kartenmodul hatte eine eigene Palette (`#2466ed`, `#153454`, `#586c82`, Fokus `#efae35`). Es nutzt jetzt die Projekt-Tokens (`--blue`, `--ink`, `--muted`, `--line`, `--surface`, `--soft`, `--green`); eine Marinefarbe `--navy` gilt für Demo-Leiste und Kartenknoten, der Kartenfokus entspricht dem globalen Fokus. |
 | Theme | Das `theme-color`-Meta folgt dem Umschalten auf Dunkelmodus. |
 | Karte | Der Rückfallhinweis „Netzansicht öffnen“ nutzt denselben Umschalter wie der sichtbare Schalter, sodass Toolbar und Karte nie widersprüchlich stehen. |
-| Herbstlaub | Optionaler Effekt über `falling-leaves` (MIT): nur Ahornform, Standard September bis November, ausdrückliche Wahl wird gespeichert, pausiert bei `prefers-reduced-motion`. Lizenz in `docs/licenses/Falling-Leaves-MIT.txt`. |
+| Herbstlaub | Optionaler Effekt über `falling-leaves` (MIT): nur Ahornform, **standardmäßig aus**, ausdrückliche Wahl wird gespeichert, pausiert bei `prefers-reduced-motion`. Lizenz in `docs/licenses/Falling-Leaves-MIT.txt`. |
 
 **Prüfumfang (2026-11-08):** `tsc --noEmit` ohne Fehler; `vitest run` 76/76 in 8 Dateien; `next build` erfolgreich; `playwright test` 25/25 gegen `next start`, einschließlich axe (WCAG A/AA) auf Entdecken, Stationen, Routing, Taschendialog und Galerie sowie 360×800 und 1440×1000. Sichtprüfung in Hell und Dunkel bei 1200 und 1440 px. Zusätzlich geprüft: Canvas des Herbstlaub-Effekts animiert bei `prefers-reduced-motion: no-preference` und bleibt bei `reduce` stehen.
 

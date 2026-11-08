@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { parseLeafPreference, shouldShowLeaves, type LeafPreference } from '../demo/season';
+import { DEFAULT_LEAF_PREFERENCE, parseLeafPreference, type LeafPreference } from '../demo/leaves';
 import s from './PitchApp.module.css';
 
 /**
@@ -19,17 +19,17 @@ function readPreference(): LeafPreference {
   try {
     return parseLeafPreference(localStorage.getItem(STORAGE_KEY));
   } catch {
-    return 'auto';
+    return DEFAULT_LEAF_PREFERENCE;
   }
 }
 
 /**
  * Herbstlaub-Umschalter neben dem Theme-Schalter.
- * Standard ist die Jahreszeit (September bis November); eine Klickwahl wird gespeichert.
+ * Standard ist aus; eine ausdrückliche Wahl wird im Browser gespeichert.
  * Das Paket pausiert bei `prefers-reduced-motion` von selbst.
  */
 export default function AutumnLeavesToggle() {
-  const [preference, setPreference] = useState<LeafPreference>('auto');
+  const [preference, setPreference] = useState<LeafPreference>(DEFAULT_LEAF_PREFERENCE);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function AutumnLeavesToggle() {
     setMounted(true);
   }, []);
 
-  const enabled = mounted && shouldShowLeaves(preference);
+  const enabled = mounted && preference === 'on';
 
   function toggle() {
     const next: LeafPreference = enabled ? 'off' : 'on';

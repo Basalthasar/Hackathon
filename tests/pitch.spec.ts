@@ -565,33 +565,29 @@ test('search finds visible category names', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Filter zurücksetzen' })).toBeVisible();
 });
 
-test('autumn leaves toggle sits next to the theme switch and keeps its choice', async ({ page }) => {
+test('autumn leaves toggle sits next to the theme switch, starts off and keeps its choice', async ({ page }) => {
   const toggle = page.getByRole('button', { name: /Herbstlaub (ein|aus)blenden/, exact: true });
   await expect(toggle).toHaveCount(1);
   await expect(toggle).toContainText('🍁');
   // Der Umschalter steht direkt neben dem Theme-Schalter.
   await expect(page.getByRole('button', { name: /modus einschalten$/, exact: true })).toHaveCount(1);
-  const order = await page.evaluate(() => {
-    const buttons = [...document.querySelectorAll('header button')];
-    return buttons.map((button) => button.getAttribute('aria-label') ?? '');
-  });
+  const order = await page.evaluate(() => [...document.querySelectorAll('header button')].map((button) => button.getAttribute('aria-label') ?? ''));
   const themeIndex = order.findIndex((label) => /modus einschalten$/.test(label));
   const leafIndex = order.findIndex((label) => /Herbstlaub/.test(label));
   expect(leafIndex).toBe(themeIndex + 1);
-  // Bewusste Wahl aus, danach ist der Effekt reproduzierbar aus und überlebt einen Reload.
-  await page.evaluate(() => localStorage.setItem('fly2you-leaves', 'off'));
-  await page.reload();
+  // Standard: aus – auch im Herbst.
   await expect(toggle).toHaveAttribute('aria-pressed', 'false');
   await expect(page.locator('canvas')).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true })).toBeVisible();
   await expect(page.locator('canvas')).toHaveCount(1);
   await page.reload();
   await expect(page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true }).click();
   await expect(page.locator('canvas')).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Herbstlaub einblenden', exact: true })).toHaveAttribute('aria-pressed', 'false');
   await noHorizontalOverflow(page);
 });
 

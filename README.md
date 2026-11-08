@@ -166,7 +166,7 @@ Die statische Vorschau ist veröffentlicht: `https://basalthasar.github.io/Hacka
 
 Das **Pitch-Menü** bietet Seitenwechsel, Pause/Fortsetzung, manuelle Schritte, Szenarioauswahl und einen bestätigten Neustart. Ein Szenario- oder Zielwechsel beginnt die Stationssimulation neu und verwirft ein noch ungebuchtes Drohnen-Angebot. Bestehende Aufträge behalten ihr gespeichertes Ziel und Szenario. Der Neustart löscht Tasche, Demo-Bestellungen und Stationsfortschritt dieses Browsers. Jedes Gerät hat eine eigene Sitzung ohne geräteübergreifende Synchronisierung.
 
-In der Oberfläche heißt der Warenkorb durchgängig **Tasche**; die Fachdokumente verwenden weiterhin den Begriff Warenkorb. Der 🍁-Schalter neben dem Hell-/Dunkelmodus blendet einen optionalen Herbstlaub-Effekt ein (nur Ahornblätter, pausiert bei `prefers-reduced-motion`; Standard ist September bis November).
+In der Oberfläche heißt der Warenkorb durchgängig **Tasche**; die Fachdokumente verwenden weiterhin den Begriff Warenkorb. Der 🍁-Schalter neben dem Hell-/Dunkelmodus blendet einen optionalen Herbstlaub-Effekt ein (nur Ahornblätter, pausiert bei `prefers-reduced-motion`; Standard ist aus, die Wahl wird gespeichert).
 
 
 ## Umfang und Fehlerfälle
