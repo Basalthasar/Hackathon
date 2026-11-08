@@ -9,6 +9,8 @@ export const stations: Station[] = [
   { id: 'Z02', name: 'Station Haspel', district: 'Haspel', lat: 51.2622, lng: 7.182, free: 3, total: 12, status: 'online' },
   { id: 'Z03', name: 'Station Barmen', district: 'Barmen', lat: 51.2695, lng: 7.1986, free: 6, total: 16, status: 'online' },
 ];
+/** Vorausgewähltes Demo-Ziel; einzige Quelle für den Standardwert. */
+export const DEFAULT_DRONE_TARGET = 'Z03';
 export const nodes: GraphNode[] = [
   { id: 'HUB', name: 'Demo-Hub Elberfeld', lat: 51.2566, lng: 7.1458, kind: 'hub' },
   { id: 'W01', name: 'Knoten Haspel-West', lat: 51.2593, lng: 7.1686, kind: 'waypoint' },

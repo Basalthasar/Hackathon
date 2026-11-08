@@ -319,3 +319,14 @@ Aufruf und Voraussetzungen in [README.md](README.md#mockup-und-produktionsseite-
 - **Geänderte Dateien:** `launch_sites_qr.py` (neu), `README.md`,
   `Architekture.md`, `Konzept.md`, `.gitignore`; generierte `qr-*.png` bleiben
   unversionierte Laufzeitartefakte. `AGENTS.md` unverändert. Kein Commit/Push ausgeführt.
+
+### Übergabe – abschließende UI-Inkonsistenzprüfung (2026-11-08)
+
+**Auftrag (2026-11-08):** tiefes, finales Inkonsistenz-Review der Benutzeroberfläche der Produktionsseite, ohne das GUI-Konzept zu verändern. Umsetzung und Prüfumfang: [Architekture.md, Abschnitt 13](Architekture.md#konsistenzprüfung-der-produktionsseite-2026-11-08).
+
+- **Erledigt:** Einheitliche Begriffe (**Tasche** in der Oberfläche, „Szenario“ statt „Störungsszenario“), eindeutige Statusbeschriftungen (Vorbereitung vs. Lieferung), Empfang nur als eigener Schritt (auch im Pitch-Menü), abgeleitete Zähler statt Literale, deutsches Wetterpanel mit Zielbezug, modusabhängige Leerzustände, Erfolgs-/Fehler-Toasts, `type="button"` überall, Kategorie-Icons über explizite Zuordnung, Kartenpalette auf den Projekt-Tokens samt einheitlicher Fokusfarbe und ein gemeinsamer Marine-Token für Demo-Leiste und Kartenknoten. Das `theme-color`-Meta folgt dem Dunkelmodus.
+- **Geprüft:** `tsc --noEmit` 0 Fehler, `vitest run` 76/76, `next build` erfolgreich, `playwright test` 25/25 (inklusive axe WCAG A/AA und 360×800/1440×1000), Sichtprüfung hell/dunkel. Der Herbstlaub-Effekt animiert bei erlaubter Bewegung und pausiert bei `prefers-reduced-motion`.
+- **Offen:** Prüfung in Safari/Firefox und mit einem echten Screenreader.
+- **Blockiert:** Nichts.
+- **Nächster Schritt:** Änderungen versionieren und als eigenen PR gegen das Basis-Repository stellen.
+- **Geänderte Dateien:** `src/components/PitchApp.tsx`, `PitchApp.module.css`, `NetworkMap.tsx`, `NetworkMap.module.css`, `WeatherPanel.tsx`, `AutumnLeavesToggle.tsx` (neu), `src/app/globals.css`, `src/domain/checkout.ts`, `orders.ts`, `catalog.ts`, `routing.ts`, `src/demo/session.ts`, `season.ts` (neu), `src/components/ProductArt.tsx` (entfernt), Tests (`tests/pitch.spec.ts`, `src/domain/consistency.test.ts`, `src/demo/season.test.ts`, `checkout.test.ts`), `package.json`/`package-lock.json` (neue Abhängigkeit `falling-leaves`), `docs/licenses/*`, `README.md`, `Architekture.md`, `Konzept.md`.

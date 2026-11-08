@@ -47,7 +47,7 @@ describe('single-store cart and quotes', () => {
     expect(() => validateCart([{ offerId: 'O01', quantity }])).toThrow(/positive ganze/);
   });
   it('does not silently merge duplicate lines that could bypass stock checks', () => {
-    expect(() => validateCart([{ offerId: 'O05', quantity: 1 }, { offerId: 'O05', quantity: 1 }])).toThrow(/Warenkorbposition/);
+    expect(() => validateCart([{ offerId: 'O05', quantity: 1 }, { offerId: 'O05', quantity: 1 }])).toThrow(/nur einmal in der Tasche/);
   });
   it('blocks sold-out, stale and closed-store offers', () => {
     expect(() => createQuote([{ offerId: 'O08', quantity: 1 }], 'BICYCLE')).toThrow(/Menge nicht verfügbar/);

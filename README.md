@@ -1,6 +1,6 @@
 # Fly2You
 
-Mobile Pitch-App für eine lokale Lieferplattform in Wuppertal. Hackathon **Vibecode+ · Team Routing**.
+Mobile Pitch-App für eine lokale Lieferplattform in Wuppertal. Hackathon **Vibecode+ · Gruppe 4**.
 
 **Implementiert, Stand 21. Oktober 2026:** Produkte entdecken und Filialangebote vergleichen, einen Einkauf per Drohne zur gewählten Station verfolgen und das fiktive Drohnen-/Stationsnetz erkunden. Drohnenlieferung ist vorausgewählt; Fahrrad und Selbstabholung sind Alternativen. Die Anwendung läuft auf dem Präsentationsrechner und lässt sich im lokalen WLAN öffnen.
 
@@ -155,12 +155,15 @@ verbleibende Prozesse auf Port 3000/4173. Quick Tunnels bleiben ohne Uptime-Zusa
 4. **Routing, etwa eine Minute:** Zielstation Barmen wählen, normalen Weg und „Korridor gesperrt“ vergleichen. Die Nordverbindung umgeht die Sperre. „Zielstation voll“, „Zielstation ausgefallen“ und „Wetterbedingte Pause“ begründen eine Verschiebung.
 5. **Stationen und Wetter, etwa eine Minute:** „Simulation abspielen“ öffnet die gesonderte Stationsvorschau. Ankunft, Einlagerung, Abholbereitschaft und Kundenabholung bleiben getrennt. In Routing die Wetterdetails öffnen: Ort, Herkunft, Zeitangaben und Fenster einschließlich Rückweg erläutern. Reale Bewertung: **UNBESTIMMT**.
 
-Das **Pitch-Menü** bietet Seitenwechsel, Pause/Fortsetzung, manuelle Schritte, Szenarioauswahl und einen bestätigten Neustart. Ein Szenario- oder Zielwechsel beginnt die Stationssimulation neu und verwirft ein noch ungebuchtes Drohnen-Angebot. Bestehende Aufträge behalten ihr gespeichertes Ziel und Szenario. Der Neustart löscht Warenkorb, Demo-Bestellungen und Stationsfortschritt dieses Browsers. Jedes Gerät hat eine eigene Sitzung ohne geräteübergreifende Synchronisierung.
+Das **Pitch-Menü** bietet Seitenwechsel, Pause/Fortsetzung, manuelle Schritte, Szenarioauswahl und einen bestätigten Neustart. Ein Szenario- oder Zielwechsel beginnt die Stationssimulation neu und verwirft ein noch ungebuchtes Drohnen-Angebot. Bestehende Aufträge behalten ihr gespeichertes Ziel und Szenario. Der Neustart löscht Tasche, Demo-Bestellungen und Stationsfortschritt dieses Browsers. Jedes Gerät hat eine eigene Sitzung ohne geräteübergreifende Synchronisierung.
+
+In der Oberfläche heißt der Warenkorb durchgängig **Tasche**; die Fachdokumente verwenden weiterhin den Begriff Warenkorb. Der 🍁-Schalter neben dem Hell-/Dunkelmodus blendet einen optionalen Herbstlaub-Effekt ein (nur Ahornblätter, pausiert bei `prefers-reduced-motion`; Standard ist September bis November).
+
 
 ## Umfang und Fehlerfälle
 
 - **Katalog:** 6 fiktive Händler, 7 Filialen, 36 Varianten und 40 Angebote. Suche, Kategorien, Filialfilter, Preisreihenfolge und Vergleich derselben Variante. Ausverkaufte Artikel, unbestätigter Bestand und eine geschlossene Filiale sind enthalten.
-- **Bestellung:** Ein-Filial-Warenkorb, Cent-Beträge, 120 Sekunden gültiges Demo-Angebot und erneute Prüfung beim Start. Wiederholter identischer Checkout erzeugt innerhalb derselben Sitzung keine zweite Bestellung. Bestellung, Demo-Zahlung, Vorbereitung und Lieferung haben getrennte Zustände. Drohnen-Quotes berücksichtigen Station und Routen-/Wetterszenario; volle/ausgefallene Ziele und simulierter Wetterstopp sperren neue Drohnen-Checkouts. Eine Korridorsperre kann eine längere Alternative ergeben.
+- **Bestellung:** Eine Filiale pro Tasche, Cent-Beträge, 120 Sekunden gültiges Demo-Angebot und erneute Prüfung beim Start. Wiederholter identischer Checkout erzeugt innerhalb derselben Sitzung keine zweite Bestellung. Bestellung, Demo-Zahlung, Vorbereitung und Lieferung haben getrennte Zustände. Drohnen-Quotes berücksichtigen Station und Routen-/Wetterszenario; volle/ausgefallene Ziele und simulierter Wetterstopp sperren neue Drohnen-Checkouts. Eine Korridorsperre kann eine längere Alternative ergeben.
 - **Routing:** Gerichtetes Dijkstra-Netz mit illustrativen Minutenwerten, einem Hub, 3 Stationen, 3 Drohnen und Zwischenpunkten einschließlich Nord-Alternative. Verfügbarkeit und Zielkapazität werden vor der Wegwahl geprüft. Hinweg, Rückweg und illustrative Übergabezeit bilden das Planfenster.
 - **Karten:** Leaflet und echte geografische Grundlage mit fiktiven Standorten und Routen. Bei Kachelfehlern bleiben Listen und Aktionen nutzbar. Über „Netz“ ist eine schematische Ansicht erreichbar.
 - **Wetter:** `GET /api/weather?locationId=HUB` akzeptiert ausschließlich 7 konfigurierte Demo-Orte. MET Norway liefert eine 24-Stunden-Vorhersage; inklusive angefangener Stunde können 25 Punkte erscheinen. Temperatur, Wind, Richtung, Niederschlagsintervall und Zustand werden mit Zeitbezug angezeigt. Dies ist keine Live-Messung.
@@ -173,7 +176,7 @@ Nach dem Laden der Anwendung und ihrer benötigten Ansichten bleiben vorbereitet
 
 ## Produktfotos
 
-Jede der 36 Produktvarianten erhält zwei eigens mit dem integrierten Imagegen-Tool generierte Fotoansichten. Filialangebote derselben Variante teilen dieselben Fotos. Die Produktkarte öffnet eine Galerie mit Hauptbild, zweiter Ansicht, Miniaturen und Warenkorb-Aktion. Die Bilder sind KI-generiert und zeigen keine tatsächlich angeschlossenen Händlerprodukte.
+Jede der 36 Produktvarianten erhält zwei eigens mit dem integrierten Imagegen-Tool generierte Fotoansichten. Filialangebote derselben Variante teilen dieselben Fotos. Die Produktkarte öffnet eine Galerie mit Hauptbild, zweiter Ansicht, Miniaturen und Tasche-Aktion. Die Bilder sind KI-generiert und zeigen keine tatsächlich angeschlossenen Händlerprodukte.
 
 Das Drohnenbild im Startbereich ist eine optimierte Kopie des vorhandenen KI-Konzeptbildes `assets/pitch/04-stadtvision.png`. Die Konzeptbild-Kennzeichnung bleibt sichtbar.
 

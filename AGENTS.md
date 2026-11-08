@@ -33,3 +33,13 @@ Die Beispiele sind keine abschließende Liste zulässiger Werte. Vor einem Commi
 - Wetterbewertung umfasst Route, Stationen und gesamtes Flugzeitfenster inklusive Rückflug oder sicherer Weiterleitung. Fehlende/veraltete Daten erzeugen keine positive Freigabe; Wetter allein genügt nicht.
 - Nutzen gegenüber einer beschriebenen Vergleichsversorgung bewerten, einschließlich Zubringer, Abholwegen und Ersatzlieferungen. Umweltentlastung und absolute Diebstahlsicherheit nicht voraussetzen.
 - Implementierung erst aus einem beauftragten, abgegrenzten Prototypumfang ableiten. Sicherheitskritische Fehlerfälle ausdrücklich prüfen; Ergebnisse und Grenzen in `Architekture.md` dokumentieren.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -25,6 +25,10 @@ export type NetworkMapProps = {
   routes?: NetworkRoute[];
   movingPosition?: [number, number] | null;
   mode?: "map" | "schematic";
+  /** Wird gesetzt, wenn die Ansicht von außen gesteuert wird (dann ohne eigenen Schalter). */
+  onModeChange?: (mode: "map" | "schematic") => void;
+  /** Blendet den eingebauten Karte/Netz-Schalter aus, wenn der Aufrufer ihn bereits anbietet. */
+  showModeSwitch?: boolean;
   onSelect?: (id: string) => void;
   className?: string;
   vehicleKind?: "drone" | "courier";
@@ -53,7 +57,7 @@ function isCoordinate(point: [number, number]) {
   return Number.isFinite(point[0]) && Number.isFinite(point[1]) && Math.abs(point[0]) <= 90 && Math.abs(point[1]) <= 180;
 }
 
-export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosition = null, mode = "map", onSelect, className = "", vehicleKind = "courier" }: NetworkMapProps) {
+export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosition = null, mode = "map", onModeChange, showModeSwitch = true, onSelect, className = "", vehicleKind = "courier" }: NetworkMapProps) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const layersRef = useRef<LayerGroup | null>(null);
@@ -68,6 +72,10 @@ export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosit
   const [attempt, setAttempt] = useState(0);
   const id = useId().replace(/:/g, "");
   const displayMode = localMode ?? mode;
+  const changeMode = (next: "map" | "schematic") => {
+    if (onModeChange) { setLocalMode(null); onModeChange(next); return; }
+    setLocalMode(next);
+  };
   const vehicleGlyph = vehicleKind === "drone" ? DRONE_GLYPH : MOVING_GLYPH;
   const vehicleLabel = vehicleKind === "drone" ? "Simulierte Drohnenposition" : "Simulierte Fahrzeugposition";
 
@@ -149,7 +157,7 @@ export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosit
     safeRoutes.forEach((route) => {
       L.polyline(route.coordinates, { color: "#ffffff", weight: 9, opacity: 0.85, interactive: false }).addTo(group);
       L.polyline(route.coordinates, {
-        color: route.color || "#2466ed", weight: 4, opacity: 0.95,
+        color: route.color || "#165dce", weight: 4, opacity: 0.95,
         dashArray: route.dashed ? "8 9" : undefined, lineCap: "round", interactive: false,
       }).addTo(group);
     });
@@ -219,7 +227,7 @@ export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosit
     return ([lat, lng]: [number, number]) => ({ x: 65 + ((lng - west) / (east - west)) * 650, y: 64 + ((north - lat) / (north - south)) * 290 });
   }, [coordinates]);
 
-  const retry = () => { setAttempt((current) => current + 1); setLocalMode("map"); };
+  const retry = () => { setAttempt((current) => current + 1); changeMode("map"); };
 
   return (
     <div className={`${styles.root} ${className}`}>
@@ -232,7 +240,7 @@ export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosit
               <defs><pattern id={`grid-${id}`} width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="currentColor" strokeWidth="0.8" /></pattern></defs>
               <rect width="780" height="430" fill={`url(#grid-${id})`} />
               <path d="M-30 350C130 315 175 400 315 300S530 255 810 165" className={styles.river} />
-              {safeRoutes.map((route) => <polyline key={route.id} points={route.coordinates.map((point) => { const p = projection(point); return `${p.x},${p.y}`; }).join(" ")} fill="none" stroke={route.color || "#2466ed"} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={route.dashed ? "9 9" : undefined} vectorEffect="non-scaling-stroke" />)}
+              {safeRoutes.map((route) => <polyline key={route.id} points={route.coordinates.map((point) => { const p = projection(point); return `${p.x},${p.y}`; }).join(" ")} fill="none" stroke={route.color || "#165dce"} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={route.dashed ? "9 9" : undefined} vectorEffect="non-scaling-stroke" />)}
             </svg>
             <span className={styles.regionLabel}>WUPPERTAL · DEMO-NETZ</span>
             {safeMarkers.map((marker, index) => {
@@ -254,19 +262,21 @@ export default function NetworkMap({ markers, routes = EMPTY_ROUTES, movingPosit
         )}
 
         <div className={styles.locationTag}><span />Wuppertal <small>Demo-Gebiet</small></div>
-        <div className={styles.modeSwitch} aria-label="Kartenansicht wählen">
-          <button type="button" aria-pressed={displayMode === "map"} onClick={() => setLocalMode("map")}>Karte</button>
-          <button type="button" aria-pressed={displayMode === "schematic"} onClick={() => setLocalMode("schematic")}>Netz</button>
-        </div>
+        {showModeSwitch && (
+          <div className={styles.modeSwitch} role="group" aria-label="Kartenansicht">
+            <button type="button" aria-pressed={displayMode === "map"} onClick={() => changeMode("map")}>Karte</button>
+            <button type="button" aria-pressed={displayMode === "schematic"} onClick={() => changeMode("schematic")}>Netz</button>
+          </div>
+        )}
 
         {displayMode === "map" && tileState === "loading" && <div className={styles.loading} role="status"><span />Karte wird geladen</div>}
         {displayMode === "map" && tileState === "error" && <div className={styles.fallback} role="status">
           <span className={styles.fallbackIcon}>↗</span>
           <div><strong>Kartenkacheln nicht verfügbar</strong><p>Die Demo bleibt bedienbar. Nutze das schematische Netz.</p></div>
-          <div className={styles.fallbackActions}><button type="button" onClick={() => setLocalMode("schematic")}>Netzansicht öffnen</button><button type="button" onClick={retry}>Erneut laden</button></div>
+          <div className={styles.fallbackActions}><button type="button" onClick={() => changeMode("schematic")}>Netzansicht öffnen</button><button type="button" onClick={retry}>Erneut laden</button></div>
         </div>}
       </div>
-      <div className={styles.legend}><span className={styles.legendDot} /><span>Fiktive Standorte · vorbereitete Demo-Routen</span><span className={styles.demoLabel}>SIMULATION</span></div>
+      <div className={styles.legend}><span className={styles.legendDot} /><span>Fiktive Standorte · vorbereitete Demo-Routen</span><span className={styles.demoLabel}>Simulation</span></div>
     </div>
   );
 }

@@ -414,7 +414,7 @@ test('1440px: the drone landing and default station checkout fit the desktop vie
   await expect.poll(()=>page.getByRole('img',{name:'KI-Konzeptbild einer Lieferdrohne mit Paket über einer Stadt',exact:true}).evaluate(element=>(element as HTMLImageElement).naturalWidth>0)).toBe(true);
   await page.screenshot({path:'/tmp/fly2you-desktop-final.png'});
   await productButton(page).click();
-  const sidebar = page.getByRole('complementary', { name: 'Warenkorb', exact: true });
+  const sidebar = page.getByRole('complementary', { name: 'Deine Tasche', exact: true });
   await expect(sidebar.getByRole('button', { name: /Drohne.*zur Station/i })).toHaveAttribute('aria-pressed', 'true');
   await expect(sidebar.getByRole('combobox', { name: 'Zielstation', exact: true })).toHaveValue('Z03');
   const cart = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
@@ -477,6 +477,87 @@ test('an available drone detour is snapshotted and keeps its destination after r
   await expect(page.getByRole('heading', { name: 'Deine Lieferung. Im Blick.', exact: true })).toBeVisible();
   await expect(page.getByText('Station Barmen', { exact: true }).first()).toBeVisible();
   expect((await savedSession(page)).orders[0].quote).toEqual(original);
+  await noHorizontalOverflow(page);
+});
+
+test('routing offers exactly one map switch and both views agree', async ({ page }) => {
+  await nav(page, 'Routing').click();
+  // Der Aufrufer stellt den Umschalter; die Karte darf keinen zweiten anbieten.
+  const groups = page.getByRole('group', { name: 'Kartenansicht', exact: true });
+  await expect(groups).toHaveCount(1);
+  const mapButton = groups.getByRole('button', { name: 'Karte', exact: true });
+  const netzButton = groups.getByRole('button', { name: 'Netz', exact: true });
+  await expect(mapButton).toHaveAttribute('aria-pressed', 'true');
+  await netzButton.click();
+  await expect(netzButton).toHaveAttribute('aria-pressed', 'true');
+  await expect(mapButton).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.getByLabel('Schematisches Demo-Netz, keine geografisch genaue Karte')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Netz', exact: true })).toHaveCount(1);
+  await mapButton.click();
+  await expect(mapButton).toHaveAttribute('aria-pressed', 'true');
+  await expect(groups).toHaveCount(1);
+  await nav(page, 'Stationen').click();
+  // In der Stationsansicht bleibt genau ein Umschalter übrig.
+  const stationGroups = page.getByRole('group', { name: 'Kartenansicht', exact: true });
+  await expect(stationGroups).toHaveCount(1);
+  await expect(stationGroups.getByRole('button', { name: 'Netz', exact: true })).toHaveCount(1);
+});
+
+test('order details show German status labels instead of internal codes', async ({ page }) => {
+  await startOrder(page);
+  const details = page.locator('details').filter({ hasText: 'Bestelldetails' });
+  await details.locator('summary').click();
+  const text = await details.innerText();
+  expect(text).toContain('Eingegangen');
+  expect(text).toContain('Demo-Zahlung autorisiert');
+  expect(text).toContain('Neu beim Händler');
+  expect(text).not.toMatch(/\b(PENDING|CONFIRMED|AUTHORIZED|CAPTURED|NEW|ACCEPTED|CREATED|ASSIGNED)\b/);
+  await step(page);
+  const accepted = await details.innerText();
+  expect(accepted).toContain('Bestätigt');
+  expect(accepted).toContain('Demo-Zahlung bestätigt');
+  expect(accepted).toContain('Vom Händler angenommen');
+});
+
+test('search finds visible category names', async ({ page }) => {
+  const box = page.getByRole('textbox', { name: 'Produkte oder Händler suchen' });
+  await box.fill('Blumen');
+  await expect(page.getByRole('article').filter({ hasText: 'Tulpenstrauß' })).toBeVisible();
+  await expect(page.getByRole('article').filter({ hasText: 'Bio Haferflocken' })).toHaveCount(0);
+  await box.fill('Technik');
+  await expect(page.getByRole('article').filter({ hasText: 'Wireless-Kopfhörer' })).toBeVisible();
+  await expect(page.getByRole('article').filter({ hasText: 'Tulpenstrauß' })).toHaveCount(0);
+  await box.fill('kein Treffer erwartet');
+  await expect(page.getByRole('button', { name: 'Filter zurücksetzen' })).toBeVisible();
+});
+
+test('autumn leaves toggle sits next to the theme switch and keeps its choice', async ({ page }) => {
+  const toggle = page.getByRole('button', { name: /Herbstlaub (ein|aus)blenden/, exact: true });
+  await expect(toggle).toHaveCount(1);
+  await expect(toggle).toContainText('🍁');
+  // Der Umschalter steht direkt neben dem Theme-Schalter.
+  await expect(page.getByRole('button', { name: /modus einschalten$/, exact: true })).toHaveCount(1);
+  const order = await page.evaluate(() => {
+    const buttons = [...document.querySelectorAll('header button')];
+    return buttons.map((button) => button.getAttribute('aria-label') ?? '');
+  });
+  const themeIndex = order.findIndex((label) => /modus einschalten$/.test(label));
+  const leafIndex = order.findIndex((label) => /Herbstlaub/.test(label));
+  expect(leafIndex).toBe(themeIndex + 1);
+  // Bewusste Wahl aus, danach ist der Effekt reproduzierbar aus und überlebt einen Reload.
+  await page.evaluate(() => localStorage.setItem('fly2you-leaves', 'off'));
+  await page.reload();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('canvas')).toHaveCount(0);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true })).toBeVisible();
+  await expect(page.locator('canvas')).toHaveCount(1);
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Herbstlaub ausblenden', exact: true }).click();
+  await expect(page.locator('canvas')).toHaveCount(0);
   await noHorizontalOverflow(page);
 });
 

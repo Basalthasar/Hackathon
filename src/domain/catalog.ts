@@ -78,6 +78,6 @@ export const getStore = (id: string): Store | undefined => stores.find(store => 
 export const getOffer = (id: string): Offer | undefined => offers.find(offer => offer.id === id);
 export function searchOffers(query = '', category = 'Alle'): Offer[] {
   const term = query.toLocaleLowerCase('de').trim();
-  return offers.filter(offer => (category === 'Alle' || category === offer.category) && `${offer.name} ${offer.unit} ${getStore(offer.storeId)?.name} ${getStore(offer.storeId)?.district}`.toLocaleLowerCase('de').includes(term));
+  return offers.filter(offer => (category === 'Alle' || category === offer.category) && `${offer.name} ${offer.unit} ${offer.category} ${getStore(offer.storeId)?.name} ${getStore(offer.storeId)?.district}`.toLocaleLowerCase('de').includes(term));
 }
 export const formatMoney = (minor: number): string => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(minor / 100);

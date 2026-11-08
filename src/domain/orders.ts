@@ -1,11 +1,42 @@
 import { offers, type CartLine } from './catalog';
-import { assertQuote, cartFingerprint, DomainError, type FulfillmentMode, type Quote } from './checkout';
+import { assertQuote, cartFingerprint, DomainError, deliveryFeeFor, QUOTE_VALIDITY_MS, type FulfillmentMode, type Quote } from './checkout';
 import { planRoute, type Scenario } from './routing';
 
 export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'FULFILLING' | 'COMPLETED';
 export type PaymentStatus = 'AUTHORIZED' | 'CAPTURED';
 export type PreparationStatus = 'NEW' | 'ACCEPTED' | 'PICKING' | 'READY' | 'HANDED_OVER';
 export type DeliveryStatus = 'CREATED' | 'ASSIGNED' | 'PICKED_UP' | 'IN_TRANSIT' | 'AT_DESTINATION' | 'STORED' | 'READY_FOR_COLLECTION' | 'COLLECTED' | 'DELIVERED';
+
+/** Anzeigetexte für die internen Zustände; nie die Rohwerte im UI ausgeben. */
+export const orderStatusLabel: Record<OrderStatus, string> = {
+  PENDING: 'Eingegangen',
+  CONFIRMED: 'Bestätigt',
+  FULFILLING: 'In Vorbereitung',
+  COMPLETED: 'Abgeschlossen',
+};
+export const paymentStatusLabel: Record<PaymentStatus, string> = {
+  AUTHORIZED: 'Demo-Zahlung autorisiert',
+  CAPTURED: 'Demo-Zahlung bestätigt',
+};
+export const preparationStatusLabel: Record<PreparationStatus, string> = {
+  NEW: 'Neu beim Händler',
+  ACCEPTED: 'Vom Händler angenommen',
+  PICKING: 'Wird zusammengestellt',
+  READY: 'Beim Händler abholbereit',
+  HANDED_OVER: 'Übergeben',
+};
+export const deliveryStatusLabel: Record<DeliveryStatus, string> = {
+  CREATED: 'Auftrag angelegt',
+  ASSIGNED: 'Fahrzeug zugewiesen',
+  PICKED_UP: 'Übernommen',
+  IN_TRANSIT: 'Unterwegs',
+  AT_DESTINATION: 'Angekommen',
+  STORED: 'In der Station eingelagert',
+  READY_FOR_COLLECTION: 'An der Station abholbereit',
+  COLLECTED: 'Beim Kunden abgeholt',
+  DELIVERED: 'Empfangen',
+};
+export const noDeliveryLabel = 'Kein Lieferauftrag';
 export interface DemoEvent { id: string; label: string; at: number; source: 'simulation' }
 export interface DemoDelivery { id: string; status: DeliveryStatus; method: 'DRONE' | 'BICYCLE'; courierName: string; progress: number }
 export interface DemoOrder {
@@ -70,7 +101,7 @@ export function restoreOrder(value: unknown): DemoOrder | null {
   const labels = orderStepLabels(order.mode);
   if (!Number.isInteger(order.step) || order.step < 0 || order.step >= labels.length) return null;
   if (!order.quote || order.quote.mode !== order.mode || order.quote.isDemo !== true || !Array.isArray(order.quote.lines) || !order.quote.lines.length) return null;
-  if (!Number.isFinite(order.quote.createdAt) || !Number.isFinite(order.quote.expiresAt) || order.quote.expiresAt !== order.quote.createdAt + 120_000) return null;
+  if (!Number.isFinite(order.quote.createdAt) || !Number.isFinite(order.quote.expiresAt) || order.quote.expiresAt !== order.quote.createdAt + QUOTE_VALIDITY_MS) return null;
   if (!order.quote.lines.every(line => line && typeof line.name === 'string' && typeof line.offerId === 'string' && Number.isSafeInteger(line.quantity) && line.quantity > 0 && Number.isSafeInteger(line.priceMinor) && line.priceMinor >= 0)) return null;
   const known = new Set<string>();
   for (const line of order.quote.lines) {
@@ -79,7 +110,7 @@ export function restoreOrder(value: unknown): DemoOrder | null {
     known.add(line.offerId);
   }
   const subtotal = order.quote.lines.reduce((sum, line) => sum + line.priceMinor * line.quantity, 0);
-  const fee = order.mode === 'PICKUP' ? 0 : 390;
+  const fee = deliveryFeeFor(order.mode);
   if (!Number.isSafeInteger(subtotal) || order.quote.itemsSubtotalMinor !== subtotal || order.quote.deliveryFeeMinor !== fee || order.quote.serviceFeeMinor !== 0 || order.quote.totalMinor !== subtotal + fee) return null;
   if (order.quote.fingerprint !== cartFingerprint(order.quote.lines, order.mode, order.quote.destinationId, order.quote.routingScenario)) return null;
   if (order.mode === 'DRONE') {

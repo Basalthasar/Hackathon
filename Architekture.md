@@ -491,3 +491,27 @@ Start, und die QR-Dateien sind deshalb nicht versioniert. Der Launcher setzt
 Python 3 mit `qrcode` und Pillow sowie ein vorhandenes oder automatisch
 installierbares `cloudflared` voraus. Er verändert keine App-Logik und belegt
 keine Betriebs- oder Veröffentlichungsfreigabe der Demo.
+
+### Konsistenzprüfung der Produktionsseite (2026-11-08)
+
+**Auftrag (2026-11-08):** abschließendes, tiefes Inkonsistenz-Review der Benutzeroberfläche von `src/` (Fly2You), ohne das Gestaltungskonzept zu verändern. Alle Befunde sind behoben; die Demo-Logik, Grenzen und Kennzeichnungen bleiben unverändert.
+
+| Bereich | Befund und Behebung |
+|---|---|
+| Begriffe | „Tasche“ und „Warenkorb“ wurden gemischt. Die Oberfläche und die sichtbaren Domänentexte verwenden jetzt durchgehend **Tasche**; `README.md` nennt die Doppelung ausdrücklich. „Störungsszenario“ heißt im UI einheitlich **Szenario**. |
+| Statuswerte | `preparationStatusLabel.READY` und `deliveryStatusLabel.READY_FOR_COLLECTION` hießen beide „Abholbereit“. Neu: „Beim Händler abholbereit“ und „An der Station abholbereit“. |
+| Empfangsschritt | Der Empfang ist ein eigener Schritt: im Stationslauf (Schritt 4) und beim Drohnenauftrag (Schritt 8) heißt die Aktion überall „Abholung in der Demo bestätigen“, auch im Pitch-Menü; der Abspielknopf bleibt dort gesperrt. |
+| Einheiten | Zeitfenster durchgehend „Min.“; ETA der Drohne ist „Abholbereit“, nur das Fahrrad „Ankunft“. |
+| Abgeleitete Werte | Fotoanzahl (Badge, Galerie, Zähler), Flottengröße und Filialzahl kommen aus den Daten statt aus Literalen. |
+| Wetterpanel | Die Ortsauswahl zeigte englische Rohwerte (`available`, `partial`, …). Neu sind deutsche Kurz- und Langformen. Das Panel folgt dem gewählten Ziel statt immer den Hub zu zeigen. Fehlende Werte nutzen einheitlich „–“. |
+| Leerzustände | Die leere Tasche beschreibt jetzt den gewählten Modus (Drohne, Fahrrad, Abholung) statt immer die Drohne; das Symbol passt dazu. |
+| Aktionen | Alle Buttons tragen `type="button"`; die Kategorie-Chips sind eine benannte Gruppe; die Kategorie-Icons kommen aus einer expliziten Zuordnung statt aus einer Zeichenkettenkette. |
+| Rückmeldungen | Toasts unterscheiden Erfolg und Fehler (Symbol, Farbe, `role="alert"` bei Fehlern). Vorher zeigte auch eine Fehlermeldung ein Häkchen. |
+| Farben | Das Kartenmodul hatte eine eigene Palette (`#2466ed`, `#153454`, `#586c82`, Fokus `#efae35`). Es nutzt jetzt die Projekt-Tokens (`--blue`, `--ink`, `--muted`, `--line`, `--surface`, `--soft`, `--green`); eine Marinefarbe `--navy` gilt für Demo-Leiste und Kartenknoten, der Kartenfokus entspricht dem globalen Fokus. |
+| Theme | Das `theme-color`-Meta folgt dem Umschalten auf Dunkelmodus. |
+| Karte | Der Rückfallhinweis „Netzansicht öffnen“ nutzt denselben Umschalter wie der sichtbare Schalter, sodass Toolbar und Karte nie widersprüchlich stehen. |
+| Herbstlaub | Optionaler Effekt über `falling-leaves` (MIT): nur Ahornform, Standard September bis November, ausdrückliche Wahl wird gespeichert, pausiert bei `prefers-reduced-motion`. Lizenz in `docs/licenses/Falling-Leaves-MIT.txt`. |
+
+**Prüfumfang (2026-11-08):** `tsc --noEmit` ohne Fehler; `vitest run` 76/76 in 8 Dateien; `next build` erfolgreich; `playwright test` 25/25 gegen `next start`, einschließlich axe (WCAG A/AA) auf Entdecken, Stationen, Routing, Taschendialog und Galerie sowie 360×800 und 1440×1000. Sichtprüfung in Hell und Dunkel bei 1200 und 1440 px. Zusätzlich geprüft: Canvas des Herbstlaub-Effekts animiert bei `prefers-reduced-motion: no-preference` und bleibt bei `reduce` stehen.
+
+**Grenzen:** Nur Chromium geprüft; kein Screenreader- und kein Safari-/Firefox-Lauf. Die Änderungen betreffen ausschließlich Darstellung, Texte und Ableitungen; Fachlogik, Simulation und die Kennzeichnung „UNBESTIMMT“ bleiben unverändert.

@@ -8,6 +8,7 @@ Stand: 2026-10-21. Installierte Versionen und vollständiger Abhängigkeitsbaum:
 | React / React DOM | 19.3.1 | [MIT React](React-MIT.txt), [MIT React DOM](React-DOM-MIT.txt) |
 | Leaflet | 1.9.4 | [BSD-2-Clause](Leaflet-BSD-2-Clause.txt) |
 | Lucide React | 1.61.0 | [ISC](Lucide-ISC.txt) |
+| Falling Leaves | 0.1.0 | [MIT](Falling-Leaves-MIT.txt); optionaler Herbstlaub-Effekt, nur Ahornform, pausiert bei `prefers-reduced-motion` |
 | OSM-Karten | Online-Kacheln | [OSM-Daten ODbL / Attribution](https://www.openstreetmap.org/copyright), [Tile Policy](https://operations.osmfoundation.org/policies/tiles/); im Kartenbild sichtbar |
 | MET Norway | Locationforecast 2.0 | [CC BY 4.0 / NLOD](https://api.met.no/doc/License); Herkunft, Normalisierung und Lizenz in Wetteransicht |
 | Produktfotos | KI-generiert | Im integrierten Imagegen-Tool eigens für dieses Projekt erstellt; zwei Ansichten je fiktiver Variante. Kein Herstellerfoto und keine realen Partnerprodukte. Prompts und Provenienz in `docs/assets/product-photos-*.json`. |
