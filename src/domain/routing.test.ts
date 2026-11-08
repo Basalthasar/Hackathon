@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dijkstra, edges, fleet, getScenarioStations, nodes, planRoute, stations } from './routing';
+import { dijkstra, edges, fleet, getScenarioStations, nodes, planRoute, scenarioLabels, stations } from './routing';
 
 describe('directed demo routing', () => {
   it('chooses the shortest available directed path and only an available vehicle', () => {
@@ -27,14 +27,13 @@ describe('directed demo routing', () => {
     expect(getScenarioStations('Z02', 'full').find(item => item.id === 'Z01')?.free).toBe(stations[0].free);
     expect(stations[1].free).toBe(3);
   });
-  it('distinguishes a synthetic weather stop from any real weather clearance', () => {
-    const normal = planRoute('Z01');
-    const stopped = planRoute('Z01', 'weather');
-    expect(normal.realWeatherStatus).toBe('UNBESTIMMT');
-    expect(normal.flightClearance).toBe(false);
-    expect(stopped.available).toBe(false);
-    expect(stopped.realWeatherStatus).toBe('UNBESTIMMT');
-    expect(stopped.reasons.join(' ')).toContain('Simulierter Wetterstopp');
+  it('offers no simulated weather scenario and never claims a clearance', () => {
+    // Nutzerentscheidung 2026-11-08: das simulierte Wetterszenario entfällt.
+    expect(Object.keys(scenarioLabels)).toEqual(['normal', 'blocked', 'full', 'offline']);
+    const plan = planRoute('Z01');
+    expect(plan.available).toBe(true);
+    expect(plan.realWeatherStatus).toBe('UNBESTIMMT');
+    expect(plan.flightClearance).toBe(false);
   });
   it('returns no path for an unknown target or a disconnected graph', () => {
     expect(planRoute('NOT_A_STATION').available).toBe(false);

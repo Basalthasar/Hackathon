@@ -206,7 +206,7 @@ test('station arrival, deposit, readiness and customer collection remain four ev
   expect((await savedSession(page)).stationStep).toBe(5);
 });
 
-test('routing finds the blocked-corridor alternative and explains full, offline and weather stops', async ({ page }) => {
+test('routing finds the blocked-corridor alternative and explains full and offline stops', async ({ page }) => {
   await nav(page, 'Routing').click();
   await page.getByRole('combobox', { name: 'Ziel', exact: true }).selectOption('Z03');
   await expect(page.getByText('Demo-Weg gefunden', { exact: true })).toBeVisible();
@@ -214,7 +214,7 @@ test('routing finds the blocked-corridor alternative and explains full, offline 
   await scenario.selectOption('blocked');
   await expect(page.getByText('Die Sperrung wird über die Nordverbindung umgangen.')).toBeVisible();
   await expect(page.getByText('WX', { exact: true })).toBeVisible();
-  for (const name of ['full', 'offline', 'weather']) {
+  for (const name of ['full', 'offline']) {
     await scenario.selectOption(name);
     await expect(page.getByText('Kein Start', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Simulation abspielen', exact: true })).toBeDisabled();
@@ -237,8 +237,8 @@ test('routing is a drone overview with minimal stations and several simulated fl
   await expect.poll(async () => drones.first().evaluate(element => getComputedStyle(element).transform), { timeout: 5000 }).not.toBe(firstTransform);
   await page.getByRole('button', { name: 'Netz', exact: true }).first().click();
   await expect(page.locator('[class*="schematicVehicle"]')).toHaveCount(2);
-  // Wetterstopp: keine Drohne im Flug, keine Flugspur in der Netzansicht.
-  await page.getByRole('combobox', { name: 'Szenario', exact: true }).selectOption('weather');
+  // Ausgefallenes Ziel: keine Drohne im Flug, keine Flugspur in der Netzansicht.
+  await page.getByRole('combobox', { name: 'Szenario', exact: true }).selectOption('offline');
   await expect(page.locator('[class*="schematicVehicle"]')).toHaveCount(0);
   await expect(page.getByText('Demo-Netz · Beispielzeiten')).toBeVisible();
   await noHorizontalOverflow(page);
@@ -292,8 +292,7 @@ test('weather provenance stays separate from scenario values and remains explici
   const weather = page.getByRole('region', { name: 'Wetter entlang der Route' });
   await weather.getByRole('button', { name: 'Daten & 24-Stunden-Vorschau' }).click();
   await expect(weather.getByText('Online-Vorhersage', { exact: true })).toBeVisible();
-  await page.getByRole('combobox', { name: 'Szenario', exact: true }).selectOption('weather');
-  await expect(page.getByText(/Simulierter Wetterstopp:/).first()).toBeVisible();
+  await page.getByRole('combobox', { name: 'Szenario', exact: true }).selectOption('blocked');
   await expect(weather.getByText('Online-Vorhersage', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Pitch-Menü', exact: true }).click();
   const pitch = page.getByRole('dialog', { name: 'Dein Pitch. Dein Tempo.' });
@@ -459,12 +458,11 @@ test('1440px: the drone landing and default station checkout fit the desktop vie
   await noHorizontalOverflow(page);
 });
 
-test('drone quotes stop for full or offline stations and weather while alternatives remain usable', async ({ page }) => {
+test('drone quotes stop for full or offline stations while alternatives remain usable', async ({ page }) => {
   await productButton(page).click();
   const cases = [
     { scenario: 'full', reason: /Alle Fächer der Zielstation sind im Szenario belegt/ },
     { scenario: 'offline', reason: /Die Zielstation ist im Szenario ausgefallen/ },
-    { scenario: 'weather', reason: /Simulierter Wetterstopp: Der Start wird verschoben/ },
   ];
   for (const item of cases) {
     await nav(page, 'Routing').click();

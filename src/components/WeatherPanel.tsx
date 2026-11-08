@@ -8,6 +8,8 @@ import s from './PitchApp.module.css';
 
 /** Einheitlicher Platzhalter für fehlende Werte. */
 const MISSING='–';
+/** Auf GitHub Pages gibt es keine Server-Route für Wetterdaten. */
+const STATIC_PREVIEW=process.env.NEXT_PUBLIC_STATIC_EXPORT==='true';
 const time=(value:string|null|undefined)=>value?new Date(value).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'}):MISSING;
 const LOCATIONS=WEATHER_LOCATIONS;
 /** Kurzform für die Ortsauswahl; keine englischen Rohwerte im UI. */
@@ -20,6 +22,7 @@ function statusShort(value?:WeatherResponse):string{
 }
 /** Herkunftszeile; gleiche Reihenfolge wie in den Ortsoptionen. */
 function statusText(value:WeatherResponse|undefined,loading:boolean):string{
+  if(STATIC_PREVIEW)return 'Nicht verfügbar (statische Vorschau)';
   if(value?.status==='error')return 'Abruf fehlgeschlagen';
   if(loading&&!value)return 'Wird abgerufen …';
   if(!value)return 'Noch nicht abgerufen';
@@ -36,6 +39,11 @@ export default function WeatherPanel({missionMinutes=30,targetId='Z03'}:{mission
   const [expanded,setExpanded]=useState(false);
   const [refresh,setRefresh]=useState(0);
   useEffect(()=>{
+    if(STATIC_PREVIEW){
+      setLoading(false);
+      setFailure('Statische Vorschau ohne Wetterserver: Die Vorhersage ist hier nicht abrufbar. Die reale Bewertung bleibt UNBESTIMMT; es wird keine Flugfreigabe abgeleitet.');
+      return;
+    }
     const controller=new AbortController(); let live=true;
     setLoading(true);setFailure('');
     Promise.allSettled(LOCATIONS.map(async location=>{

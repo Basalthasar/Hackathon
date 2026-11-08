@@ -1,5 +1,5 @@
 /** Graph, fleet, capacity and times are illustrative simulation inputs. */
-export type Scenario = 'normal' | 'blocked' | 'full' | 'offline' | 'weather';
+export type Scenario = 'normal' | 'blocked' | 'full' | 'offline';
 export interface Station { id: string; name: string; district: string; lat: number; lng: number; free: number; total: number; status: 'online' | 'offline' }
 export interface GraphNode { id: string; name: string; lat: number; lng: number; kind: 'hub' | 'station' | 'waypoint' }
 export interface GraphEdge { id: string; from: string; to: string; minutes: number }
@@ -38,7 +38,7 @@ export const fleet: Vehicle[] = [
   { id: 'B', name: 'Drohne B', status: 'charging', batteryPercent: 34, nodeId: 'HUB' },
   { id: 'C', name: 'Drohne C', status: 'in_transit', batteryPercent: 62, nodeId: 'W02' },
 ];
-export const scenarioLabels: Record<Scenario, string> = { normal: 'Normaler Ablauf', blocked: 'Korridor gesperrt', full: 'Zielstation voll', offline: 'Zielstation ausgefallen', weather: 'Wetterbedingte Pause' };
+export const scenarioLabels: Record<Scenario, string> = { normal: 'Normaler Ablauf', blocked: 'Korridor gesperrt', full: 'Zielstation voll', offline: 'Zielstation ausgefallen' };
 
 export interface ShortestPath { path: string[]; minutes: number }
 export function dijkstra(graphNodes: readonly GraphNode[], graphEdges: readonly GraphEdge[], from: string, to: string, blockedEdges: readonly string[] = []): ShortestPath | null {
@@ -85,7 +85,6 @@ export function planRoute(targetId: string, scenario: Scenario = 'normal'): Rout
   if (!station) return { ...base, reasons: ['Die gewählte Zielstation gehört nicht zum Demo-Netz.'] };
   if (station.status !== 'online') return { ...base, reasons: ['Die Zielstation ist im Szenario ausgefallen. Neue Ankünfte werden gesperrt; bitte ein anderes Ziel wählen.'] };
   if (station.free < 1) return { ...base, reasons: ['Alle Fächer der Zielstation sind im Szenario belegt. Ohne freie Kapazität wird keine Mission simuliert.'] };
-  if (scenario === 'weather') return { ...base, reasons: ['Simulierter Wetterstopp: Der Start wird verschoben. Diese Szenariowerte sind keine online abgerufene Vorhersage.', 'Reale Wetterbewertung: UNBESTIMMT. Fahrzeuggrenzen und vollständige Pflichtdaten fehlen.'] };
   const vehicle = fleet.find(item => item.status === 'available' && item.nodeId === 'HUB');
   if (!vehicle) return { ...base, reasons: ['Keine Drohne ist im Demo-Hub verfügbar.'] };
   const outbound = dijkstra(nodes, edges, 'HUB', targetId, blockedEdgeIds);

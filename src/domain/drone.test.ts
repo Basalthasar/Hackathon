@@ -15,7 +15,7 @@ describe('drone checkout and station receipt', () => {
     expect(quote.realWeatherStatus).toBe('UNBESTIMMT');
     expect(() => assertQuote(quote, cart, 'DRONE', 2_000)).not.toThrow();
   });
-  it.each(['full', 'offline', 'weather'] as const)('refuses a new drone order in %s while keeping ground alternatives', scenario => {
+  it.each(['full', 'offline'] as const)('refuses a new drone order in %s while keeping ground alternatives', scenario => {
     expect(() => createQuote(cart, 'DRONE', 1_000, 'Z03', scenario)).toThrow();
     expect(() => createQuote(cart, 'BICYCLE', 1_000, undefined, scenario)).not.toThrow();
     expect(() => createQuote(cart, 'PICKUP', 1_000, undefined, scenario)).not.toThrow();
@@ -29,7 +29,7 @@ describe('drone checkout and station receipt', () => {
     expect(() => assertQuote(normal, cart, 'DRONE', 2_000, 'Z02')).toThrow(/geändert/);
     expect(() => createQuote(cart, 'DRONE', 1_000, 'demo-home')).toThrow(/Demo-Netz/);
     expect(() => assertQuote({ ...normal, flightClearance: true } as never, cart, 'DRONE', 2_000)).toThrow();
-    expect(() => new DemoOrderService().checkout({ quote: normal, cart, idempotencyKey: 'stale', scenario: 'weather' }, 2_000)).toThrow(/geändert/);
+    expect(() => new DemoOrderService().checkout({ quote: normal, cart, idempotencyKey: 'stale', scenario: 'blocked' }, 2_000)).toThrow(/geändert/);
   });
   it('restores each step and separates arrival, storage, readiness and customer receipt', () => {
     const service = new DemoOrderService();

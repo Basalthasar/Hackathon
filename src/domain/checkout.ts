@@ -71,7 +71,7 @@ export function addToCart(cart: readonly CartLine[], offerId: string, quantity =
 }
 export function createQuote(cart: readonly CartLine[], mode: FulfillmentMode, now = Date.now(), destinationId = mode === 'DRONE' ? DEFAULT_DRONE_TARGET : DEFAULT_DESTINATION, scenario: Scenario = 'normal'): Quote {
   modeCheck(mode);
-  if (!['normal', 'blocked', 'full', 'offline', 'weather'].includes(scenario)) throw new DomainError('INVALID_SCENARIO', 'Dieses Demo-Szenario ist nicht verfügbar.');
+  if (!['normal', 'blocked', 'full', 'offline'].includes(scenario)) throw new DomainError('INVALID_SCENARIO', 'Dieses Demo-Szenario ist nicht verfügbar.');
   const route = mode === 'DRONE' ? planRoute(destinationId, scenario) : null;
   if (route && !route.available) throw new DomainError('DRONE_UNAVAILABLE', route.reasons.join(' '));
   if (mode === 'BICYCLE' && destinationId !== DEFAULT_DESTINATION) throw new DomainError('OUT_OF_AREA', 'Die Fahrrad-Demo liefert ausschließlich an den vorgegebenen Beispielort.');

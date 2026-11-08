@@ -428,7 +428,7 @@ Die Bilder sind Anschauungsmaterial für fiktive Angebote. Fotos belegen weder P
 | Einkauf Fahrrad und Selbstabholung | Gesamte Zustandsfolge bestanden; Ankunft vor Empfang, Selbstabholung ohne Lieferauftrag/-gebühr |
 | Quote, Bestand und Filiale | 120s-Ablauf, Neuberechnung, Filialwechsel mit Zustimmung, unbestätigt/ausverkauft/geschlossen, Doppelklick und Reload bestanden |
 | Stationen | Ankunft, Einlagerung, Abholbereitschaft und Kundenabholung getrennt; vorbereitete Simulation nach Netzverlust bedienbar |
-| Routing | Gesperrter Korridor führt über Alternative; volle/ausgefallene Station und simuliertes Wetter verhindern Simulation; reale Bewertung UNBESTIMMT |
+| Routing | Gesperrter Korridor führt über Alternative; volle/ausgefallene Station verhindern die Simulation; reale Bewertung UNBESTIMMT. Simuliertes Wetterszenario auf Nutzerwunsch (2026-11-08) entfernt. |
 | Wetterherkunft / Neustart | Online-Vorhersage bleibt getrennt vom Wetterszenario, auch nach Reset; echte Anbieterantwort separat nachgewiesen |
 | Kartenfehler | Kachelausfall zeigt Hinweis und bedienbares schematisches Netz; mobile Attribution sichtbar |
 | Alle Produktkategorien | Alle 40 Angebots-Hauptbilder in 9 Kategorien tatsächlich geladen; keine bloße Dateiprüfung |

@@ -147,12 +147,22 @@ und dem erwarteten Seitentitel (`FlyToYou - Lokale Lieferplattform` für das Moc
 enthielten die jeweilige URL, und `Ctrl+C`/SIGTERM beendeten Server und Tunnel ohne
 verbleibende Prozesse auf Port 3000/4173. Quick Tunnels bleiben ohne Uptime-Zusage.
 
+## Statische Vorschau auf GitHub Pages
+
+Der Fork kann die Demo als rein statische Seite veröffentlichen:
+`https://basalthasar.github.io/Hackathon/`. Der Workflow `.github/workflows/pages.yml` baut dafür mit `GITHUB_PAGES=true` einen statischen Export (`out/`) und lädt ihn als Pages-Artefakt hoch.
+
+- **Voraussetzung:** Repository öffentlich (oder GitHub Pro) und unter *Settings → Pages → Source* die Option **GitHub Actions**.
+- **Basis-Pfad:** Projektseiten laufen unter `/<repo-name>/`. Der Workflow setzt `NEXT_PUBLIC_BASE_PATH` entsprechend; Bild- und Produktpfade werden über `src/lib/paths.ts` präfixiert.
+- **Grenzen der Vorschau:** Ohne Server gibt es keine Route `/api/weather`. Das Wetterpanel zeigt dann „Nicht verfügbar (statische Vorschau)"; die reale Bewertung bleibt **UNBESTIMMT** und es wird keine Flugfreigabe abgeleitet. Kartenkacheln kommen weiterhin von OpenStreetMap.
+- **Mehrere Pages-Seiten:** GitHub Pages vergibt eine Seite pro Repository. Zusätzlich gibt es die Benutzer-Seite `basalthasar.github.io` (eigenes Repository `Basalthasar.github.io`). Zwei gleichzeitig aktive Pages-Seiten aus demselben Repository sind nicht möglich; für eine zweite Variante braucht es ein zweites Repository oder ein Unterverzeichnis innerhalb derselben Seite.
+
 ## In fünf Minuten vorführen
 
 1. **Entdecken, etwa eine Minute:** „Bio Haferflocken“ suchen und die Filialangebote vergleichen. Zwei Produkte derselben Filiale in die Tasche legen. Ein Artikel einer anderen Filiale zeigt den ausdrücklichen Wechselhinweis; „Tasche behalten“ erhält den bisherigen Einkauf.
 2. **Einkauf, etwa eine Minute:** Tasche öffnen, die vorausgewählte Drohne und eine Zielstation wählen, Demo-Angebot berechnen und „Demo-Bestellung starten“. Gesamtpreis und Zeitspanne sind Demo-Werte. Alternativ „Fahrrad als Alternative“ oder „Abholen“ wählen. Selbstabholung: ohne Liefergebühr und Lieferauftrag.
 3. **Lieferung, etwa eine Minute:** Mit „Pause“ und „Nächster Schritt“ den Ablauf erklären. Händlerannahme, Vorbereitung, Zubringer zum Hub, Drohnenflug, Ankunft, Einlagerung und Abholbereitschaft sind eigene simulierte Ereignisse. Die Wiedergabe stoppt vor der Kundenabholung; diese mit „Abholung in der Demo bestätigen“ abschließen. Die Bewegung folgt einer vorbereiteten Route und ist keine Navigation.
-4. **Routing, etwa eine Minute:** Zielstation Barmen wählen, normalen Weg und „Korridor gesperrt“ vergleichen. Die Nordverbindung umgeht die Sperre. „Zielstation voll“, „Zielstation ausgefallen“ und „Wetterbedingte Pause“ begründen eine Verschiebung.
+4. **Routing, etwa eine Minute:** Zielstation Barmen wählen, normalen Weg und „Korridor gesperrt“ vergleichen. Die Nordverbindung umgeht die Sperre. „Zielstation voll“ und „Zielstation ausgefallen“ begründen eine Verschiebung. Ein simuliertes Wetterszenario gibt es auf Nutzerwunsch (2026-11-08) nicht mehr; die reale Wetterbewertung bleibt davon unberührt **UNBESTIMMT**.
 5. **Stationen und Wetter, etwa eine Minute:** „Simulation abspielen“ öffnet die gesonderte Stationsvorschau. Ankunft, Einlagerung, Abholbereitschaft und Kundenabholung bleiben getrennt. In Routing die Wetterdetails öffnen: Ort, Herkunft, Zeitangaben und Fenster einschließlich Rückweg erläutern. Reale Bewertung: **UNBESTIMMT**.
 
 Das **Pitch-Menü** bietet Seitenwechsel, Pause/Fortsetzung, manuelle Schritte, Szenarioauswahl und einen bestätigten Neustart. Ein Szenario- oder Zielwechsel beginnt die Stationssimulation neu und verwirft ein noch ungebuchtes Drohnen-Angebot. Bestehende Aufträge behalten ihr gespeichertes Ziel und Szenario. Der Neustart löscht Tasche, Demo-Bestellungen und Stationsfortschritt dieses Browsers. Jedes Gerät hat eine eigene Sitzung ohne geräteübergreifende Synchronisierung.
@@ -170,7 +180,7 @@ In der Oberfläche heißt der Warenkorb durchgängig **Tasche**; die Fachdokumen
 - **Wetter:** `GET /api/weather?locationId=HUB` akzeptiert ausschließlich 7 konfigurierte Demo-Orte. MET Norway liefert eine 24-Stunden-Vorhersage; inklusive angefangener Stunde können 25 Punkte erscheinen. Temperatur, Wind, Richtung, Niederschlagsintervall und Zustand werden mit Zeitbezug angezeigt. Dies ist keine Live-Messung.
 - **Bewegung:** Drohnen gleiten weich zwischen ihren Positionen (Interpolation im Kartenbauteil, kein React-Render pro Frame). Bei `prefers-reduced-motion` bleiben sie statisch.
 - **Wettergrenzen:** Abrufzeit, Anbieteraktualisierung und Prognosezeit sind getrennt. Fehlende Pflichtdaten, Timeout, HTTP 429 und veraltete Daten erzeugen keinen positiven Prüfstatus. Temperatur in 2 m und Wind in 10 m über Modellboden ersetzen keine Daten in Flughöhe. Ungefähr 9 km globale Modellauflösung bildet lokale Gebäudewinde nicht ab.
-- **Datentrennung:** Online-Vorhersage, gespeicherter Wetterstand und simulierte Wettersperre bleiben unterscheidbar. Reale Bewertung immer **UNBESTIMMT**: Fahrzeuggrenzen und vollständige Pflichtdaten fehlen. Cache und 24-Stunden-Altersmarkierung sind technische Demo-Regeln, keine bestätigten Fluggrenzen.
+- **Datentrennung:** Online-Vorhersage und gespeicherter Wetterstand bleiben unterscheidbar; ein simuliertes Wetterszenario ist nicht mehr enthalten. Reale Bewertung immer **UNBESTIMMT**: Fahrzeuggrenzen und vollständige Pflichtdaten fehlen. Cache und 24-Stunden-Altersmarkierung sind technische Demo-Regeln, keine bestätigten Fluggrenzen.
 
 Vorhersagen werden bei Bedarf über den Server geladen; kein regelmäßiges Hintergrund-Polling. Nach längerer Unterbrechung „Wetter neu abrufen“ verwenden. Der prozesslokale Servercache respektiert `Expires` und revalidiert mit `Last-Modified`. Die API ist kein frei verwendbarer Proxy.
 
