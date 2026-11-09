@@ -98,9 +98,10 @@
 
     if (qrFlight) { qrFlight.cancel(); qrFlight = null; }
 
-    // Immer die sichtbare QR-Fläche nehmen, nicht die Karte drumherum.
-    const from = qrContentBox(fromNode);
-    const to = qrContentBox(toNode);
+    // Ganze weiße Kachel fliegen, nicht nur das QR-Muster – sonst springt der
+    // Rahmen beim Abheben und Aufsetzen.
+    const from = qrTileBox(fromNode, fromKey);
+    const to = qrTileBox(toNode, toKey);
     if (!from || !to || !from.width || !to.width) return;
     if (Math.abs(from.width - to.width) < 1 && Math.abs(from.left - to.left) < 1 && Math.abs(from.top - to.top) < 1) return;
 
@@ -125,6 +126,7 @@
 
     ghost.style.width = `${from.width}px`;
     ghost.style.height = `${from.height}px`;
+    ghost.style.padding = `${from.pad}px`;
     ghost.style.left = `${from.left}px`;
     ghost.style.top = `${from.top}px`;
     document.body.append(ghost);
@@ -132,6 +134,8 @@
     const dx = to.left - from.left;
     const dy = to.top - from.top;
     const scale = to.width / from.width;
+    const radiusFrom = from.radius;
+    const radiusTo = scale > 0 ? to.radius / scale : to.radius;
 
     // Quelle und Ziel während des Flugs ausblenden, damit nichts doppelt steht.
     const hidden = [fromNode, toNode];
@@ -139,8 +143,8 @@
     const restore = () => hidden.forEach((node) => { node.style.visibility = ''; });
 
     const animation = ghost.animate([
-      { transform: 'translate3d(0, 0, 0) scale(1)' },
-      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})` }
+      { transform: 'translate3d(0, 0, 0) scale(1)', borderRadius: `${radiusFrom}px` },
+      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`, borderRadius: `${radiusTo}px` }
     ], { duration: 780, easing: 'cubic-bezier(0.45, 0, 0.15, 1)', fill: 'forwards' });
 
     const finish = () => {
@@ -189,6 +193,25 @@
       el = el.offsetParent;
     }
     return { left: left + padLeft, top: top + padTop, width, height };
+  }
+
+  // Komplette Kachel inklusive weißem Rahmen – Verhältnis und Radius kommen
+  // aus dem echten Element, damit der Übergang ohne Sprung passt.
+  function qrTileBox(node, key) {
+    const content = qrContentBox(node);
+    if (!content) return null;
+    const frame = key === 'final' ? (node.closest('.qr-card') ?? node) : node;
+    const style = getComputedStyle(frame);
+    const pad = parseFloat(style.paddingLeft) || 0;
+    const radius = parseFloat(style.borderTopLeftRadius) || 0;
+    return {
+      left: content.left - pad,
+      top: content.top - pad,
+      width: content.width + pad * 2,
+      height: content.height + pad * 2,
+      pad,
+      radius
+    };
   }
 
   const next = () => show(current + 1);

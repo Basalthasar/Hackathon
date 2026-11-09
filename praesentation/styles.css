@@ -193,11 +193,11 @@ button { font: inherit; color: inherit; }
 }
 .title-qr { margin: 0; justify-self: end; }
 .title-qr img {
-  width: clamp(124px, 10.6vw, 168px);
+  width: clamp(132px, 11.2vw, 176px);
   height: auto;
   display: block;
-  padding: 6px;
-  border-radius: 13px;
+  padding: 10px;
+  border-radius: 16px;
   background: #fbfcfe;
   box-shadow: 0 16px 38px rgba(10, 24, 48, 0.14);
 }
@@ -395,11 +395,13 @@ button { font: inherit; color: inherit; }
   width: var(--qr-size);
   height: var(--qr-size);
   display: block;
-  padding: 6px;
+  /* Rahmen bleibt im gleichen Verhältnis wie auf der Titelfolie und der
+     Abschlusskarte – auch bei S/M/L/XL. */
+  padding: calc(var(--qr-size) * 0.065);
   border-radius: 12px;
   background: #fbfcfe;
   box-shadow: 0 12px 28px rgba(10, 24, 48, 0.12);
-  transition: width 200ms var(--ease), height 200ms var(--ease);
+  transition: width 200ms var(--ease), height 200ms var(--ease), padding 200ms var(--ease);
 }
 [data-theme="dark"] .corner-qr img { background: #fff; }
 body.qr-slide .corner-qr,
@@ -414,7 +416,10 @@ body.qr-off .corner-qr {
 .qr-flight {
   position: fixed;
   z-index: 45;
+  box-sizing: border-box;
   transform-origin: 0 0;
+  background: var(--qr-surface, #fbfcfe);
+  border-radius: 12px;
   pointer-events: none;
   will-change: transform;
 }
@@ -423,8 +428,6 @@ body.qr-off .corner-qr {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 6px;
-  background: var(--qr-surface, #fbfcfe);
 }
 /* Schatten des Startplatzes blendet aus, der des Zielplatzes ein – der QR
    hebt also weich ab und setzt genauso weich wieder auf. */
