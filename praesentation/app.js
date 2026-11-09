@@ -158,17 +158,33 @@
     const finish = () => {
       // Läuft schon ein neuer Flug? Dann den alten Geist nur aufräumen.
       if (!qrFlight || qrFlight.animation !== animation) { cleanup(); return; }
-      // Erst das echte Element zeigen, dann den Geist kurz ausblenden: so gibt
-      // es keinen Frame, in dem der QR fehlt oder springt.
-      restore();
       qrFlight = null;
-      const fade = ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
-      fade.onfinish = () => ghost.remove();
-      fade.oncancel = () => ghost.remove();
+      // Auf der Zielposition warten, bis die Folie ihre Einblendung beendet hat –
+      // sonst erscheint der echte QR versetzt unter dem fliegenden.
+      settle(toNode, () => {
+        restore();
+        const fade = ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
+        fade.onfinish = () => ghost.remove();
+        fade.oncancel = () => ghost.remove();
+      });
     };
 
     animation.onfinish = finish;
     qrFlight = { ghost, animation, cancel: hardStop };
+  }
+
+  // Wartet, bis das Zielelement vollständig sichtbar und nicht mehr verschoben ist.
+  function settle(node, done) {
+    const host = node.closest('.qr-card') ?? node;
+    const start = performance.now();
+    const check = () => {
+      const style = getComputedStyle(host);
+      const opacity = Number(style.opacity);
+      const moved = style.transform !== 'none' && style.transform !== 'matrix(1, 0, 0, 1, 0, 0)';
+      if ((opacity > 0.995 && !moved) || performance.now() - start > 1400) { done(); return; }
+      requestAnimationFrame(check);
+    };
+    check();
   }
 
   // Äußere Lage ohne Transform der Folie – getBoundingClientRect würde die
@@ -313,7 +329,7 @@
     const value = Number(size);
     if (!Number.isFinite(value)) return;
     root.style.setProperty('--qr-size', `${value}px`);
-    writeStore('fly2you-deck-qr-size', String(value));
+    writeStore('fly2you-deck-qr-size-v2', String(value));
     document.querySelectorAll('[data-qr-size]').forEach((button) => {
       button.setAttribute('aria-pressed', String(Number(button.dataset.qrSize) === value));
     });
@@ -423,9 +439,9 @@
   // Gespeicherte Einstellungen übernehmen
   const storedTheme = readStore('fly2you-deck-theme');
   if (storedTheme === 'dark' || storedTheme === 'light') root.dataset.theme = storedTheme;
-  const storedSize = Number(readStore('fly2you-deck-qr-size'));
-  if (Number.isFinite(storedSize) && storedSize >= 48) setQrSize(storedSize);
-  else setQrSize(92);
+  const storedSize = Number(readStore('fly2you-deck-qr-size-v2'));
+  if (Number.isFinite(storedSize) && storedSize >= 80) setQrSize(storedSize);
+  else setQrSize(138);
 
   sync();
 })();

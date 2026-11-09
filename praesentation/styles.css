@@ -27,7 +27,8 @@
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --slide-pad: clamp(32px, 5vw, 88px);
-  --qr-size: 92px;
+  --qr-size: 138px;
+  --qr-gap: clamp(10px, 1.1vh, 18px);
 }
 
 :root[data-theme="dark"] {
@@ -193,7 +194,7 @@ button { font: inherit; color: inherit; }
 }
 .title-qr { margin: 0; justify-self: end; }
 .title-qr img {
-  width: clamp(132px, 11.2vw, 176px);
+  width: clamp(198px, 16.8vw, 264px);
   height: auto;
   display: block;
   padding: 10px;
@@ -382,9 +383,9 @@ button { font: inherit; color: inherit; }
 
 .corner-qr {
   position: fixed;
-  /* Fester Abstand zu Oberkante und Seite – der QR wächst nach innen. */
-  top: clamp(8px, 1.1vh, 16px);
-  right: clamp(12px, 1.4vw, 22px);
+  /* Gleicher Abstand zu Oberkante und Seite – der QR wächst nach innen. */
+  top: var(--qr-gap);
+  right: var(--qr-gap);
   z-index: 22;
   display: grid;
   padding: 0;
