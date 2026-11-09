@@ -11,7 +11,7 @@
 <div class="deck" id="deck">
 
   <!-- 1 · Titel -->
-  <section class="slide slide--title" aria-label="Titel">
+  <section class="slide slide--title" aria-label="Titel" data-qr-hide="true">
     <div class="backdrop" aria-hidden="true"><span class="orb orb--a"></span><span class="orb orb--b"></span></div>
     <div class="title-grid">
       <div>
@@ -19,9 +19,13 @@
         <h1 class="display anim" style="--d:80ms">Fly2You</h1>
         <p class="lead anim" style="--d:160ms">Lokal einkaufen.<br /><span class="accent">Per Drohne zur Station.</span></p>
         <p class="muted anim" style="--d:240ms">Wuppertal · fiktive Händler, echte Bedienlogik<br />Demo ohne Zahlung, ohne echte Lieferung, ohne Flugfreigabe.</p>
-        <p class="qr-callout anim" style="--d:320ms"><span class="dot" aria-hidden="true"></span>Live-Demo: QR-Code rechts unten scannen.</p>
+        <p class="qr-callout anim" style="--d:320ms"><span class="dot" aria-hidden="true"></span>Live-Demo: QR-Code oben rechts scannen.</p>
       </div>
-      <div class="title-art anim" style="--d:200ms" aria-hidden="true">
+      <div class="title-side">
+        <figure class="title-qr anim" style="--d:200ms">
+          <img src="assets/qr.svg" alt="QR-Code zur Demo unter https://basalthasar.github.io/Hackathon/" />
+        </figure>
+        <div class="title-art anim" style="--d:280ms" aria-hidden="true">
         <svg viewBox="0 0 420 300" class="route-sketch" xmlns:xlink="http://www.w3.org/1999/xlink">
           <defs>
             <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
@@ -45,6 +49,7 @@
           <text x="40" y="270" class="sketch-label">Demo-Hub Elberfeld</text>
           <text x="380" y="42" class="sketch-label" text-anchor="end">Station Barmen</text>
         </svg>
+        </div>
       </div>
     </div>
     <footer class="slide-foot"><span>Fly2You</span><span>01 / 10</span></footer>
@@ -249,18 +254,18 @@
             <div><strong>DeepSeek-v4-flash-1017</strong><span>Modell · Analyse und Gegenprüfung</span></div>
           </header>
           <ul>
-            <li><span class="logo-badge logo-badge--ohm" aria-hidden="true">Ω</span>ohmypi</li>
-            <li><span class="logo-badge logo-badge--oc" aria-hidden="true">&lt;/&gt;</span>opencode</li>
+            <li><img class="logo logo--tile" src="assets/logos/ohmypi.png" alt="" />ohmypi</li>
+            <li><img class="logo logo--mono" src="assets/logos/opencode.svg" alt="" />opencode</li>
             <li><img class="logo" src="assets/logos/githubcopilot.svg" alt="" />GitHub Copilot</li>
           </ul>
         </article>
         <article class="tool-model anim" style="--d:230ms">
           <header>
-            <span class="logo-badge logo-badge--gpt" aria-hidden="true">GPT</span>
+            <img class="logo logo--mono" src="assets/logos/openai.svg" alt="" />
             <div><strong>GPT-6 Astra</strong><span>Modell · Entwurf und Reviews</span></div>
           </header>
           <ul>
-            <li><span class="logo-badge logo-badge--codex" aria-hidden="true">Cx</span>Codex</li>
+            <li><img class="logo" src="assets/logos/codex.png" alt="" />Codex</li>
           </ul>
         </article>
         <article class="tool-model anim" style="--d:320ms">
@@ -269,7 +274,7 @@
             <div><strong>Qwen 3.8 flash-next</strong><span>Modell · schnelle Iteration</span></div>
           </header>
           <ul>
-            <li><span class="logo-badge logo-badge--juelich" aria-hidden="true">JÜ</span>Custom Harness · Forschungszentrum Jülich</li>
+            <li><span class="logo-badge logo-badge--juelich" aria-hidden="true">FSZJ</span>Custom Harness · Forschungszentrum Jülich</li>
           </ul>
         </article>
       </div>
@@ -317,7 +322,6 @@
 
 <aside class="corner-qr" id="cornerQr" aria-label="QR-Code zur Demo">
   <img src="assets/qr.svg" alt="QR-Code zur Demo" />
-  <span>Demo scannen</span>
 </aside>
 
 <div class="hud" id="hud">
@@ -366,8 +370,6 @@
   </div>
   <p class="tool-hint">TAB blendet die Werkzeuge aus · Esc schließt Panels</p>
 </section>
-
-<div class="tools-hint" id="toolsHint" hidden><kbd>TAB</kbd> Werkzeuge</div>
 
 <aside class="notes-panel" id="notes" hidden aria-label="Sprechnotizen">
   <button type="button" class="notes-close" data-action="notes" aria-label="Notizen schließen">✕</button>

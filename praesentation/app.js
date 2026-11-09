@@ -11,7 +11,6 @@
   const notesToggle = document.getElementById('notesToggle');
   const toolsPanel = document.getElementById('tools');
   const toolsButton = document.getElementById('toolsButton');
-  const toolsHint = document.getElementById('toolsHint');
   const qrToggle = document.getElementById('qrToggle');
   const root = document.documentElement;
 
@@ -129,6 +128,7 @@
 
   function openTools() {
     toolsOpen = true;
+    document.body.classList.remove('tools-hidden');
     toolsPanel.hidden = false;
     toolsButton?.setAttribute('aria-expanded', 'true');
   }
@@ -146,13 +146,7 @@
   function toggleToolsBar(force) {
     const hidden = force ?? !document.body.classList.contains('tools-hidden');
     document.body.classList.toggle('tools-hidden', hidden);
-    toolsHint.hidden = !hidden;
     if (hidden) closeTools();
-  }
-
-  function closeToolsHint() {
-    document.body.classList.remove('tools-hidden');
-    toolsHint.hidden = true;
   }
 
   function setQrSize(size) {
@@ -232,7 +226,7 @@
         case 'notes': toggleNotes(); break;
         case 'theme': toggleTheme(); break;
         case 'fullscreen': toggleFullscreen(); break;
-        case 'tools': toggleTools(); closeToolsHint(); break;
+        case 'tools': toggleTools(); break;
         case 'closeTools': closeTools(); break;
         case 'toggleQr': toggleQr(); break;
         default: break;

@@ -43,11 +43,12 @@ Wischen funktioniert auf Touch-Geräten.
 
 ## QR-Code
 
-Der QR-Code zeigt auf <https://basalthasar.github.io/Hackathon/> und ist ab
-Folie 1 unten rechts sichtbar. In der Werkzeugleiste lässt sich die Größe
-umschalten (S / M / L / XL); die Auswahl bleibt im Browser gespeichert.
-Auf der letzten Folie erscheint der große QR-Code, der Eck-QR wird dort
-automatisch ausgeblendet.
+Der QR-Code zeigt auf <https://basalthasar.github.io/Hackathon/> und sitzt ab
+Folie 1 **oben rechts** — auf der Titelfolie größer als Blickfang, auf den
+übrigen Folien kleiner. In der Werkzeugleiste lässt sich die Größe umschalten
+(S / M / L / XL); die Auswahl bleibt im Browser gespeichert. Auf der letzten
+Folie erscheint der große QR-Code, der Eck-QR wird dort automatisch
+ausgeblendet. Mit `TAB` verschwinden HUD, Werkzeugleiste und Eck-QR komplett.
 
 ## Folien
 
@@ -72,9 +73,10 @@ Werkzeugleiste, Notizen und Eck-QR werden dabei ausgeblendet.
 | `app.js` | Navigation, Panels, QR-Einstellungen |
 | `assets/desktop-*.png`, `assets/mobile-*.png` | Screenshots der Demo |
 | `assets/qr.svg` | QR-Code zur Demo |
-| `assets/logos/*.svg` | DeepSeek, GitHub Copilot, Qwen |
+| `assets/logos/` | Logos der Werkzeuge (siehe unten) |
 
-Logos stammen von [Simple Icons](https://simpleicons.org/) (CC0); die Marken
-gehören den jeweiligen Inhabern. Für Modelle ohne frei verfügbares Logo
-(GPT-6 Astra, Codex, ohmypi, opencode, Jülich-Harness) stehen neutrale
-Monogramm-Kacheln.
+Logos stammen von [Simple Icons](https://simpleicons.org/) (CC0, DeepSeek,
+GitHub Copilot, Qwen, opencode) sowie aus den offiziellen Markenauftritten von
+OpenAI (Knoten für GPT, Codex-App-Icon) und Ohmypi (`ohmypi.png`). Die Marken
+gehören den jeweiligen Inhabern. Für das Jülich-Harness steht ein neutrales
+Monogramm (FSZJ).
