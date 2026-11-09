@@ -104,10 +104,25 @@
     if (!from || !to || !from.width || !to.width) return;
     if (Math.abs(from.width - to.width) < 1 && Math.abs(from.left - to.left) < 1 && Math.abs(from.top - to.top) < 1) return;
 
-    const ghost = document.createElement('img');
+    const ghost = document.createElement('div');
     ghost.className = 'qr-flight';
-    ghost.src = toNode.currentSrc || toNode.src;
-    ghost.alt = '';
+    const ghostImage = document.createElement('img');
+    ghostImage.src = toNode.currentSrc || toNode.src;
+    ghostImage.alt = '';
+    ghost.append(ghostImage);
+
+    // Schatten und Fläche des Ziels übernehmen, damit der Wechsel am Ende
+    // unsichtbar bleibt: der alte Schatten blendet aus, der neue ein.
+    const plain = '0 10px 24px rgba(10, 24, 48, 0.12)';
+    const hostOf = (node) => node.closest('.qr-card') ?? node;
+    const shadowOf = (node) => {
+      const value = getComputedStyle(hostOf(node)).boxShadow;
+      return value && value !== 'none' ? value : plain;
+    };
+    ghost.style.setProperty('--qr-shadow-from', shadowOf(fromNode));
+    ghost.style.setProperty('--qr-shadow-to', shadowOf(toNode));
+    ghost.style.setProperty('--qr-surface', getComputedStyle(hostOf(toNode)).backgroundColor);
+
     ghost.style.width = `${from.width}px`;
     ghost.style.height = `${from.height}px`;
     ghost.style.left = `${from.left}px`;
