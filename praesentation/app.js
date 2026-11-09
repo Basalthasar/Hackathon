@@ -96,12 +96,13 @@
     const toNode = qrSpots[toKey];
     if (!fromNode || !toNode) return;
 
-    if (qrFlight) { qrFlight.ghost.remove(); qrFlight.restore(); qrFlight = null; }
+    if (qrFlight) { qrFlight.cancel(); qrFlight = null; }
 
-    const from = layoutBox(fromNode);
-    const to = layoutBox(toNode);
-    if (!from.width || !to.width) return;
-    if (Math.abs(from.width - to.width) < 2 && Math.abs(from.left - to.left) < 2 && Math.abs(from.top - to.top) < 2) return;
+    // Immer die sichtbare QR-Fläche nehmen, nicht die Karte drumherum.
+    const from = qrContentBox(fromNode);
+    const to = qrContentBox(toNode);
+    if (!from || !to || !from.width || !to.width) return;
+    if (Math.abs(from.width - to.width) < 1 && Math.abs(from.left - to.left) < 1 && Math.abs(from.top - to.top) < 1) return;
 
     const ghost = document.createElement('img');
     ghost.className = 'qr-flight';
@@ -111,7 +112,6 @@
     ghost.style.height = `${from.height}px`;
     ghost.style.left = `${from.left}px`;
     ghost.style.top = `${from.top}px`;
-    ghost.style.padding = toKey === 'final' ? '0px' : '6px';
     document.body.append(ghost);
 
     const dx = to.left - from.left;
@@ -124,39 +124,56 @@
     const restore = () => hidden.forEach((node) => { node.style.visibility = ''; });
 
     const animation = ghost.animate([
-      { transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1 },
-      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`, opacity: 1 }
-    ], { duration: 620, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
+      { transform: 'translate3d(0, 0, 0) scale(1)' },
+      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})` }
+    ], { duration: 780, easing: 'cubic-bezier(0.45, 0, 0.15, 1)', fill: 'forwards' });
 
-    const flight = { ghost, restore };
     const finish = () => {
+      animation.cancel();
       ghost.remove();
       restore();
-      if (qrFlight === flight) qrFlight = null;
+      if (qrFlight && qrFlight.animation === animation) qrFlight = null;
     };
+
     animation.onfinish = finish;
-    animation.oncancel = finish;
-    qrFlight = flight;
+    qrFlight = { ghost, animation, cancel: finish };
   }
 
-  // Lage ohne Transform der Folie – sonst fliegt der QR auf die halb
-  // eingeblendete Position der nächsten Folie.
-  function layoutBox(node) {
-    const fixed = getComputedStyle(node.parentElement ?? node).position === 'fixed';
-    if (fixed) {
-      const rect = node.getBoundingClientRect();
-      return { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+  // Äußere Lage ohne Transform der Folie – getBoundingClientRect würde die
+  // halb eingeblendete Folie (26 px Versatz) und den Eck-QR (scale 0.9) liefern.
+  function qrContentBox(node) {
+    const style = getComputedStyle(node);
+    const padLeft = parseFloat(style.paddingLeft) || 0;
+    const padRight = parseFloat(style.paddingRight) || 0;
+    const padTop = parseFloat(style.paddingTop) || 0;
+    const padBottom = parseFloat(style.paddingBottom) || 0;
+    const width = node.offsetWidth - padLeft - padRight;
+    const height = node.offsetHeight - padTop - padBottom;
+    if (!width || !height) return null;
+
+    const host = node.closest('.corner-qr');
+    if (host) {
+      const hostStyle = getComputedStyle(host);
+      const right = parseFloat(hostStyle.right) || 0;
+      const top = parseFloat(hostStyle.top) || 0;
+      return {
+        left: window.innerWidth - right - node.offsetWidth + padLeft,
+        top: top + padTop,
+        width,
+        height
+      };
     }
-    let x = 0;
-    let y = 0;
+
+    let left = 0;
+    let top = 0;
     let el = node;
     while (el && el !== document.body) {
-      x += el.offsetLeft;
-      y += el.offsetTop;
+      left += el.offsetLeft;
+      top += el.offsetTop;
       if (!el.offsetParent) break;
       el = el.offsetParent;
     }
-    return { left: x, top: y, width: node.offsetWidth, height: node.offsetHeight };
+    return { left: left + padLeft, top: top + padTop, width, height };
   }
 
   const next = () => show(current + 1);
