@@ -387,6 +387,7 @@ button { font: inherit; color: inherit; }
   background: transparent;
   border: 0;
   box-shadow: none;
+  transition: opacity 220ms ease, transform 320ms var(--ease);
 }
 .corner-qr img {
   width: var(--qr-size);
@@ -400,7 +401,26 @@ button { font: inherit; color: inherit; }
 }
 [data-theme="dark"] .corner-qr img { background: #fff; }
 body.qr-slide .corner-qr,
-body.qr-off .corner-qr { display: none; }
+body.qr-off .corner-qr {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* Fliegender QR beim Folienwechsel */
+.qr-flight {
+  position: fixed;
+  z-index: 45;
+  display: block;
+  box-sizing: border-box;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 26px 64px rgba(8, 20, 40, 0.26);
+  pointer-events: none;
+  will-change: transform;
+}
 
 /* ---- Ablauf --------------------------------------------------------------- */
 
@@ -905,9 +925,10 @@ body.qr-off .corner-qr { display: none; }
   letter-spacing: 0.02em;
 }
 
-body.tools-hidden .hud,
-body.tools-hidden .tools-panel,
-body.tools-hidden .corner-qr { opacity: 0; pointer-events: none; }
+body.tools-hidden .hud-actions,
+body.tools-hidden .tools-panel { opacity: 0; pointer-events: none; }
+
+.hud-actions { transition: opacity 220ms ease; }
 
 /* ---- Übersicht ------------------------------------------------------------ */
 

@@ -25,6 +25,14 @@
   let toolsOpen = false;
   let qrVisible = readStore('fly2you-deck-qr') !== 'off';
 
+  // Drei Plätze für denselben QR: Titelfolie groß, Ecke, Abschlusskarte.
+  const qrSpots = {
+    title: document.querySelector('.title-qr img'),
+    corner: document.querySelector('#cornerQr img'),
+    final: document.querySelector('.qr-card img')
+  };
+  let qrFlight = null;
+
   // Übersicht einmalig aufbauen
   slides.forEach((slide, index) => {
     const eyebrow = slide.querySelector('.eyebrow')?.textContent?.trim();
@@ -63,8 +71,92 @@
   }
 
   function show(index) {
-    current = Math.max(0, Math.min(slides.length - 1, index));
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    if (target === current) return;
+    const fromKey = qrSpotFor(current);
+    current = target;
     sync();
+    flyQr(fromKey, qrSpotFor(current));
+  }
+
+  // Welcher QR-Platz gehört zu welcher Folie?
+  function qrSpotFor(index) {
+    const slide = slides[index];
+    if (!slide) return null;
+    if (slide.classList.contains('slide--title')) return 'title';
+    if (slide.classList.contains('slide--qr')) return 'final';
+    return qrVisible ? 'corner' : null;
+  }
+
+  function flyQr(fromKey, toKey) {
+    if (!fromKey || !toKey || fromKey === toKey) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const fromNode = qrSpots[fromKey];
+    const toNode = qrSpots[toKey];
+    if (!fromNode || !toNode) return;
+
+    if (qrFlight) { qrFlight.ghost.remove(); qrFlight.restore(); qrFlight = null; }
+
+    const from = layoutBox(fromNode);
+    const to = layoutBox(toNode);
+    if (!from.width || !to.width) return;
+    if (Math.abs(from.width - to.width) < 2 && Math.abs(from.left - to.left) < 2 && Math.abs(from.top - to.top) < 2) return;
+
+    const ghost = document.createElement('img');
+    ghost.className = 'qr-flight';
+    ghost.src = toNode.currentSrc || toNode.src;
+    ghost.alt = '';
+    ghost.style.width = `${from.width}px`;
+    ghost.style.height = `${from.height}px`;
+    ghost.style.left = `${from.left}px`;
+    ghost.style.top = `${from.top}px`;
+    ghost.style.padding = toKey === 'final' ? '0px' : '6px';
+    document.body.append(ghost);
+
+    const dx = to.left - from.left;
+    const dy = to.top - from.top;
+    const scale = to.width / from.width;
+
+    // Quelle und Ziel während des Flugs ausblenden, damit nichts doppelt steht.
+    const hidden = [fromNode, toNode];
+    hidden.forEach((node) => { node.style.visibility = 'hidden'; });
+    const restore = () => hidden.forEach((node) => { node.style.visibility = ''; });
+
+    const animation = ghost.animate([
+      { transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1 },
+      { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`, opacity: 1 }
+    ], { duration: 620, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
+
+    const flight = { ghost, restore };
+    const finish = () => {
+      ghost.remove();
+      restore();
+      if (qrFlight === flight) qrFlight = null;
+    };
+    animation.onfinish = finish;
+    animation.oncancel = finish;
+    qrFlight = flight;
+  }
+
+  // Lage ohne Transform der Folie – sonst fliegt der QR auf die halb
+  // eingeblendete Position der nächsten Folie.
+  function layoutBox(node) {
+    const fixed = getComputedStyle(node.parentElement ?? node).position === 'fixed';
+    if (fixed) {
+      const rect = node.getBoundingClientRect();
+      return { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+    }
+    let x = 0;
+    let y = 0;
+    let el = node;
+    while (el && el !== document.body) {
+      x += el.offsetLeft;
+      y += el.offsetTop;
+      if (!el.offsetParent) break;
+      el = el.offsetParent;
+    }
+    return { left: x, top: y, width: node.offsetWidth, height: node.offsetHeight };
   }
 
   const next = () => show(current + 1);
