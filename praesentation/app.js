@@ -147,15 +147,28 @@
       { transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`, borderRadius: `${radiusTo}px` }
     ], { duration: 780, easing: 'cubic-bezier(0.45, 0, 0.15, 1)', fill: 'forwards' });
 
-    const finish = () => {
-      animation.cancel();
+    const cleanup = () => {
       ghost.remove();
       restore();
+    };
+    const hardStop = () => {
+      cleanup();
       if (qrFlight && qrFlight.animation === animation) qrFlight = null;
+    };
+    const finish = () => {
+      // Läuft schon ein neuer Flug? Dann den alten Geist nur aufräumen.
+      if (!qrFlight || qrFlight.animation !== animation) { cleanup(); return; }
+      // Erst das echte Element zeigen, dann den Geist kurz ausblenden: so gibt
+      // es keinen Frame, in dem der QR fehlt oder springt.
+      restore();
+      qrFlight = null;
+      const fade = ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
+      fade.onfinish = () => ghost.remove();
+      fade.oncancel = () => ghost.remove();
     };
 
     animation.onfinish = finish;
-    qrFlight = { ghost, animation, cancel: finish };
+    qrFlight = { ghost, animation, cancel: hardStop };
   }
 
   // Äußere Lage ohne Transform der Folie – getBoundingClientRect würde die

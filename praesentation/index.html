@@ -37,12 +37,19 @@
           <circle cx="40" cy="240" r="9" class="node node--hub" />
           <circle cx="380" cy="60" r="9" class="node node--station" />
           <g class="drone-fly">
-            <g transform="translate(-14,-14)">
-              <circle cx="14" cy="14" r="13" class="drone-body" />
-              <circle cx="6" cy="6" r="3.4" class="rotor" /><circle cx="22" cy="6" r="3.4" class="rotor" />
-              <circle cx="6" cy="22" r="3.4" class="rotor" /><circle cx="22" cy="22" r="3.4" class="rotor" />
+            <g class="drone">
+              <line x1="-9" y1="-4" x2="-14" y2="-8" class="drone-arm" />
+              <line x1="9" y1="-4" x2="14" y2="-8" class="drone-arm" />
+              <line x1="-9" y1="4" x2="-14" y2="8" class="drone-arm" />
+              <line x1="9" y1="4" x2="14" y2="8" class="drone-arm" />
+              <ellipse cx="-15" cy="-9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="15" cy="-9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="-15" cy="9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="15" cy="9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <rect x="-7.5" y="-5.5" width="15" height="11" rx="4.5" class="drone-hull" />
+              <rect x="-4" y="4" width="8" height="6" rx="1.6" class="drone-parcel" />
             </g>
-            <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
+            <animateMotion dur="7s" repeatCount="indefinite">
               <mpath href="#titlePath" xlink:href="#titlePath" />
             </animateMotion>
           </g>
@@ -311,7 +318,6 @@
       </div>
       <figure class="qr-card anim" style="--d:180ms">
         <img src="assets/qr.svg" alt="QR-Code zur Demo unter https://basalthasar.github.io/Hackathon/" />
-        <figcaption>Fly2You · Pitch-Demo</figcaption>
       </figure>
     </div>
     <footer class="slide-foot"><span>Danke</span><span>10 / 10</span></footer>

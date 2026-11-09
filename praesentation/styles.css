@@ -208,8 +208,11 @@ button { font: inherit; color: inherit; }
 .node { stroke: var(--surface); stroke-width: 3; }
 .node--hub { fill: var(--navy); }
 .node--station { fill: var(--blue); }
-.drone-body { fill: var(--surface); stroke: var(--blue); stroke-width: 2.4; }
-.rotor { fill: var(--blue); opacity: 0.85; }
+/* Kleine Drohne auf dem Pfad: Rumpf, Arme, vier Rotorscheiben, Paket. */
+.drone-arm { stroke: var(--blue); stroke-width: 2; stroke-linecap: round; opacity: 0.75; }
+.rotor-disc { fill: color-mix(in srgb, var(--blue) 34%, transparent); stroke: color-mix(in srgb, var(--blue) 55%, transparent); stroke-width: 0.8; }
+.drone-hull { fill: var(--surface); stroke: var(--blue); stroke-width: 2.2; }
+.drone-parcel { fill: var(--soft); stroke: var(--blue); stroke-width: 1.4; opacity: 0.95; }
 .sketch-label { font-family: var(--sans); font-size: 11px; fill: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* ---- Raster & Karten ------------------------------------------------------ */
@@ -379,10 +382,9 @@ button { font: inherit; color: inherit; }
 
 .corner-qr {
   position: fixed;
-  /* Je größer der QR, desto höher rutscht er – die Unterkante bleibt über
-     den Screenshots der Produktfolien. */
-  top: clamp(8px, calc(146px - var(--qr-size)), 54px);
-  right: clamp(14px, 2.2vw, 30px);
+  /* Fester Abstand zu Oberkante und Seite – der QR wächst nach innen. */
+  top: clamp(8px, 1.1vh, 16px);
+  right: clamp(12px, 1.4vw, 22px);
   z-index: 22;
   display: grid;
   padding: 0;
@@ -768,8 +770,7 @@ body.qr-off .corner-qr {
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
   display: grid;
-  gap: 12px;
-  justify-items: center;
+  place-items: center;
   position: relative;
 }
 .qr-card::after {
@@ -782,13 +783,6 @@ body.qr-off .corner-qr {
   pointer-events: none;
 }
 .qr-card img { width: min(340px, 30vw); height: auto; display: block; }
-.qr-card figcaption {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #58677e;
-}
 
 .url {
   display: inline-flex;
