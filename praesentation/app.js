@@ -357,15 +357,22 @@
     else document.documentElement.requestFullscreen?.();
   }
 
+  // Hat ein Bedienelement den Fokus, gehören Enter, Leertaste und TAB dem
+  // Browser – sonst würde der Demo-Link nicht öffnen und ein Button doppelt
+  // auslösen. Pfeiltasten bleiben der Foliennavigation vorbehalten.
+  function focusedControl() {
+    const el = document.activeElement;
+    if (!(el instanceof Element)) return null;
+    return el.closest('a[href], button, input, select, textarea, summary');
+  }
+
   document.addEventListener('keydown', (event) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
 
     if (event.key === 'Tab') {
       // Mit Shift oder wenn schon ein Bedienelement den Fokus hat, bleibt der
       // normale Fokuswechsel erhalten – so ist der Demo-Link erreichbar.
-      const focused = document.activeElement;
-      const onControl = focused instanceof Element && !!focused.closest('a[href], button, input, select, textarea, summary');
-      if (event.shiftKey || onControl) return;
+      if (event.shiftKey || focusedControl()) return;
       event.preventDefault();
       toggleToolsBar();
       return;
@@ -380,6 +387,9 @@
     }
 
     if (!overview.hidden) return;
+
+    // Enter und Leertaste nicht kapern, wenn ein Link oder Button fokussiert ist.
+    if ((event.key === 'Enter' || event.key === ' ') && focusedControl()) return;
 
     switch (event.key) {
       case 'ArrowRight': case 'PageDown': case ' ': case 'Enter':
