@@ -10,6 +10,11 @@ Händler, Angebote, Bestände, Preise, Fahrzeuge, Stationen, Zahlungen und Liefe
 
 Voraussetzung für App und Tests: Node.js **22 ab 22.12**, **24** oder **26 und neuer** sowie npm (entsprechend den installierten Testwerkzeugen). Next.js allein benötigt mindestens 20.9. Die Entwicklung wurde mit Node.js **26.8.2** ausgeführt. Internet wird für die Paketinstallation sowie für Kartenkacheln und aktuelle Vorhersagen benötigt.
 
+Alle Befehle laufen gleichwertig auf **Linux, macOS und Windows** (Intel wie Apple
+Silicon); es gibt keine plattformspezifischen Skripte. Auf macOS kann beim ersten
+Start die Firewall-Abfrage für Node erscheinen — für den lokalen Betrieb genügt
+„Zulassen“, für den Zugriff vom Smartphone im WLAN ist sie nötig.
+
 Im Projektordner:
 
 ```sh
@@ -20,7 +25,7 @@ npm start
 
 `npm start` startet den Produktionsserver auf **0.0.0.0:3000**. Auf dem Präsentationsrechner [http://localhost:3000](http://localhost:3000) öffnen. Für die Entwicklung gibt es alternativ `npm run dev`, ebenfalls auf `0.0.0.0:3000`.
 
-Rechner und Smartphone müssen im selben WLAN sein. Dieser Befehl zeigt in einem zweiten Terminal die IPv4-Adressen des Rechners:
+Rechner und Smartphone müssen im selben WLAN sein. Dieser Befehl zeigt in einem zweiten Terminal die IPv4-Adressen des Rechners (plattformunabhängig):
 
 ```sh
 node -e 'for (const [name, entries] of Object.entries(require("node:os").networkInterfaces())) for (const entry of entries ?? []) if (entry.family === "IPv4" && !entry.internal) console.log(name + ": http://" + entry.address + ":3000")'
@@ -156,6 +161,20 @@ verbleibende Prozesse auf Port 3000/4173. Quick Tunnels bleiben ohne Uptime-Zusa
 5. **Stationen und Wetter, etwa eine Minute:** „Simulation abspielen“ öffnet die gesonderte Stationsvorschau. Ankunft, Einlagerung, Abholbereitschaft und Kundenabholung bleiben getrennt. In Routing die Wetterdetails öffnen: Ort, Herkunft, Zeitangaben und Fenster einschließlich Rückweg erläutern. Reale Bewertung: **UNBESTIMMT**.
 
 Das **Pitch-Menü** bietet Seitenwechsel, Pause/Fortsetzung, manuelle Schritte, Szenarioauswahl und einen bestätigten Neustart. Ein Szenario- oder Zielwechsel beginnt die Stationssimulation neu und verwirft ein noch ungebuchtes Drohnen-Angebot. Bestehende Aufträge behalten ihr gespeichertes Ziel und Szenario. Der Neustart löscht Warenkorb, Demo-Bestellungen und Stationsfortschritt dieses Browsers. Jedes Gerät hat eine eigene Sitzung ohne geräteübergreifende Synchronisierung.
+
+## Pitch-Deck
+
+Das zehnseitige Deck liegt unter `praesentation/` (reines HTML/CSS/JS, kein
+Build-Schritt) und läuft offline. Start:
+
+```sh
+npm run praesentation
+```
+
+Der kleine Server hört auf Port 8910 und öffnet den Browser — auf Linux, macOS
+und Windows. Details, Tastenkürzel und QR-Größen stehen in
+[`praesentation/README.md`](praesentation/README.md).
+
 
 ## Umfang und Fehlerfälle
 

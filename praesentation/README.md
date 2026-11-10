@@ -3,8 +3,9 @@
 Präsentation im Stil der Website: 10 Folien, 3–5 Minuten, Plattform + Produkt,
 QR-Code zur Live-Demo ab Folie 1.
 
-Reines HTML/CSS/JS ohne Build-Schritt — läuft in Chromium und Firefox,
-funktioniert auch offline (alle Bilder und Logos liegen lokal).
+Reines HTML/CSS/JS ohne Build-Schritt — läuft in Chromium, Firefox und Safari
+(Safari ab 16.4 wegen `color-mix()`), funktioniert auch offline
+(alle Bilder und Logos liegen lokal).
 
 ## Starten
 
@@ -13,13 +14,23 @@ npm run praesentation
 ```
 
 Öffnet einen kleinen lokalen Server auf <http://localhost:8910/> und startet Firefox.
+Das Startskript ist plattformunabhängig (Linux, macOS, Windows):
+
+- **Linux** – `firefox` bzw. `xdg-open`
+- **macOS** – `open -a Firefox` bzw. `open` für den Systemstandard
+- **Windows** – `start`
+
+Findet sich der Wunschbrowser nicht, wird automatisch der Systemstandard
+geöffnet; klappt auch das nicht, bleibt die URL zum manuellen Öffnen stehen.
 
 | Befehl | Wirkung |
 | --- | --- |
 | `npm run praesentation -- --no-open` | nur Server starten |
 | `npm run praesentation -- --port 8911` | anderer Port |
 | `npm run praesentation -- --browser chromium` | anderen Browser öffnen |
-| `npm run praesentation -- --browser default` | Standardbrowser über `xdg-open` |
+| `npm run praesentation -- --browser safari` | Safari (macOS) |
+| `npm run praesentation -- --browser default` | Systemstandardbrowser |
+| `npm run praesentation -- --browser none` | keinen Browser starten |
 
 Alternativ `praesentation/index.html` direkt im Browser öffnen — der
 QR-Code funktioniert auch dann, nur das Nachladen entfällt.

@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 /**
  * Startet einen kleinen statischen Server für das Pitch-Deck und öffnet
- * standardmäßig Firefox. Reines Node, keine zusätzlichen Abhängigkeiten.
+ * den gewünschten Browser. Reines Node, keine zusätzlichen Abhängigkeiten –
+ * läuft auf Linux, macOS und Windows.
  *
  *   npm run praesentation            # Server + Firefox
  *   npm run praesentation -- --no-open
  *   npm run praesentation -- --port 8911 --browser chromium
+ *   npm run praesentation -- --browser default   # Systemstandard (Safari auf macOS)
+ *
+ * Findet sich der Wunschbrowser nicht, wird der Systemstandard geöffnet; klappt
+ * auch das nicht, bleibt die URL zum manuellen Öffnen stehen.
  */
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
@@ -16,6 +21,7 @@ import { spawn } from 'node:child_process';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const rootDir = normalize(join(here, '..', 'praesentation'));
+const platform = process.platform;
 
 const args = process.argv.slice(2);
 const readFlag = (name, fallback) => {
@@ -26,6 +32,67 @@ const readFlag = (name, fallback) => {
 const port = Number(readFlag('port', process.env.PORT ?? 8910));
 const browser = readFlag('browser', 'firefox');
 const shouldOpen = !args.includes('--no-open');
+
+// Anzeigenamen für `open -a` unter macOS.
+const appNames = {
+  firefox: 'Firefox',
+  chromium: 'Chromium',
+  chrome: 'Google Chrome',
+  safari: 'Safari',
+  edge: 'Microsoft Edge'
+};
+
+// Kandidaten in Wunschreihenfolge: erst der gewünschte Browser, dann der
+// Systemstandard. Auf macOS geht das über `open`, auf Windows über `start`.
+function openCandidates(url) {
+  if (browser === 'none') return [];
+  const list = [];
+
+  if (browser !== 'default') {
+    if (platform === 'darwin') list.push(['open', ['-a', appNames[browser] ?? browser, url]]);
+    else if (platform === 'win32') list.push(['cmd', ['/c', 'start', '', browser, url]]);
+    list.push([browser, [url]]);
+  }
+
+  if (platform === 'darwin') list.push(['open', [url]]);
+  else if (platform === 'win32') list.push(['cmd', ['/c', 'start', '', url]]);
+  else list.push(['xdg-open', [url]]);
+
+  return list;
+}
+
+// Startet einen Kandidaten. GUI-Browser laufen weiter, deshalb gilt "nach
+// kurzer Zeit noch am Leben" als Erfolg; ein Fehlstart meldet sich per exit.
+function launch([command, commandArgs]) {
+  return new Promise((resolve) => {
+    let child;
+    try {
+      child = spawn(command, commandArgs, { stdio: 'ignore', detached: true });
+    } catch {
+      resolve(false);
+      return;
+    }
+    child.unref();
+
+    let settled = false;
+    const settle = (ok) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(ok);
+    };
+    const timer = setTimeout(() => settle(true), 700);
+    child.on('error', () => settle(false));
+    child.on('exit', (code) => settle(code === 0));
+  });
+}
+
+async function openBrowser(url) {
+  for (const candidate of openCandidates(url)) {
+    if (await launch(candidate)) return candidate[0];
+  }
+  return null;
+}
 
 const mime = {
   '.html': 'text/html; charset=utf-8',
@@ -96,14 +163,8 @@ server.listen(port, () => {
   console.log('Steuerung: ←/→ · TAB Werkzeuge · O Übersicht · N Notizen · F Vollbild · Q QR · D Hell/Dunkel');
   if (!shouldOpen) return;
 
-  const commands = browser === 'none' ? [] : browser === 'default' ? ['xdg-open', [url]] : [browser, [url]];
-  if (!commands.length) return;
-
-  const child = spawn(commands[0], commands[1], { stdio: 'ignore', detached: true });
-  child.on('error', () => {
-    spawn('xdg-open', [url], { stdio: 'ignore', detached: true }).on('error', () => {
-      console.log('Browser bitte manuell öffnen.');
-    }).unref();
+  openBrowser(url).then((opened) => {
+    if (opened) console.log(`Browser geöffnet (${opened}).`);
+    else console.log(`Browser bitte manuell öffnen: ${url}`);
   });
-  child.unref();
 });
