@@ -84,7 +84,7 @@ Der Pfad bleibt bewusst ASCII (`praesentation`), weil ein Umlaut in der URL als
 | `O` | Folienübersicht |
 | `N` | Sprechnotizen mit Zeitangabe |
 | `F` | Vollbild |
-| `D` | hell / dunkel |
+| `D` | hell / dunkel (Standard: hell) |
 | `Q` | QR-Code in der Ecke ein-/ausblenden |
 | `Esc` | Panels schließen |
 
