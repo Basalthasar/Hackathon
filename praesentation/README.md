@@ -40,7 +40,6 @@ QR-Code funktioniert auch dann, nur das Nachladen entfällt.
 ```bash
 npm run praesentation:export
 ```
-
 Erzeugt `pitch-deck-export/` im Projektordner: `index.html`, `styles.css`,
 `app.js`, `assets/` sowie `start.mjs`, `start.sh`, `start.command`, `start.cmd`
 und `LIESMICH.txt`. Kein `node_modules`, kein `package.json`, kein Build-Schritt —
@@ -53,6 +52,27 @@ cd .. && zip -r pitch-deck-export.zip pitch-deck-export
 Der Ordner und das ZIP sind in `.gitignore` eingetragen; beide entstehen jederzeit
 neu aus `praesentation/`. Nach Änderungen am Deck also einmal neu exportieren.
 
+## Online stellen (dieselbe GitHub-Pages-Seite)
+
+Das Deck liegt mit auf der bestehenden Seite – kein zweites Repository nötig:
+
+```bash
+npm run pages:praesentation
+```
+
+Das Skript legt im Branch `gh-pages` nur den Unterordner `praesentation/` neu an
+und lässt den gebauten Export der Demo unangetastet. Ergebnis:
+
+<https://basalthasar.github.io/Hackathon/praesentation/>
+
+`npm run pages:praesentation -- --dry-run` zeigt vorher, was sich ändern würde.
+Die Veröffentlichung ist nach rund einer Minute live.
+
+<aside>
+Der Pfad bleibt bewusst ASCII (`praesentation`), weil ein Umlaut in der URL als
+`Pr%C3%A4sentation` kodiert würde und beim Abtippen oder in QR-Zielen stört.
+</aside>
+
 ## Steuerung
 
 | Taste | Wirkung |
@@ -64,7 +84,7 @@ neu aus `praesentation/`. Nach Änderungen am Deck also einmal neu exportieren.
 | `O` | Folienübersicht |
 | `N` | Sprechnotizen mit Zeitangabe |
 | `F` | Vollbild |
-| `D` | hell / dunkel |
+| `D` | hell / dunkel (Standard: hell) |
 | `Q` | QR-Code in der Ecke ein-/ausblenden |
 | `Esc` | Panels schließen |
 

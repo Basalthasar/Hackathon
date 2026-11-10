@@ -451,7 +451,7 @@
     if (delta < 0) next(); else prev();
   }, { passive: true });
 
-  // Gespeicherte Einstellungen übernehmen
+  // Gespeicherte Einstellungen übernehmen (Standard bleibt der helle Modus).
   const storedTheme = readStore('fly2you-deck-theme');
   if (storedTheme === 'dark' || storedTheme === 'light') root.dataset.theme = storedTheme;
   const storedSize = Number(readStore('fly2you-deck-qr-size-v2'));

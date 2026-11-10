@@ -669,6 +669,8 @@ body.qr-off .corner-qr {
 }
 .logo { width: 22px; height: 22px; flex: 0 0 auto; object-fit: contain; }
 .logo--tile { border-radius: 5px; }
+/* Einfarbig schwarze Marken (OpenAI, opencode, GitHub Copilot) würden auf dem
+   dunklen Grund verschwinden — im Dunkelmodus invertieren. */
 [data-theme="dark"] .logo--mono { filter: invert(1); }
 .logo-badge {
   display: inline-grid;
@@ -1087,7 +1089,25 @@ body.tools-hidden .tools-panel { opacity: 0; pointer-events: none; }
 @page { size: 297mm 167mm; margin: 0; }
 
 @media print {
-  html, body { overflow: visible; background: #fff; }
+  /* Druck bleibt hell: dunkle Tokens würden helle Schrift auf weißes Papier
+     setzen. Farben einmalig überschreiben, egal welches Theme aktiv ist. */
+  html, body {
+    overflow: visible;
+    background: #fff;
+    --bg: #fff;
+    --surface: #fff;
+    --ink: #14243f;
+    --muted: #58677e;
+    --line: #dce3ed;
+    --blue: #165dce;
+    --soft: #eaf1fc;
+    --navy: #142c4f;
+    --navy-ink: #d6e6ff;
+    --green: #18734b;
+    --amber: #855411;
+    --amber-bg: #fff4df;
+    color-scheme: light;
+  }
   body::before { display: none; }
   .deck { height: auto; }
   .slide {
