@@ -175,6 +175,12 @@ Der kleine Server hört auf Port 8910 und öffnet den Browser — auf Linux, mac
 und Windows. Details, Tastenkürzel und QR-Größen stehen in
 [`praesentation/README.md`](praesentation/README.md).
 
+Zum Weitergeben gibt es einen Export ohne Abhängigkeiten:
+
+```sh
+npm run praesentation:export   # erzeugt pitch-deck-export/ zum Zippen
+```
+
 
 ## Umfang und Fehlerfälle
 

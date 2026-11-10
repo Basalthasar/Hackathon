@@ -8,19 +8,19 @@
  *   npm run praesentation -- --no-open
  *   npm run praesentation -- --port 8911 --browser chromium
  *   npm run praesentation -- --browser default   # Systemstandard (Safari auf macOS)
+ *   npm run praesentation -- --dir ../pitch-deck-export
  *
  * Findet sich der Wunschbrowser nicht, wird der Systemstandard geöffnet; klappt
  * auch das nicht, bleibt die URL zum manuellen Öffnen stehen.
  */
 import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
+import { createReadStream, existsSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
-import { extname, join, normalize, sep } from 'node:path';
+import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
-const rootDir = normalize(join(here, '..', 'praesentation'));
 const platform = process.platform;
 
 const args = process.argv.slice(2);
@@ -32,6 +32,21 @@ const readFlag = (name, fallback) => {
 const port = Number(readFlag('port', process.env.PORT ?? 8910));
 const browser = readFlag('browser', 'firefox');
 const shouldOpen = !args.includes('--no-open');
+const rootDir = resolveDeckRoot(readFlag('dir', null));
+
+// Im Repo liegt das Deck neben scripts/, im Exportordner direkt neben dem
+// Startskript – deshalb wird der Ordner mit index.html gesucht, nicht geraten.
+function resolveDeckRoot(dirFlag) {
+  // normalize() behält einen abschließenden Trenner; der würde die spätere
+  // Prüfung auf Pfad-Ausbrüche (rootDir + sep) kaputt machen.
+  const clean = (value) => normalize(value).replace(/[\\/]+$/, '');
+  if (dirFlag) return clean(resolve(dirFlag));
+  const candidates = [join(here, '..', 'praesentation'), here, join(here, '..')];
+  for (const candidate of candidates) {
+    if (existsSync(join(candidate, 'index.html'))) return clean(candidate);
+  }
+  return clean(join(here, '..', 'praesentation'));
+}
 
 // Anzeigenamen für `open -a` unter macOS.
 const appNames = {

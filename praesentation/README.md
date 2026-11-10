@@ -35,6 +35,24 @@ geöffnet; klappt auch das nicht, bleibt die URL zum manuellen Öffnen stehen.
 Alternativ `praesentation/index.html` direkt im Browser öffnen — der
 QR-Code funktioniert auch dann, nur das Nachladen entfällt.
 
+## Weitergeben (Export zum Zippen)
+
+```bash
+npm run praesentation:export
+```
+
+Erzeugt `pitch-deck-export/` im Projektordner: `index.html`, `styles.css`,
+`app.js`, `assets/` sowie `start.mjs`, `start.sh`, `start.command`, `start.cmd`
+und `LIESMICH.txt`. Kein `node_modules`, kein `package.json`, kein Build-Schritt —
+der Ordner läuft auf einem fremden Rechner, sobald ein Browser da ist.
+
+```bash
+cd .. && zip -r pitch-deck-export.zip pitch-deck-export
+```
+
+Der Ordner und das ZIP sind in `.gitignore` eingetragen; beide entstehen jederzeit
+neu aus `praesentation/`. Nach Änderungen am Deck also einmal neu exportieren.
+
 ## Steuerung
 
 | Taste | Wirkung |

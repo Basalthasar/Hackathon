@@ -11,6 +11,7 @@
     "test:e2e": "playwright test",
     "assets:products": "node scripts/prepare-product-images.mjs --check",
     "praesentation": "node scripts/praesentation.mjs",
+    "praesentation:export": "node scripts/export-praesentation.mjs",
     "cloudflare:install": "node scripts/install-cloudflared.mjs",
     "cloudflare:tunnel": "node scripts/cloudflare-tunnel.mjs",
     "tunnel": "node scripts/cloudflare-tunnel.mjs"

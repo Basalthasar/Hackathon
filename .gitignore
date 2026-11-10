@@ -11,3 +11,7 @@ playwright-report/
 qr-mockup.png
 qr-prod.png
 __pycache__/
+
+# Generierter Export des Pitch-Decks (npm run praesentation:export)
+pitch-deck-export/
+pitch-deck-export.zip
