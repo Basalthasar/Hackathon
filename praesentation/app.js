@@ -361,6 +361,11 @@
     if (event.metaKey || event.ctrlKey || event.altKey) return;
 
     if (event.key === 'Tab') {
+      // Mit Shift oder wenn schon ein Bedienelement den Fokus hat, bleibt der
+      // normale Fokuswechsel erhalten – so ist der Demo-Link erreichbar.
+      const focused = document.activeElement;
+      const onControl = focused instanceof Element && !!focused.closest('a[href], button, input, select, textarea, summary');
+      if (event.shiftKey || onControl) return;
       event.preventDefault();
       toggleToolsBar();
       return;

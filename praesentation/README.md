@@ -59,7 +59,7 @@ neu aus `praesentation/`. Nach Änderungen am Deck also einmal neu exportieren.
 | --- | --- |
 | `←` / `→`, `Bild↑` / `Bild↓`, `Leertaste` | Folie wechseln |
 | `Pos1` / `Ende` | erste / letzte Folie |
-| `TAB` | Werkzeugleiste und HUD aus- und einblenden |
+| `TAB` | Werkzeugleiste und HUD aus- und einblenden (mit `Shift` bleibt der normale Fokuswechsel) |
 | `S` oder ⚙ | Werkzeugleiste öffnen |
 | `O` | Folienübersicht |
 | `N` | Sprechnotizen mit Zeitangabe |
@@ -78,6 +78,10 @@ Folie 1 **oben rechts** — auf der Titelfolie größer als Blickfang, auf den
 (S / M / L / XL); die Auswahl bleibt im Browser gespeichert. Auf der letzten
 Folie erscheint der große QR-Code, der Eck-QR wird dort automatisch
 ausgeblendet. Mit `TAB` verschwinden HUD, Werkzeugleiste und Eck-QR komplett.
+
+Auf der letzten Folie ist die Adresse ein normaler Link: anklicken öffnet
+<https://basalthasar.github.io/Hackathon/> in einem neuen Tab. Im erzeugten PDF
+bleibt der Link ebenfalls klickbar.
 
 ## Folien
 

@@ -798,7 +798,30 @@ body.qr-off .corner-qr {
   padding: 10px 16px;
   box-shadow: var(--shadow-soft);
   width: fit-content;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
+.url:hover,
+.url:focus-visible {
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line));
+  box-shadow: 0 14px 34px rgba(27, 53, 80, 0.14);
+  transform: translateY(-1px);
+}
+.url:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.url:active { transform: translateY(0); }
+.url-hint {
+  font-family: var(--sans);
+  font-size: 0.9em;
+  color: var(--muted);
+  transition: color 180ms ease, transform 180ms ease;
+}
+.url:hover .url-hint,
+.url:focus-visible .url-hint { color: var(--blue); transform: translate(1px, -1px); }
 .dot {
   width: 9px;
   height: 9px;

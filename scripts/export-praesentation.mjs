@@ -105,7 +105,8 @@ Eck-QR werden dabei automatisch ausgeblendet.
 QR-CODE
 -------
 Der QR-Code zeigt auf https://basalthasar.github.io/Hackathon/ - dort läuft die
-Demo online, ohne Installation.
+Demo online, ohne Installation. Die Adresse auf der letzten Folie ist anklickbar
+und öffnet die Demo in einem neuen Tab.
 
 
 INHALT
