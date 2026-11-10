@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fly2You · Pitch — Lokal einkaufen, per Drohne zur Station</title>
+<meta name="description" content="Pitch-Präsentation der Fly2You-Demo: Plattform, Produkt, Grenzen und Team." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 · Titel -->
+  <section class="slide slide--title" aria-label="Titel" data-qr-hide="true">
+    <div class="backdrop" aria-hidden="true"><span class="orb orb--a"></span><span class="orb orb--b"></span></div>
+    <div class="title-grid">
+      <div>
+        <p class="eyebrow anim" style="--d:0ms">Vibecode+ · Gruppe 4 · Pitch-Demo 2026</p>
+        <h1 class="display anim" style="--d:80ms">Fly2You</h1>
+        <p class="lead anim" style="--d:160ms">Lokal einkaufen.<br /><span class="accent">Per Drohne zur Station.</span></p>
+        <p class="muted anim" style="--d:240ms">Wuppertal · fiktive Händler, echte Bedienlogik<br />Demo ohne Zahlung, ohne echte Lieferung, ohne Flugfreigabe.</p>
+        <p class="qr-callout anim" style="--d:320ms"><span class="dot" aria-hidden="true"></span>Live-Demo: QR-Code oben rechts scannen.</p>
+      </div>
+      <div class="title-side">
+        <figure class="title-qr anim" style="--d:200ms">
+          <img src="assets/qr.svg" alt="QR-Code zur Demo unter https://basalthasar.github.io/Hackathon/" />
+        </figure>
+        <div class="title-art anim" style="--d:280ms" aria-hidden="true">
+        <svg viewBox="0 0 420 300" class="route-sketch" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#165dce" stop-opacity=".18" />
+              <stop offset="1" stop-color="#165dce" stop-opacity=".9" />
+            </linearGradient>
+          </defs>
+          <path id="titlePath" d="M40 240 C 120 240, 130 120, 210 120 S 320 60, 380 60" fill="none" stroke="url(#lineGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 10" />
+          <circle cx="40" cy="240" r="9" class="node node--hub" />
+          <circle cx="380" cy="60" r="9" class="node node--station" />
+          <g class="drone-fly">
+            <g class="drone">
+              <line x1="-9" y1="-4" x2="-14" y2="-8" class="drone-arm" />
+              <line x1="9" y1="-4" x2="14" y2="-8" class="drone-arm" />
+              <line x1="-9" y1="4" x2="-14" y2="8" class="drone-arm" />
+              <line x1="9" y1="4" x2="14" y2="8" class="drone-arm" />
+              <ellipse cx="-15" cy="-9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="15" cy="-9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="-15" cy="9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <ellipse cx="15" cy="9" rx="8.5" ry="2.8" class="rotor-disc" />
+              <rect x="-7.5" y="-5.5" width="15" height="11" rx="4.5" class="drone-hull" />
+              <rect x="-4" y="4" width="8" height="6" rx="1.6" class="drone-parcel" />
+            </g>
+            <animateMotion dur="7s" repeatCount="indefinite">
+              <mpath href="#titlePath" xlink:href="#titlePath" />
+            </animateMotion>
+          </g>
+          <text x="40" y="270" class="sketch-label">Demo-Hub Elberfeld</text>
+          <text x="380" y="42" class="sketch-label" text-anchor="end">Station Barmen</text>
+        </svg>
+        </div>
+      </div>
+    </div>
+    <footer class="slide-foot"><span>Fly2You</span><span>01 / 10</span></footer>
+    <aside class="notes">15 s. Begrüßung. „Wir zeigen eine lokale Lieferplattform, bei der die Drohne zur Station fliegt — heute als klickbare Demo. Den QR-Code kann man ab jetzt scannen.“</aside>
+  </section>
+
+  <!-- 2 · Ausgangslage -->
+  <section class="slide" aria-label="Ausgangslage">
+    <p class="eyebrow anim" style="--d:0ms">Ausgangslage</p>
+    <h2 class="headline anim" style="--d:60ms">Ein Tal, viele kleine Läden —<br /><span class="accent">und die letzte Meile dazwischen.</span></h2>
+    <div class="grid grid--3 stats">
+      <article class="card anim" style="--d:140ms">
+        <span class="stat" data-count="6">6</span>
+        <h3>fiktive Händler</h3>
+        <p>Sechs Gewerke von Supermarkt bis Blumenladen, sieben Filialen im Demo-Netz.</p>
+      </article>
+      <article class="card anim" style="--d:220ms">
+        <span class="stat" data-count="36">36</span>
+        <h3>Produktvarianten</h3>
+        <p>40 Filialangebote mit Bestand, Qualität und Preis — inklusive ausverkaufter und unbestätigter Fälle.</p>
+      </article>
+      <article class="card anim" style="--d:300ms">
+        <span class="stat" data-count="3">3</span>
+        <h3>Stationen, 3 Drohnen</h3>
+        <p>Ein Hub, gerichtete Korridore und ein Nordumweg als Alternative bei Sperrung.</p>
+      </article>
+    </div>
+    <p class="footnote anim" style="--d:380ms">Alle Händler, Preise, Bestände und Standorte sind fiktiv. Die Zahlen stammen aus den Demodaten, nicht aus einem Partnerbetrieb.</p>
+    <footer class="slide-foot"><span>Plattform</span><span>02 / 10</span></footer>
+    <aside class="notes">30 s. Problem knapp halten: lokal einkaufen ist attraktiv, aber der Weg zur Ware ist der Bruch. Keine Behauptung über echte Marktzahlen.</aside>
+  </section>
+
+  <!-- 3 · Plattform -->
+  <section class="slide" aria-label="Die Plattform">
+    <p class="eyebrow anim" style="--d:0ms">Die Plattform</p>
+    <h2 class="headline anim" style="--d:60ms">Drei Schritte, ein Kreislauf.</h2>
+    <ol class="flow">
+      <li class="flow-step anim" style="--d:140ms">
+        <span class="flow-index">01</span>
+        <h3>Lokal kaufen</h3>
+        <p>Eine Filiale pro Tasche, klare Preise, bestätigter Bestand. Angebot ist 120 Sekunden gültig.</p>
+      </li>
+      <li class="flow-step anim" style="--d:240ms">
+        <span class="flow-index">02</span>
+        <h3>Drohne fliegt</h3>
+        <p>Zubringer zum Hub, dann über den Korridor zur Zielstation. Route, Fahrzeug und Zeitfenster werden vorab geprüft.</p>
+      </li>
+      <li class="flow-step anim" style="--d:340ms">
+        <span class="flow-index">03</span>
+        <h3>An der Station abholen</h3>
+        <p>Einlagerung und Abholbereitschaft sind eigene Zustände; der Empfang wird mit Code bestätigt.</p>
+      </li>
+    </ol>
+    <div class="ribbon anim" style="--d:420ms">
+      <span><strong>Ankunft ≠ Empfang.</strong> Die Landung belegt keine Übergabe.</span>
+      <span class="ribbon-tag">Kernregel</span>
+    </div>
+    <div class="role-strip anim" style="--d:500ms">
+      <article><span class="role-kicker">Kunde</span><p>wählt Filialangebot, autorisiert Zahlung, holt an der Station ab.</p></article>
+      <article><span class="role-kicker">Händler</span><p>bestätigt Bestand, packt, übergibt an Drohne oder Bodenfall.</p></article>
+      <article><span class="role-kicker">Betrieb</span><p>prüft Route, weist Fahrzeug zu, bestätigt Ankunft.</p></article>
+      <article><span class="role-kicker">Flotte</span><p>fliegt den Korridor, meldet Landung — Empfang bleibt offen.</p></article>
+    </div>
+    <footer class="slide-foot"><span>Plattform</span><span>03 / 10</span></footer>
+    <aside class="notes">30 s. Den Kreislauf als Geschichte erzählen: Händler → Hub → Station → Kunde. Die vier Rollen zeigen, wer was verantwortet; die Kernregel gilt für alle.</aside>
+  </section>
+
+  <!-- 4 · Produkt Entdecken -->
+  <section class="slide" aria-label="Produkt: Entdecken">
+    <div class="split">
+      <div class="split-copy">
+        <p class="eyebrow anim" style="--d:0ms">Das Produkt</p>
+        <h2 class="headline anim" style="--d:60ms">Entdecken,<br />vergleichen,<br /><span class="accent">in die Tasche.</span></h2>
+        <ul class="ticks anim" style="--d:160ms">
+          <li>Suche über Produkt, Filiale und Kategorie</li>
+          <li>Filialangebote derselben Variante im Vergleich</li>
+          <li>Ausverkauft, unbestätigt und geschlossen sind sichtbar gesperrt</li>
+          <li>Zwei KI-generierte Ansichten je Produkt</li>
+        </ul>
+        <p class="muted anim" style="--d:240ms">Der Wechsel zu einer anderen Filiale wird ausdrücklich bestätigt — eine Tasche, eine Filiale.</p>
+      </div>
+      <figure class="shot anim" style="--d:140ms">
+        <img src="assets/desktop-discover.png" alt="Screenshot der Startseite mit Hero, Kategorien und Produktkarten" />
+        <figcaption>Entdecken · Desktop 1440 px</figcaption>
+      </figure>
+    </div>
+    <footer class="slide-foot"><span>Produkt</span><span>04 / 10</span></footer>
+    <aside class="notes">40 s. Kurz zeigen: Suche, Chips, Vergleich, gesperrte Fälle. Auf die Filialbindung hinweisen — sie verhindert gemischte Warenkörbe.</aside>
+  </section>
+
+  <!-- 5 · Produkt Routing -->
+  <section class="slide" aria-label="Produkt: Routing">
+    <div class="split split--reverse">
+      <figure class="shot anim" style="--d:120ms">
+        <img src="assets/desktop-routing.png" alt="Screenshot der Routing-Ansicht mit Karte, zwei simulierten Drohnen und Flottenliste" />
+        <figcaption>Routing · Drohnenübersicht</figcaption>
+      </figure>
+      <div class="split-copy">
+        <p class="eyebrow anim" style="--d:0ms">Das Produkt</p>
+        <h2 class="headline anim" style="--d:60ms">Ein Netz.<br /><span class="accent">Zwei Drohnen im&nbsp;Flug.</span></h2>
+        <ul class="ticks anim" style="--d:160ms">
+          <li>Dijkstra auf gerichteten Korridoren, Hin- und Rückweg getrennt</li>
+          <li>Drohne A auf dem Hinweg, Drohne C auf dem Rückweg — weich animiert</li>
+          <li>Szenarien: Korridor gesperrt, Station voll, Station ausgefallen</li>
+          <li>Nur Hub und Zielstation als Marker — die Karte bleibt lesbar</li>
+        </ul>
+        <p class="muted anim" style="--d:240ms">Sperre, Kapazität und Fahrzeugverfügbarkeit werden vor der Wegwahl geprüft.</p>
+      </div>
+    </div>
+    <footer class="slide-foot"><span>Produkt</span><span>05 / 10</span></footer>
+    <aside class="notes">35 s. Der Blickfang: mehrere Drohnen gleichzeitig. Erklären, dass es Simulation ist und die Szenarien die Planung sichtbar machen.</aside>
+  </section>
+
+  <!-- 6 · Stationen -->
+  <section class="slide" aria-label="Produkt: Stationen">
+    <div class="split">
+      <div class="split-copy">
+        <p class="eyebrow anim" style="--d:0ms">Das Produkt</p>
+        <h2 class="headline anim" style="--d:60ms">Sechs Schritte,<br /><span class="accent">keine Abkürzung.</span></h2>
+        <ol class="steps anim" style="--d:150ms">
+          <li>Planung bereit</li>
+          <li>Drohne unterwegs</li>
+          <li>An Station angekommen</li>
+          <li>Paket eingelagert</li>
+          <li>Abholbereit</li>
+          <li>Vom Kunden abgeholt</li>
+        </ol>
+        <p class="muted anim" style="--d:240ms">Die Karte führt dieselbe Reihenfolge: Start am Hub, Flug, Ankunft, nach der Abholung der Rückweg.</p>
+      </div>
+      <figure class="shot anim" style="--d:130ms">
+        <img src="assets/desktop-stations.png" alt="Screenshot der Stationsansicht mit Karte und Schritte-Liste" />
+        <figcaption>Stationen · Karte und Schritte synchron</figcaption>
+      </figure>
+    </div>
+    <footer class="slide-foot"><span>Produkt</span><span>06 / 10</span></footer>
+    <aside class="notes">30 s. Betonen: Einlagerung, Abholbereitschaft und Empfang sind getrennt. Das ist der Unterschied zu „Paket zugestellt“.</aside>
+  </section>
+
+  <!-- 7 · Wetter & Grenzen -->
+  <section class="slide" aria-label="Wetter und Grenzen">
+    <p class="eyebrow anim" style="--d:0ms">Grenzen statt Behauptungen</p>
+    <h2 class="headline anim" style="--d:60ms">Wetter ist eine Bedingung —<br /><span class="accent">keine Freigabe.</span></h2>
+    <div class="grid grid--2 weather-grid">
+      <article class="card card--warn anim" style="--d:140ms">
+        <span class="badge badge--warn">UNBESTIMMT</span>
+        <h3>Reale Bewertung bleibt offen</h3>
+        <p>Fahrzeuggrenzen, Messhöhe und vollständige Pflichtdaten fehlen. Die Demo leitet deshalb keine positive Freigabe ab — unabhängig von der Vorhersage.</p>
+      </article>
+      <article class="card anim" style="--d:220ms">
+        <span class="badge">MET Norway</span>
+        <h3>Daten mit Herkunft</h3>
+        <p>Online-Vorhersage, gespeicherter Stand und Fehlerfall sind getrennt sichtbar: Abrufzeit, Anbieterzeit, Cache-Fenster und fehlende Felder.</p>
+      </article>
+    </div>
+    <div class="callout anim" style="--d:300ms">
+      <strong>Was wir bewusst nicht behaupten:</strong> keine Flugfreigabe, keine belegten Nutzlast- oder Höhengrenzen, kein Sicherheitsnachweis.
+    </div>
+    <div class="meta-strip anim" style="--d:380ms">
+      <article><span class="meta-kicker">Quelle</span><strong>MET Norway</strong><p>Online-Vorhersage, keine Live-Messung.</p></article>
+      <article><span class="meta-kicker">Zeit</span><strong>getrennt</strong><p>Abruf, Anbieterstand und Cache bleiben sichtbar.</p></article>
+      <article><span class="meta-kicker">Pflichtdaten</span><strong>unvollständig</strong><p>Höhe, Böen, Sicht, Vereisung, Standortfreigabe.</p></article>
+      <article><span class="meta-kicker">Ergebnis</span><strong>UNBESTIMMT</strong><p>Keine positive Freigabe aus der Demo.</p></article>
+    </div>
+    <footer class="slide-foot"><span>Grenzen</span><span>07 / 10</span></footer>
+    <aside class="notes">30 s. Das ist unser Differenzierungsmerkmal: Wir zeigen, was wir nicht wissen. Wetter allein genügt nicht für eine Freigabe.</aside>
+  </section>
+
+  <!-- 8 · Reifegrad -->
+  <section class="slide" aria-label="Reifegrad">
+    <p class="eyebrow anim" style="--d:0ms">Reifegrad</p>
+    <h2 class="headline anim" style="--d:60ms">Spielbar, geprüft,<br /><span class="accent">klar begrenzt.</span></h2>
+    <div class="grid grid--4">
+      <article class="card anim" style="--d:120ms"><span class="stat" data-count="74">74</span><h3>Unit-Tests</h3><p>Domäne, Routing, Wetter-Normalisierung, Bestellzustände.</p></article>
+      <article class="card anim" style="--d:180ms"><span class="stat" data-count="27">27</span><h3>Browserfälle</h3><p>Playwright auf dem Produktionsbuild, inklusive axe WCAG A/AA.</p></article>
+      <article class="card anim" style="--d:240ms"><span class="stat stat--text">120 s</span><h3>Angebotsbindung</h3><p>Abgelaufene Angebote werden beim Checkout erneut abgelehnt.</p></article>
+      <article class="card anim" style="--d:300ms"><span class="stat stat--text">1 ×</span><h3>Bestellung</h3><p>Doppelklick erzeugt dank Idempotenzschlüssel keine zweite Bestellung.</p></article>
+    </div>
+    <div class="capability-strip anim" style="--d:360ms">
+      <div class="capability capability--ok">
+        <h4>Läuft in der Demo</h4>
+        <ul><li>Suche, Angebot, Checkout</li><li>Routing mit Sperren</li><li>Ankunft ≠ Empfang</li><li>Wetterherkunft sichtbar</li></ul>
+      </div>
+      <div class="capability capability--no">
+        <h4>Bewusst nicht enthalten</h4>
+        <ul><li>Echte Zahlung</li><li>Live-Telemetrie</li><li>Flugfreigabe</li><li>Produktionsbetrieb</li></ul>
+      </div>
+    </div>
+    <p class="footnote anim" style="--d:420ms">Statische Vorschau auf GitHub Pages, zusätzlich lokal per Cloudflare Tunnel. Demo-Daten, keine echte Zahlung, keine Live-Telemetrie.</p>
+    <footer class="slide-foot"><span>Umsetzung</span><span>08 / 10</span></footer>
+    <aside class="notes">25 s. Prüfumfang nennen, dann die Grenze: Demo, keine Produktion. Zahlen sind aus dem Repo.</aside>
+  </section>
+
+  <!-- 9 · Werkzeuge & Team -->
+  <section class="slide slide--tools" aria-label="Werkzeuge und Team">
+    <p class="eyebrow anim" style="--d:0ms">Wie wir gebaut haben</p>
+    <h2 class="headline anim" style="--d:60ms">Werkzeuge beschleunigen.<br /><span class="accent">Das Team entscheidet.</span></h2>
+    <div class="tools-layout">
+      <div class="tool-tree">
+        <article class="tool-model anim" style="--d:140ms">
+          <header>
+            <img class="logo" src="assets/logos/deepseek.svg" alt="DeepSeek" />
+            <div><strong>DeepSeek-v4-flash-1017</strong><span>Modell · Entwurf und Subagenten</span></div>
+          </header>
+          <ul>
+            <li><img class="logo logo--tile" src="assets/logos/ohmypi.png" alt="" />ohmypi</li>
+            <li><img class="logo logo--mono" src="assets/logos/opencode.svg" alt="" />opencode</li>
+            <li><img class="logo" src="assets/logos/githubcopilot.svg" alt="" />GitHub Copilot</li>
+          </ul>
+        </article>
+        <article class="tool-model anim" style="--d:230ms">
+          <header>
+            <img class="logo logo--mono" src="assets/logos/openai.svg" alt="" />
+            <div><strong>GPT-6 Astra / Sol</strong><span>Modell · Endplattform und Review</span></div>
+          </header>
+          <ul>
+            <li><img class="logo" src="assets/logos/codex.png" alt="" />Codex</li>
+          </ul>
+        </article>
+        <article class="tool-model anim" style="--d:320ms">
+          <header>
+            <img class="logo" src="assets/logos/qwen.svg" alt="Qwen" />
+            <div><strong>Qwen 3.8 flash-next</strong><span>Modell · PR-Reviews</span></div>
+          </header>
+          <ul>
+            <li><span class="logo-badge logo-badge--juelich" aria-hidden="true">FSZJ</span>Custom Harness · Forschungszentrum Jülich</li>
+          </ul>
+        </article>
+      </div>
+      <aside class="team-block anim" style="--d:260ms">
+        <p class="eyebrow">Gruppe 4 · Vibecode+</p>
+        <h3>Acht Menschen, ein Netz.</h3>
+        <ul class="team">
+          <li>Jannik Ophey</li>
+          <li>Nesibe Sural</li>
+          <li>Tobias Nieveler</li>
+          <li>Jonas Flötotto</li>
+          <li>Phil Rakowski</li>
+          <li>Yasin Erkan</li>
+          <li>Pascal Götz</li>
+          <li>Balthasar Przyklenk</li>
+        </ul>
+      </aside>
+    </div>
+    <p class="footnote anim" style="--d:400ms">Gegenprüfung konkret: Randfälle, Zustandsübergänge wie Ankunft ≠ Empfang und der Zahlungsfluss werden gegen die Domänentests (65 Fälle) und die Browsertests (21 Fälle) geprüft. Auswahl, Freigabe und Verantwortung bleiben beim Team. Logos: Simple Icons (CC0) und offizielle Marken der jeweiligen Inhaber.</p>
+    <footer class="slide-foot"><span>Werkzeuge &amp; Team</span><span>09 / 10</span></footer>
+    <aside class="notes">20 s. Drei Rollen, kurz benennen: DeepSeek entwirft und steuert die Subagenten, Astra/Sol baut die Endplattform und prüft, Qwen übernimmt die PR-Reviews. Das Team entscheidet.</aside>
+  </section>
+
+  <!-- 10 · QR -->
+  <section class="slide slide--qr" aria-label="Demo öffnen" data-qr-hide="true">
+    <div class="qr-grid">
+      <div>
+        <p class="eyebrow anim" style="--d:0ms">Jetzt ausprobieren</p>
+        <h2 class="headline anim" style="--d:60ms">Scannen,<br /><span class="accent">klicken, spielen.</span></h2>
+        <p class="lead anim" style="--d:140ms">Die Demo läuft im Browser — ohne Installation.</p>
+        <a class="url anim" style="--d:200ms" href="https://basalthasar.github.io/Hackathon/" target="_blank" rel="noopener noreferrer" aria-label="Demo in neuem Tab öffnen: basalthasar.github.io/Hackathon">
+          <span class="dot" aria-hidden="true"></span>basalthasar.github.io/Hackathon
+          <span class="url-hint" aria-hidden="true">↗</span>
+        </a>
+        <p class="muted anim" style="--d:260ms">Empfehlung: Startseite → Produkt wählen → Demo-Angebot → Bestellung verfolgen.<br />Dauer bis zur Abholung: rund zwei Minuten.</p>
+        <div class="qr-hint anim" style="--d:320ms">Statische Vorschau: Wetterdaten fehlen dort bewusst.</div>
+      </div>
+      <figure class="qr-card anim" style="--d:180ms">
+        <img src="assets/qr.svg" alt="QR-Code zur Demo unter https://basalthasar.github.io/Hackathon/" />
+      </figure>
+    </div>
+    <footer class="slide-foot"><span>Danke</span><span>10 / 10</span></footer>
+    <aside class="notes">15 s. QR zeigen oder die Adresse direkt anklicken. Abschluss: „Alles, was ihr seht, ist mit Demodaten gebaut — und als Simulation gekennzeichnet.“</aside>
+  </section>
+
+</div>
+
+<aside class="corner-qr" id="cornerQr" aria-label="QR-Code zur Demo">
+  <img src="assets/qr.svg" alt="QR-Code zur Demo" />
+</aside>
+
+<div class="hud" id="hud">
+  <div class="hud-bar"><span id="progress"></span></div>
+  <div class="hud-row">
+    <div class="hud-brand"><span class="hud-dot"></span>Fly2You · Pitch</div>
+    <div class="hud-actions">
+      <span class="hud-counter" id="counter">01 / 10</span>
+      <button type="button" data-action="prev" aria-label="Vorherige Folie">←</button>
+      <button type="button" data-action="next" aria-label="Nächste Folie">→</button>
+      <button type="button" data-action="tools" id="toolsButton" aria-label="Werkzeuge" aria-expanded="false" aria-controls="tools">⚙</button>
+      <button type="button" data-action="fullscreen" aria-label="Vollbild">⛶</button>
+    </div>
+  </div>
+</div>
+
+<section class="tools-panel" id="tools" hidden aria-label="Werkzeuge">
+  <header>
+    <strong>Werkzeuge</strong>
+    <button type="button" data-action="closeTools" aria-label="Werkzeuge schließen">✕</button>
+  </header>
+  <div class="tool-row">
+    <span>Darstellung</span>
+    <div class="tool-buttons">
+      <button type="button" data-action="theme">Hell / Dunkel</button>
+      <button type="button" data-action="overview">Übersicht</button>
+      <button type="button" data-action="fullscreen">Vollbild</button>
+    </div>
+  </div>
+  <div class="tool-row">
+    <span>Notizen</span>
+    <button type="button" data-action="notes" id="notesToggle" aria-pressed="false">Anzeigen · N</button>
+  </div>
+  <div class="tool-row">
+    <span>QR-Größe</span>
+    <div class="tool-buttons" role="group" aria-label="QR-Größe">
+      <button type="button" data-qr-size="108">S</button>
+      <button type="button" data-qr-size="138">M</button>
+      <button type="button" data-qr-size="174">L</button>
+      <button type="button" data-qr-size="216">XL</button>
+    </div>
+  </div>
+  <div class="tool-row">
+    <span>QR anzeigen</span>
+    <button type="button" data-action="toggleQr" id="qrToggle" aria-pressed="true">Sichtbar</button>
+  </div>
+  <p class="tool-hint">TAB blendet die Werkzeuge aus · Esc schließt Panels</p>
+</section>
+
+<aside class="notes-panel" id="notes" hidden aria-label="Sprechnotizen">
+  <button type="button" class="notes-close" data-action="notes" aria-label="Notizen schließen">✕</button>
+  <div class="notes-content" id="notesContent"></div>
+</aside>
+
+<div class="overview" id="overview" hidden>
+  <div class="overview-head"><h2>Übersicht</h2><p>Folie wählen · Esc schließt</p></div>
+  <ol id="overviewList"></ol>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
