@@ -181,6 +181,13 @@ Zum Weitergeben gibt es einen Export ohne Abhängigkeiten:
 npm run praesentation:export   # erzeugt pitch-deck-export/ zum Zippen
 ```
 
+Dieselbe GitHub-Pages-Seite hostet das Deck unter
+<https://basalthasar.github.io/Hackathon/praesentation/>. Aktualisieren mit:
+
+```sh
+npm run pages:praesentation
+```
+
 
 ## Umfang und Fehlerfälle
 
